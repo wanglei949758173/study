@@ -1,0 +1,8 @@
+1.NioEventLoopGroup
+    构造函数参数可以设定启动的线程数，默认启动的线程数为cpu核心数x2
+2.EventLoopGroup
+    EventLoopGroup里边包装了多个EventLoop，可以向EventLoopGroup中注册Channel
+3.EventExecutorGroup
+    EventExecutorGroup里边包装了多个EventExecutor，EventExecutorGroup提供获得EventExecutor的方法，同时也维护自己的生命周期。
+4.Executor
+    用到了命令模式，提交一个命令给Executor，然后Executor去执行

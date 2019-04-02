@@ -6,3 +6,7 @@
     EventExecutorGroup里边包装了多个EventExecutor，EventExecutorGroup提供获得EventExecutor的方法，同时也维护自己的生命周期。
 4.Executor
     用到了命令模式，提交一个命令给Executor，然后Executor去执行
+5.serverBootstrap.group(bossGroup,workerGroup).channel(
+                      NioServerSocketChannel.class).childHandler(new MyServerInitializer());
+    这行代码执行完，仅仅只是完成了对Bootstrap类的成员属性的赋值工作。
+6.

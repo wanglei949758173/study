@@ -31,3 +31,62 @@
                                      +---->      isDone() = true      |
                                           | isCancelled() = true      |
                                           +---------------------------+
+    建议首先选用addListener(GenericFutureListener)而不是选用await()方法
+        addListener(GenericFutureListener)
+            优点：
+                非阻塞，回调方式
+            缺点：
+                如果对事件驱动不熟则不能保证监听器的执行顺序
+        await()
+            优点：
+                可以比较容易实现顺序的调用
+            缺点：
+                阻塞
+                有些情况下会产生死锁
+                    在ChannelHandler中调用await()方法会产生死锁
+                    eventHandler通常被IO线程调用,await()方法等待I/O完成，而I/O又被await()阻塞，因此产生了死锁。
+     I/O超时和await超时
+        await(long)等方法指定的超时和I/O超时无关
+          // BAD - NEVER DO THIS
+          {@link Bootstrap} b = ...;
+          {@link ChannelFuture} f = b.connect(...);
+          f.awaitUninterruptibly(10, TimeUnit.SECONDS);
+          if (f.isCancelled()) {
+              // Connection attempt cancelled by user
+          } else if (!f.isSuccess()) {
+              // You might get a NullPointerException here because the future
+              // might not be completed yet. 连接可能没有建立
+              f.cause().printStackTrace();
+          } else {
+              // Connection established successfully
+          }
+
+          // GOOD
+          {@link Bootstrap} b = ...;
+          // Configure the connect timeout option.
+          <b>b.option({@link ChannelOption}.CONNECT_TIMEOUT_MILLIS, 10000);</b>
+          {@link ChannelFuture} f = b.connect(...);
+          f.awaitUninterruptibly();
+
+          // Now we are sure the future is completed.
+          assert f.isDone();
+
+          if (f.isCancelled()) {
+              // Connection attempt cancelled by user
+          } else if (!f.isSuccess()) {
+              f.cause().printStackTrace();
+          } else {
+              // Connection established successfully
+          }
+          </pre>
+
+    AbstractBootstrap
+        initAndRegister
+            init方法
+                1.完成了option和attribute的赋值
+                2.将用户所配置的handler添加到ChannelPipeline的最后
+                    ChannelHandler handler = config.handler();
+                    if (handler != null) {
+                        pipeline.addLast(handler);
+                    }
+                3.在管道中添加了接收器ServerBootstrapAcceptor

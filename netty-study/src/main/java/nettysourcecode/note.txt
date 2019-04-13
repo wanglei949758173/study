@@ -130,3 +130,17 @@ Reactor模式的角色构成(Reactor模式一共有5种角色构成)
  Initiation Dispatcher会将被事件激活的Handle作为【key】来寻找并分发恰当的事件处理器回调方法。
  6.Initiation Dispatcher会回调事件处理器的handle_event回调方法来执行特定于应用的功能（开发者自己所编写的功能），
  从而响应这个事件。所发生的事件类型可以作为该方法参数并被该方法内部使用来执行额外的特定于服务的分离与分发。
+
+ChannelOption
+    提供了关于TCP/IP相关的底层的一些设定
+AttributeKey
+    提供了在channel上保存业务的一些属性，以达到让Pipeline中下一个HandlerEvent获取到该属性的目的。
+
+ChannelHandler、ChannelPipeline、ChannelHandlerContext之间的关系
+    默认情况下，一个handler会与一个handlerContext相对应
+    如果将一个handler添加到了一个ChannelPipeline上多次获将一个handler添加到了不同的ChannelPipeline上，就会有多个
+    handlerContext与handler相对应。
+    总结，一个handler添加到了ChannelPipeline几次，就有几个handlerContext与handler相对应。
+    ChannelPipeline中实际保存的是ChannelHandlerContext对象，而ChannelHandlerContext中又有与之对应的ChannelHandler对象
+    ChannelHandlerContext持有着Channel对象、ChannelPipeline对象、ChannelHandler对象
+

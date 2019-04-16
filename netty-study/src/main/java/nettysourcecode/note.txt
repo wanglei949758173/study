@@ -167,6 +167,15 @@ Netty线程模型
 			如果调用了ChannelPipeline addLast(EventExecutorGroup group,ChannelHandler... handlers)方法，那么ChannelHandler中的
 			回到方法就是有参数中的EventExecutorGroup线程组来执行的。
 			
+
+JDK所提供的Future只能通过手工方式检查执行结果，而这个操作是会阻塞的；Netty则对ChannelFuture进行了增强，通过
+ChannelFutureListener以回调的方式来获取执行结果，去除了手工检查阻塞的操作；值得注意的是：ChannelFutureListener
+的operationComplete方式是由I/O线程执行的，因此要注意的是不要在这里执行耗时操作，否则需要通过另外的线程或线程池来
+执行。
+
+ChannelInboundHandlerAdapter和SimpleChannelInboundHandler<T>区别：
+	1.SimpleChannelInboundHandler可以指定消息的泛型
+	2.SimpleChannelInboundHandler读取完消息就直接将消息释放了，这有可能导致向客户端写数据的时候拿不到消息，因为写操作是异步的。
 		
 
 

@@ -220,5 +220,16 @@ Bytebuf
 			重点：对于后端的业务消息的编码来说，推荐使用HeapByteBuf;对于I/O通信线程在读写缓冲区时，推荐使用DirectByteBuf。
 		Composite Buffer (复合缓冲区)
 			内部维护多个缓冲区，可以使Heap Buffer (堆缓冲区)，也可以是Direct Buffer (直接缓冲区)
+			
+	JDK的ByteBuffer的缺点:
+		1.final byte[] hb;这是JDK的ByteBuffer对象中用于存储数据的对象生命；可以看到，其字节数组是被声明为final的，也就是长度
+		固定不变的。一旦分配好就不能动态分配和收缩；而且当待存储的数据字节很大时就很有可能出现IndexOutOfBoundsException。如果要
+		预防这个异常，那就需要在存储之前完全确定好待存储的字节大小。如果ByteBuffer的空间不足，我们只有一种解决方案：创建一个全新的ByteBuffer对象，
+		然后再将之前的ByteBuffer中的数据复制过去，这一切操作都需要由开发者自己来手动完成。
+		2.ByteBuffer只使用一个position指针来标识位置信息，在进行读写切换时就需要调用flip方法或是rewind方法，使用起来很不方便。
+	Netty的ByteBuf的优点:
+		1.存储字节的数组是动态的，其最大值默认是Integer.MAX_VALUE。这里的动态性是体现在write方法中的，write方法在执行时会判断
+		buffer容量，如果不足则自动扩容。
+		2.Bytebuf的读写索引是完全分开的，使用起来就很方便。
 		
 		

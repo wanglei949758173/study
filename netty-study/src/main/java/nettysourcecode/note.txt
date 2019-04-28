@@ -256,5 +256,88 @@ Bytebuf
 		6.解码：本质上是一种入站处理器；因此，解码一定是一种ChannelInboundHandler。
 		7.在Netty中，编码器通常以XXXEncoder命名；解码器通常以XXXDecoder命名。
 	
+	关于Netty编解码器的重要结论：
+		1.无论是编码器还是解码器，其所接收的消息类型必须与待处理的参数类型一致，否则该编码器或解码器并不会被执行。
+		2.在解码器进行数据解码时，一定要记得判断缓冲(ByteBuf)中的数据是否足够，否则将会产生一些问题。
+		
+	 ReplayingDecoder<S>笔记：
+		1.继承自ByteToMessageDecoder，
+		2.解码时不用判断可读字节数，可以直接读取out.add(in.readLong())
+		public class IntegerHeaderFrameDecoder extends ByteToMessageDecoder {
+  
+		// ByteToMessageDecoder实现解码  数据结构(header:10,body:4366DD)
+         @Override
+		 protected void decode(ChannelHandlerContext ctx,
+								 ByteBuf buf, List<Object> out) throws Exception {
+	  
+		   if (buf.readableBytes() < 4) {
+			  return;
+		   }
+	  
+		   buf.markReaderIndex();
+		   int length = buf.readInt();
+	  
+		   if (buf.readableBytes() < length) {
+			  buf.resetReaderIndex();
+			  return;
+		   }
+	  
+		   out.add(buf.readBytes(length));
+		 }
+	   }
+	   
+	   // 使用ReplayingDecoder进行替换的方式
+	   public class IntegerHeaderFrameDecoder
+			extends ReplayingDecoder<Void> {
+	  
+		 protected void decode(ChannelHandlerContext ctx,
+								 ByteBuf buf) throws Exception {
+	  
+		   out.add(buf.readBytes(buf.readInt()));
+		 }
+	   }
+	   
+	   
+	   
+	   public class MyDecoder extends ReplayingDecoder<Void> {
+  
+		 private final Queue<Integer> values = new LinkedList<Integer>();
+	  
+		  @Override
+		 public void decode(.., ByteBuf buf, List<Object> out) throws Exception {
+	  
+		   // A message contains 2 integers.
+		   values.offer(buf.readInt()); // a
+		   values.offer(buf.readInt()); // b
+	  
+		   // 断言有可能失败，因为此方法可能会被调用多次，如果buf中的内容第一次为6个字节,则执行到b时，ReaderIndex会被重置，
+		   // 因此第二次读时，如果buf中有8个字节，则values.size = 1 + 2 =3
+		   assert values.size() == 2;
+		   out.add(values.poll() + values.poll());
+		 }
+	   }
+	   
+	   // 正确的实现方式
+	   public class MyDecoder extends ReplayingDecoder<Void> {
+  
+		 private final Queue<Integer> values = new LinkedList<Integer>();
+	  
+		  @Override
+		 public void decode(.., ByteBuf buf, List<Object> out) throws Exception {
+	  
+		   // Revert the state of the variable that might have been changed
+		   // since the last partial decode.
+		   values.clear();
+	  
+		   // A message contains 2 integers.
+		   values.offer(buf.readInt());
+		   values.offer(buf.readInt());
+	  
+		   // Now we know this assertion will never fail.
+		   assert values.size() == 2;
+		   out.add(values.poll() + values.poll());
+		 }
+	   }
+	
 		
 		

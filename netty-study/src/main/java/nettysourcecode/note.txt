@@ -338,6 +338,90 @@ Bytebuf
 		   out.add(values.poll() + values.poll());
 		 }
 	   }
+	   
+	   有状态的Decoder的实现
+	   public enum MyDecoderState {
+			 READ_LENGTH,
+			 READ_CONTENT;
+	   }
+	  
+	   public class IntegerHeaderFrameDecoder
+			extends ReplayingDecoder<MyDecoderState> {
+	  
+		 private int length;
+	  
+		 public IntegerHeaderFrameDecoder() {
+		   // Set the initial state.
+		   super(MyDecoderState.READ_LENGTH);
+		 }
+	  
+		  @Override
+		 protected void decode(ChannelHandlerContext ctx,
+								 ByteBuf buf, List<Object> out) throws Exception {
+		   switch (state()) {
+		   case READ_LENGTH:
+			 length = buf.readInt();
+			 checkpoint(MyDecoderState.READ_CONTENT);
+		   case READ_CONTENT:
+			 ByteBuf frame = buf.readBytes(length);
+			 checkpoint(MyDecoderState.READ_LENGTH);
+			 out.add(frame);
+			 break;
+		   default:
+			 throw new Error("Shouldn't reach here.");
+		   }
+		 }
+	   }
+	   
+	   无参数的checkpoint()的调用
+	   public class IntegerHeaderFrameDecoder
+        extends ReplayingDecoder<Void> {
+  
+		 private boolean readLength;
+		 private int length;
+	  
+		  @Override
+		 protected void decode(ChannelHandlerContext ctx,
+								 ByteBuf buf, List<Object> out) throws Exception {
+		   if (!readLength) {
+			 length = buf.readInt();
+			 readLength = true;
+			 checkpoint();
+		   }
+	  
+		   if (readLength) {
+			 ByteBuf frame = buf.readBytes(length);
+			 readLength = false;
+			 checkpoint();
+			 out.add(frame);
+		   }
+		 }
+	   }
+	   
+	   多个解码器的使用
+	    public class FirstDecoder extends ReplayingDecoder<Void> {
+  
+			@Override
+		   protected void decode(ChannelHandlerContext ctx,
+								   ByteBuf buf, List<Object> out) {
+			   ...
+			   // Decode the first message
+			   Object firstMessage = ...;
+	  
+			   // Add the second decoder
+			   ctx.pipeline().addLast("second", new SecondDecoder());
+	  
+			   if (buf.isReadable()) {
+				   // 将剩余的数据交给第二个解码器
+				   out.add(firstMessage);
+				   out.add(buf.readBytes(super.actualReadableBytes()));
+			   } else {
+				   // Nothing to hand off
+				   out.add(firstMessage);
+			   }
+			   // Remove the first decoder (me)
+			   ctx.pipeline().remove(this);
+       }
 	
 		
 		

@@ -97,13 +97,20 @@ public class MyTest16 extends ClassLoader {
         Object object1 = clazz1.newInstance();
         System.out.println(clazz1.hashCode());
         System.out.println(object1);
+        System.out.println();
 
-        MyTest16 loader2 = new MyTest16("loader2");
-        loader2.setPath("C:\\Users\\Administrator\\Desktop\\");
-        Class<?> clazz2 = loader2.loadClass("jvm.study.classloader.MyTest1");
-        Object object2 = clazz2.newInstance();
-        System.out.println(clazz2.hashCode());
-        System.out.println(object2);
+        // 测试类的卸载
+        loader1 = null;
+        clazz1 = null;
+        object1 = null;
+        System.gc();
+
+        //MyTest16 loader2 = new MyTest16("loader2");
+        //loader2.setPath("C:\\Users\\Administrator\\Desktop\\");
+        //Class<?> clazz2 = loader2.loadClass("jvm.study.classloader.MyTest1");
+        //Object object2 = clazz2.newInstance();
+        //System.out.println(clazz2.hashCode());
+        //System.out.println(object2);
 
     }
 }

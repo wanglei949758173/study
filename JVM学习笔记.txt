@@ -92,3 +92,23 @@
 	.class文件缺失或不存在的错误，类加载器必须在程序首次主动使用该类时才报告错误(LinkageError错误)
 	如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误
 	
+	获得ClassLoader的途径
+		获得当前类的ClassLoader
+			clazz.getClassLoader();
+		获得当前线程上下文的ClassLoader
+			Thread.currentThred().getContextClassLoader();
+		获得系统的ClassLoader
+			ClassLoader.getSystemClassLoader();
+		获取调用者的ClassLoader
+			DriverManager.getCallerClassLoader();
+			
+	给定类的二进制名称，类加载器应该尝试定位或生成构成类定义的数据。
+		定位：比如说磁盘或者网络等其他渠道真实存在的字节码文件，就是采用定位的方式。
+		生成：比如说动态代理等技术需要在运行时动态生成字节码文件，就是采用生成的方式。
+		
+	数组类的类对象不是由类加载器创建的，而是根据Java运行时的需要自动创建的。数组类的类加载器由对应的数组元素决定。
+	getClassLoader()与其元素类型的类加载器相同。如果元素类型是基本类型，则数组类没有类加载器。
+	
+	类加载器默认是支持并行加载的，其子类默认不是并行加载的，如果想要设置子类是并行加载的，则需要调用
+	classloader.registerASParallelCapable()方法。
+	

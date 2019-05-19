@@ -6,6 +6,10 @@
  */
 package jvm.study.classloader;
 
+import java.sql.Driver;
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
 /**
  * 线程上下文类加载器的一般使用模式
  *
@@ -38,15 +42,21 @@ public class MyTest26 {
      */
     public static void main(String[] args) {
 
-        ClassLoader targetTccl = null; // new MyClassLoader();
+        /*
+            ServiceLoader主要用于加载 META-INF/services/ 目录下的文件名(如:java.sql.Driver)所对应的的服务实现者
+            (实现者位于文件中,如java.sql.Driver文件中的com.mysql.jdbc.Driver)
+         */
+        ServiceLoader<Driver> serviceLoader = ServiceLoader.load(Driver.class);
+        Iterator<Driver> iterator = serviceLoader.iterator();
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-        try {
-            Thread.currentThread().setContextClassLoader(targetTccl);
-        } finally {
-            Thread.currentThread().setContextClassLoader(classLoader);
+        while (iterator.hasNext()) {
+            Driver driver = iterator.next();
+            System.out.println("driver: " + driver.getClass() + ",loader: " + driver.getClass().getClassLoader());
         }
+
+        System.out.println("当前线程上下文类加载器: " + Thread.currentThread().getContextClassLoader()); // APPClassLoader
+
+        System.out.println("serviceLoader的类加载器: " + ServiceLoader.class.getClassLoader()); // null BootstrapClassLoader
 
     }
 }

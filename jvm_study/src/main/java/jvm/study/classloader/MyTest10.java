@@ -7,7 +7,7 @@
 package jvm.study.classloader;
 
 /**
- * 只生命而未实例化的类是不初始化的
+ * 只声明而未实例化的类是不初始化的
  *
  * @author Administrator
  * @since 1.0.0

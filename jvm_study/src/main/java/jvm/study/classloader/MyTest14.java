@@ -29,7 +29,5 @@ public class MyTest14 {
         }
 
         System.out.println("-----------------");
-
-
     }
 }

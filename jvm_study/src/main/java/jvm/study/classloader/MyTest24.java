@@ -29,8 +29,8 @@ public class MyTest24 {
             线程上下文类加载器的重要性：
                 SPI(Service Provider Interface)
 
-                父ClassLoader可以使用当前线程Thread.currentThread().getContextClassloader()所指定的classLoader所加载的类。
-                这就改变了父Classloader不能使用子Classloader或是与其没有直接父子关闭的ClassLoader加载的类的情况，即改变了双亲委托模型。
+                父ClassLoader可以使用当前线程上下文类加载器(Thread.currentThread().getContextClassloader())所指定的classLoader来加载自己无法加载的类。
+                这就改变了父Classloader不能使用子Classloader或是与其没有直接父子关系的ClassLoader加载的类的情况，即改变了双亲委托模型。
 
                 线程上下文类加载器就是当前线程的Current ClassLoader。
 

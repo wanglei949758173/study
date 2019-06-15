@@ -435,408 +435,408 @@
       + 由父加载器加载的类不能看见子加载器加载的类。
       + 如果类加载器之间没有直接或间接的父子关系，那么他们各自加载的类相互不可见。
     + **示例:**
-            + JDK库的类由BootStrapClassLoader加载，程序员编写的类由AppClassLoader加载
-                ```java
-                public class MyTest7 {
-                    public static void main(String[] args) throws Exception {
-                        Class<?> class1 = Class.forName("java.lang.String");
-                        System.out.println(class1.getClassLoader()); // null 由BootstrapClassLoader加载
-
-                        Class<?> class2 = Class.forName("jvm.study.classloader.C");
-                        System.out.println(class2.getClassLoader());// sun.misc.Launcher$AppClassLoader@18b4aac2
-                    }
-                }
-
-                class C {
-
-                }
-                ```
-            + 类加载器的结构
-                ```java
-                public class MyTest13 {
-                    public static void main(String[] args) {
-                        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-                        System.out.println(classLoader);
-                        // sun.misc.Launcher$AppClassLoader@18b4aac2
-
-                        while (classLoader != null) {
-                            classLoader = classLoader.getParent();
-
-                            System.out.println(classLoader);
-                        }
-                        /*
-                            sun.misc.Launcher$ExtClassLoader@1b6d3586
-                            null
-                         */
-                    }
-                }
-                ```
-            + 获取类文件所在硬盘上位置
-                ```java
-                public class MyTest14 {
-                    public static void main(String[] args) throws IOException {
-                        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-                        String resourceName = "jvm/study/classloader/MyTest13.class";
-
-                        Enumeration<URL> urls = classLoader.getResources(resourceName);
-                        while (urls.hasMoreElements()) {
-                            URL url = urls.nextElement();
-                            System.out.println(url);
-                        }
-
-                        System.out.println("-----------------");
-                    }
-                }
-                ```
-            + 加载数组的类加载器是加载对应的数组元素的类加载器
-                ```java
-                public class MyTest15 {
-                    public static void main(String[] args) {
-                        String[] strings = new String[2];
-                        System.out.println(strings.getClass().getClassLoader()); // null BootstrapClassLoader
-
-                        System.out.println("--------------------");
-
-                        MyChild5[] myChild5s = new MyChild5[2];
-                        System.out.println(myChild5s.getClass().getClassLoader()); // AppClassLoader
-
-                        System.out.println("---------------------");
-
-                        int[] ints = new int[2];
-                        System.out.println(ints.getClass().getClassLoader()); // null
-                    }
-                }
-                ```
-            + 自定义类加载器
-                ```java
-                public class MyTest16 extends ClassLoader {
-
-                    private String classLoaderName;
-
-                    private String path;
-
-                    public void setPath(String path) {
-                        this.path = path;
-                    }
-
-                    private static final String fileExtension = ".class";
-
-                    public MyTest16(String classLoaderName) {
-                        super(); // 将系统类加载器当做该类加载的父类加载器
-                        this.classLoaderName = classLoaderName;
-                    }
-
-                    public MyTest16(ClassLoader parent, String classLoaderName) {
-                        super(parent); // 显示指定该类加载器的父类加载器
-                        this.classLoaderName = classLoaderName;
-                    }
-
-                    public MyTest16(ClassLoader parent) {
-                        super(parent);
-                    }
-
-                    @Override
-                    public String toString() {
-                        return "[" + this.classLoaderName + "]";
-                    }
-
-                    @Override
-                    protected Class<?> findClass(String className) {
-                        System.out.println("findClass invoked!");
-                        byte[] data = loadClassData(className);
-                        return defineClass(className, data, 0, data.length);
-
-                    }
-
-                    private byte[] loadClassData(String className) {
-                        byte[] data = null;
-                        InputStream is = null;
-                        ByteArrayOutputStream baos = null;
-
-                        className = className.replace(".", "/");
-                        try {
-                            is = new FileInputStream(new File(this.path + className + fileExtension));
-                            baos = new ByteArrayOutputStream();
-
-                            int ch = 0;
-                            while (-1 != (ch = is.read())) {
-                                baos.write(ch);
-                            }
-
-                            data = baos.toByteArray();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            try {
-                                is.close();
-                                baos.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        return data;
-                    }
-
-                    public static void test(ClassLoader classLoader) throws Exception {
-                        Class<?> clazz = classLoader.loadClass("jvm.study.classloader.MyTest1");
-                        Object object = clazz.newInstance();
-                        System.out.println(object);
-                    }
-
-                    public static void main(String[] args) throws Exception {
-                        MyTest16 loader1 = new MyTest16("loader1");
-                        loader1.setPath("C:\\Users\\Administrator\\Desktop\\");
-
-                        Class<?> clazz1 = loader1.loadClass("jvm.study.classloader.MyTest1");
-                        Object object1 = clazz1.newInstance();
-                        System.out.println(clazz1.hashCode());
-                        System.out.println(object1);
-                        System.out.println();
-
-                        // 测试类的卸载
-                        loader1 = null;
-                        clazz1 = null;
-                        object1 = null;
-                        System.gc();
-
-                        //MyTest16 loader2 = new MyTest16("loader2");
-                        //loader2.setPath("C:\\Users\\Administrator\\Desktop\\");
-                        //Class<?> clazz2 = loader2.loadClass("jvm.study.classloader.MyTest1");
-                        //Object object2 = clazz2.newInstance();
-                        //System.out.println(clazz2.hashCode());
-                        //System.out.println(object2);
-
-                    }
-                }
-                ```
-            + 如果classpath中存在类A的字节码文件，那么自定义类加载器不会加载类A，而是由AppClassLoader加载类A
-                ```java
-                public class MyTest17 {
-                    public static void main(String[] args) throws Exception {
-                        MyTest16 loader1 = new MyTest16("loader1");
-
-                        Class<?> clazz = loader1.loadClass("jvm.study.classloader.MySample");
-                        System.out.println("class: " + clazz.hashCode());
-
-                        // 如果注释掉该行，那么并不会实例化MySample对象，即MySample构造方法不会被调用
-                        // 因此不会实例化MyCat对象，即没有对MyCat进行主动使用，这里就不会初始化MyCat类
-                        Object object = clazz.newInstance();
-                    }
-                }
-                public class MySample {
-                    public MySample() {
-                        System.out.println("MySample is loaded by: " + this.getClass().getClassLoader());
-
-                        new MyCat();
-                    }
-                }
-                public class MyCat {
-                    public MyCat() {
-                        System.out.println("MyCat is loaded by: " + this.getClass().getClassLoader());
-                    }
-                }
-                ```
-            + 当classpath中不存在类A的字节码文件，就可以使用自定义的类加载器加载类A
-                ```java
-                public class MyTest17_1 {
-                    public static void main(String[] args) throws Exception {
-                        MyTest16 loader1 = new MyTest16("loader1");
-                        loader1.setPath("C:\\Users\\Administrator\\Desktop\\");
-
-                        Class<?> clazz = loader1.loadClass("jvm.study.classloader.MySample");
-                        System.out.println("class: " + clazz.hashCode());
-
-                        // 如果注释掉该行，那么并不会实例化MySample对象，即MySample构造方法不会被调用
-                        // 因此不会实例化MyCat对象，即没有对MyCat进行主动使用，这里就不会初始化MyCat类
-                        Object object = clazz.newInstance();
-                    }
-                }
-                ```
-            + 打印JVM自带的3个类加载器加载类的路径
-                ```java
-                public class MyTest18 {
-                    public static void main(String[] args) {
-                        System.out.println(System.getProperty("sun.boot.class.path"));
-                        System.out.println(System.getProperty("java.ext.dirs"));
-                        // 我们所写的代码会被ide自动设置到classpath中
-                        System.out.println(System.getProperty("java.class.path"));
-                    }
-                }
-                ```
-            + 将自定义类加载器设置为系统(应用)类加载器
-                ```java
-                public class MyTest23 {
-                    public static void main(String[] args) {
-                        System.out.println(System.getProperty("sun.boot.class.path"));
-                        System.out.println(System.getProperty("java.ext.dirs"));
-                        System.out.println(System.getProperty("java.class.path"));
-
-                        /*
-                            内建于JVM中的启动类加载器会加载java.lang.ClassLoader以及他的Java平台类，
-                            当JVM启动时，一块特殊的机器码会运行，它会加载扩展类加载器与系统类加载器，
-                            这块特殊的机器码叫做启动类加载器(Bootstrap ClassLoader)
-
-                            启动类加载器并不是Java类，而其他的加载器则都是Java类，
-                            启动类加载器是特定于平台的机器指令，它负责开启整个加载过程。
-
-                            所有类加载器（除了启动类加载器）都被实现为Java类。不过，总归要有一个组件来加载第一个Java类加载器，
-                            从而整个加载过程才能够被顺利进行下去，加载第一个纯Java类加载器就是启动类加载器的职责。
-
-                            启动类加载器还会负责加载供JRE正常运行所需要的基本组件，这包括java.util与java.lang包中的类等等。
-
-                            要将自定义的类加载器作为系统类加载器的条件
-                                1.设置系统属性java.system.class.loader=com.xx.xx.A
-                                2.自定义类加载器必须有一个构造函数为A(ClassLoader parent)，这个构造函数将被系统调用
-                               注意:自定义类加载器作为系统类加载器时，其父委托加载器是AppClassLoader
-                         */
-
-                        System.out.println(ClassLoader.class.getClassLoader()); // null 因为由启动类加载器加载
-
-                        // ExtClassloader和AppClassloader也是由BootstrapClassloader所加载的
-                        System.out.println(Launcher.class.getClassLoader()); // null 因为由启动类加载器加载
-
-                        System.out.println("---------------");
-                        System.out.println(System.getProperty("java.system.class.loader"));// null
-
-                        System.out.println(MyTest23.class.getClassLoader());// AppClassLoder
-                        System.out.println(MyTest16.class.getClassLoader());// AppClassLoder
-
-                        // java -Djava.system.class.loader=jvm.study.classloader.MyTest16 jvm.study.classloader.MyTest23
-                        System.out.println(ClassLoader.getSystemClassLoader()); // jvm.study.classloader.MyTest16
-                    }
-                }
-                ```
-            * 线程上下文类加载器的作用
-                + 当高层(SPI)提供了统一接口让低层(厂商的实现)去实现，同时又要是**在高层加载（或实例化）低层的类**时，必须通过线程上下文类加载器来帮助高层的ClassLoader找到并加载该类。因为SPI由BootStrapClassLoader加载,而BootStrapClassLoader无法加载classpath下的类
-                ```java
-                public class MyTest24 {
-
-                    public static void main(String[] args) {
-                        /*
-                            当前类加载器(Current Classloader)
-                                每个类都会使用自己的类加载器(即加载自身的类加载器)去加载自己所依赖的类，
-                                如果ClassX引用了ClassY,那么ClassX的类加载器就会去加载ClassY(前提是ClassY尚未被加载)
-                            线程上下文类加载器(Context Classloader)
-                                线程上下文类加载器是从JDK1.2开始引入的，类Thread中的getContextClassLoader()与setContextClassLoader(ClassLoader cl)
-                                分别用来获取和设置线程上下文类加载器
-
-                            如果没有通过setContextClassLoader(ClassLoadr cl)进行设置的话，线程将继承其父线程的上下文类加载器
-                            Java应用运行时的初始线程的上下文类加载器是系统类加载器。在线程中运行的代码可以通过该类加载器来加载类与资源。
-
-                            线程上下文类加载器的重要性：
-                                SPI(Service Provider Interface)
-
-                                父ClassLoader可以使用当前线程上下文类加载器(Thread.currentThread().getContextClassloader())所指定的classLoader来加载自己无法加载的类。
-                                这就改变了父Classloader不能使用子Classloader或是与其没有直接父子关系的ClassLoader加载的类的情况，即改变了双亲委托模型。
-
-                                线程上下文类加载器就是当前线程的Current ClassLoader。
-
-                                在双亲委托模型下，类加载是由上至下的，即下层的类加载器会委托上层进行加载。但是对于SPI来说，有些接口是Java核心库所提供的，
-                                而Java核心库是由启动类加载器来加载的，而这些接口的实现却来自于不同的jar包(厂商提供)，Java的启动类加载器是不会加载其他来源
-                                的jar包，这样传统的双亲委托模型就无法满足SPI的要求。而通过给当前线程设置上下文类加载器，就可以由设置的上下文类加载器来实现对于
-                                接口实现类的加载。
-
-                         */
-                        System.out.println(Thread.currentThread().getContextClassLoader()); // APPClassLoader
-                        System.out.println(Thread.class.getClassLoader()); // null BootstrapClassloader
-                    }
-                }
-                ```
-            + 线程上下文类加载器默认是系统类加载器
-                ```java
-                public class MyTest25 implements Runnable {
-                    private Thread thread;
-
-                    public MyTest25(){
-                        this.thread = new Thread(this);
-                        thread.start();
-                    }
-
-                    @Override
-                    public void run() {
-                        ClassLoader classLoader = this.thread.getContextClassLoader();
-
-                        this.thread.setContextClassLoader(classLoader);
-
-                        System.out.println("Class: " + classLoader.getClass()); // APPClassLoader
-                        System.out.println("Parent: " + classLoader.getParent().getClass()); // ExtClassLoader
-                    }
-
-                    public static void main(String[] args) {
-                        new MyTest25();
-                    }
-                }
-                ```
-            + ServiceLoader使用
-                ```java
-                public class MyTest26 {
-                    /*
-                        线程上下文类加载器的一般使用模式(获取 - 使用 - 还原)
-
-                        ClassLoader targetTccl = null; // new MyClassLoader();
-
-                        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-                        try {
-                            Thread.currentThread().setContextClassLoader(targetTccl);
-                            myMethod();
-                        } finally {
-                            Thread.currentThread().setContextClassLoader(classLoader);
-                        }
-
-                        myMethod里面则调用了Thread.currentThread().getContextClassLoader()，获取当前线程的上下文类加载器做某些事情。
-
-                        如果一个类由类加载器A加载，那么这个类的依赖类也是由相同的类加载器加载的 (如果该依赖类之前没有被加载过的话)
-
-                        ContextClassLoader的作用是为了破坏Java的类加载委托机制。
-
-                        当高层提供了统一的接口让低层去实现，同时又要在高层加载 (或实例化) 低层的类时，就必须要通过线程上下文类加载器来
-                        帮助高层的ClassLoader找到并加载该类。
-                     */
-                    public static void main(String[] args) {
-
-                        /*
-                            ServiceLoader主要用于加载 META-INF/services/ 目录下的文件名(如:java.sql.Driver)所对应的的服务实现者
-                            (实现者位于文件中,如java.sql.Driver文件中的com.mysql.jdbc.Driver)
-                         */
-                        ServiceLoader<Driver> serviceLoader = ServiceLoader.load(Driver.class);
-                        Iterator<Driver> iterator = serviceLoader.iterator();
-
-                        while (iterator.hasNext()) {
-                            Driver driver = iterator.next();
-                            System.out.println("driver: " + driver.getClass() + ",loader: " + driver.getClass().getClassLoader());
-                        }
-
-                        System.out.println("当前线程上下文类加载器: " + Thread.currentThread().getContextClassLoader()); // APPClassLoader
-
-                        System.out.println("serviceLoader的类加载器: " + ServiceLoader.class.getClassLoader()); // null BootstrapClassLoader
-
-                    }
-                }
-                ```
-            + SPI-JDBC-MySql示例
-                ```java
-                public class MyTest27 {
-                    public static void main(String[] args) throws Exception {
-                        /*
-                            注册JDBC的驱动(使用ServiceLoader加载驱动)
-                                Class.forName加载并实例化Driver导致Driver静态代码块执行，进而导致DriverManager静态代码块执行，最终由ServiceLoader加载驱动
-                         */
-                        Class.forName("com.mysql.jdbc.Driver");
-
-                        /*
-                            遍历所有加载的驱动尝试连接数据库，哪一个连接成功了就返回哪一个的连接。
-                                使用Driver获取connection前，会判断加载Driver的类加载器和当前调用getConnection方法的类对应的类加载器是否为同一个类加载器(类加载器命名空间相同)，
-                                如果不是一个类加载器就会产生问题，因为不同类加载器加载同一个类，jvm会认为是不同的类。
-
-                         */
-                        DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
-                    }
-                }
-                ```
+      + JDK库的类由BootStrapClassLoader加载，程序员编写的类由AppClassLoader加载
+          ```java
+          public class MyTest7 {
+              public static void main(String[] args) throws Exception {
+                  Class<?> class1 = Class.forName("java.lang.String");
+                  System.out.println(class1.getClassLoader()); // null 由BootstrapClassLoader加载
+
+                  Class<?> class2 = Class.forName("jvm.study.classloader.C");
+                  System.out.println(class2.getClassLoader());// sun.misc.Launcher$AppClassLoader@18b4aac2
+              }
+          }
+
+          class C {
+
+          }
+          ```
+      + 类加载器的结构
+          ```java
+          public class MyTest13 {
+              public static void main(String[] args) {
+                  ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+                  System.out.println(classLoader);
+                  // sun.misc.Launcher$AppClassLoader@18b4aac2
+
+                  while (classLoader != null) {
+                      classLoader = classLoader.getParent();
+
+                      System.out.println(classLoader);
+                  }
+                  /*
+                      sun.misc.Launcher$ExtClassLoader@1b6d3586
+                      null
+                   */
+              }
+          }
+          ```
+      + 获取类文件所在硬盘上位置
+          ```java
+          public class MyTest14 {
+              public static void main(String[] args) throws IOException {
+                  ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+                  String resourceName = "jvm/study/classloader/MyTest13.class";
+
+                  Enumeration<URL> urls = classLoader.getResources(resourceName);
+                  while (urls.hasMoreElements()) {
+                      URL url = urls.nextElement();
+                      System.out.println(url);
+                  }
+
+                  System.out.println("-----------------");
+              }
+          }
+          ```
+      + 加载数组的类加载器是加载对应的数组元素的类加载器
+          ```java
+          public class MyTest15 {
+              public static void main(String[] args) {
+                  String[] strings = new String[2];
+                  System.out.println(strings.getClass().getClassLoader()); // null BootstrapClassLoader
+
+                  System.out.println("--------------------");
+
+                  MyChild5[] myChild5s = new MyChild5[2];
+                  System.out.println(myChild5s.getClass().getClassLoader()); // AppClassLoader
+
+                  System.out.println("---------------------");
+
+                  int[] ints = new int[2];
+                  System.out.println(ints.getClass().getClassLoader()); // null
+              }
+          }
+          ```
+      + 自定义类加载器
+          ```java
+          public class MyTest16 extends ClassLoader {
+
+              private String classLoaderName;
+
+              private String path;
+
+              public void setPath(String path) {
+                  this.path = path;
+              }
+
+              private static final String fileExtension = ".class";
+
+              public MyTest16(String classLoaderName) {
+                  super(); // 将系统类加载器当做该类加载的父类加载器
+                  this.classLoaderName = classLoaderName;
+              }
+
+              public MyTest16(ClassLoader parent, String classLoaderName) {
+                  super(parent); // 显示指定该类加载器的父类加载器
+                  this.classLoaderName = classLoaderName;
+              }
+
+              public MyTest16(ClassLoader parent) {
+                  super(parent);
+              }
+
+              @Override
+              public String toString() {
+                  return "[" + this.classLoaderName + "]";
+              }
+
+              @Override
+              protected Class<?> findClass(String className) {
+                  System.out.println("findClass invoked!");
+                  byte[] data = loadClassData(className);
+                  return defineClass(className, data, 0, data.length);
+
+              }
+
+              private byte[] loadClassData(String className) {
+                  byte[] data = null;
+                  InputStream is = null;
+                  ByteArrayOutputStream baos = null;
+
+                  className = className.replace(".", "/");
+                  try {
+                      is = new FileInputStream(new File(this.path + className + fileExtension));
+                      baos = new ByteArrayOutputStream();
+
+                      int ch = 0;
+                      while (-1 != (ch = is.read())) {
+                          baos.write(ch);
+                      }
+
+                      data = baos.toByteArray();
+
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  } finally {
+                      try {
+                          is.close();
+                          baos.close();
+                      } catch (Exception e) {
+                          e.printStackTrace();
+                      }
+                  }
+
+                  return data;
+              }
+
+              public static void test(ClassLoader classLoader) throws Exception {
+                  Class<?> clazz = classLoader.loadClass("jvm.study.classloader.MyTest1");
+                  Object object = clazz.newInstance();
+                  System.out.println(object);
+              }
+
+              public static void main(String[] args) throws Exception {
+                  MyTest16 loader1 = new MyTest16("loader1");
+                  loader1.setPath("C:\\Users\\Administrator\\Desktop\\");
+
+                  Class<?> clazz1 = loader1.loadClass("jvm.study.classloader.MyTest1");
+                  Object object1 = clazz1.newInstance();
+                  System.out.println(clazz1.hashCode());
+                  System.out.println(object1);
+                  System.out.println();
+
+                  // 测试类的卸载
+                  loader1 = null;
+                  clazz1 = null;
+                  object1 = null;
+                  System.gc();
+
+                  //MyTest16 loader2 = new MyTest16("loader2");
+                  //loader2.setPath("C:\\Users\\Administrator\\Desktop\\");
+                  //Class<?> clazz2 = loader2.loadClass("jvm.study.classloader.MyTest1");
+                  //Object object2 = clazz2.newInstance();
+                  //System.out.println(clazz2.hashCode());
+                  //System.out.println(object2);
+
+              }
+          }
+          ```
+      + 如果classpath中存在类A的字节码文件，那么自定义类加载器不会加载类A，而是由AppClassLoader加载类A
+          ```java
+          public class MyTest17 {
+              public static void main(String[] args) throws Exception {
+                  MyTest16 loader1 = new MyTest16("loader1");
+
+                  Class<?> clazz = loader1.loadClass("jvm.study.classloader.MySample");
+                  System.out.println("class: " + clazz.hashCode());
+
+                  // 如果注释掉该行，那么并不会实例化MySample对象，即MySample构造方法不会被调用
+                  // 因此不会实例化MyCat对象，即没有对MyCat进行主动使用，这里就不会初始化MyCat类
+                  Object object = clazz.newInstance();
+              }
+          }
+          public class MySample {
+              public MySample() {
+                  System.out.println("MySample is loaded by: " + this.getClass().getClassLoader());
+
+                  new MyCat();
+              }
+          }
+          public class MyCat {
+              public MyCat() {
+                  System.out.println("MyCat is loaded by: " + this.getClass().getClassLoader());
+              }
+          }
+          ```
+      + 当classpath中不存在类A的字节码文件，就可以使用自定义的类加载器加载类A
+          ```java
+          public class MyTest17_1 {
+              public static void main(String[] args) throws Exception {
+                  MyTest16 loader1 = new MyTest16("loader1");
+                  loader1.setPath("C:\\Users\\Administrator\\Desktop\\");
+
+                  Class<?> clazz = loader1.loadClass("jvm.study.classloader.MySample");
+                  System.out.println("class: " + clazz.hashCode());
+
+                  // 如果注释掉该行，那么并不会实例化MySample对象，即MySample构造方法不会被调用
+                  // 因此不会实例化MyCat对象，即没有对MyCat进行主动使用，这里就不会初始化MyCat类
+                  Object object = clazz.newInstance();
+              }
+          }
+          ```
+      + 打印JVM自带的3个类加载器加载类的路径
+          ```java
+          public class MyTest18 {
+              public static void main(String[] args) {
+                  System.out.println(System.getProperty("sun.boot.class.path"));
+                  System.out.println(System.getProperty("java.ext.dirs"));
+                  // 我们所写的代码会被ide自动设置到classpath中
+                  System.out.println(System.getProperty("java.class.path"));
+              }
+          }
+          ```
+      + 将自定义类加载器设置为系统(应用)类加载器
+          ```java
+          public class MyTest23 {
+              public static void main(String[] args) {
+                  System.out.println(System.getProperty("sun.boot.class.path"));
+                  System.out.println(System.getProperty("java.ext.dirs"));
+                  System.out.println(System.getProperty("java.class.path"));
+
+                  /*
+                      内建于JVM中的启动类加载器会加载java.lang.ClassLoader以及他的Java平台类，
+                      当JVM启动时，一块特殊的机器码会运行，它会加载扩展类加载器与系统类加载器，
+                      这块特殊的机器码叫做启动类加载器(Bootstrap ClassLoader)
+
+                      启动类加载器并不是Java类，而其他的加载器则都是Java类，
+                      启动类加载器是特定于平台的机器指令，它负责开启整个加载过程。
+
+                      所有类加载器（除了启动类加载器）都被实现为Java类。不过，总归要有一个组件来加载第一个Java类加载器，
+                      从而整个加载过程才能够被顺利进行下去，加载第一个纯Java类加载器就是启动类加载器的职责。
+
+                      启动类加载器还会负责加载供JRE正常运行所需要的基本组件，这包括java.util与java.lang包中的类等等。
+
+                      要将自定义的类加载器作为系统类加载器的条件
+                          1.设置系统属性java.system.class.loader=com.xx.xx.A
+                          2.自定义类加载器必须有一个构造函数为A(ClassLoader parent)，这个构造函数将被系统调用
+                         注意:自定义类加载器作为系统类加载器时，其父委托加载器是AppClassLoader
+                   */
+
+                  System.out.println(ClassLoader.class.getClassLoader()); // null 因为由启动类加载器加载
+
+                  // ExtClassloader和AppClassloader也是由BootstrapClassloader所加载的
+                  System.out.println(Launcher.class.getClassLoader()); // null 因为由启动类加载器加载
+
+                  System.out.println("---------------");
+                  System.out.println(System.getProperty("java.system.class.loader"));// null
+
+                  System.out.println(MyTest23.class.getClassLoader());// AppClassLoder
+                  System.out.println(MyTest16.class.getClassLoader());// AppClassLoder
+
+                  // java -Djava.system.class.loader=jvm.study.classloader.MyTest16 jvm.study.classloader.MyTest23
+                  System.out.println(ClassLoader.getSystemClassLoader()); // jvm.study.classloader.MyTest16
+              }
+          }
+          ```
+      * 线程上下文类加载器的作用
+          + 当高层(SPI)提供了统一接口让低层(厂商的实现)去实现，同时又要是**在高层加载（或实例化）低层的类**时，必须通过线程上下文类加载器来帮助高层的ClassLoader找到并加载该类。因为SPI由BootStrapClassLoader加载,而BootStrapClassLoader无法加载classpath下的类
+          ```java
+          public class MyTest24 {
+
+              public static void main(String[] args) {
+                  /*
+                      当前类加载器(Current Classloader)
+                          每个类都会使用自己的类加载器(即加载自身的类加载器)去加载自己所依赖的类，
+                          如果ClassX引用了ClassY,那么ClassX的类加载器就会去加载ClassY(前提是ClassY尚未被加载)
+                      线程上下文类加载器(Context Classloader)
+                          线程上下文类加载器是从JDK1.2开始引入的，类Thread中的getContextClassLoader()与setContextClassLoader(ClassLoader cl)
+                          分别用来获取和设置线程上下文类加载器
+
+                      如果没有通过setContextClassLoader(ClassLoadr cl)进行设置的话，线程将继承其父线程的上下文类加载器
+                      Java应用运行时的初始线程的上下文类加载器是系统类加载器。在线程中运行的代码可以通过该类加载器来加载类与资源。
+
+                      线程上下文类加载器的重要性：
+                          SPI(Service Provider Interface)
+
+                          父ClassLoader可以使用当前线程上下文类加载器(Thread.currentThread().getContextClassloader())所指定的classLoader来加载自己无法加载的类。
+                          这就改变了父Classloader不能使用子Classloader或是与其没有直接父子关系的ClassLoader加载的类的情况，即改变了双亲委托模型。
+
+                          线程上下文类加载器就是当前线程的Current ClassLoader。
+
+                          在双亲委托模型下，类加载是由上至下的，即下层的类加载器会委托上层进行加载。但是对于SPI来说，有些接口是Java核心库所提供的，
+                          而Java核心库是由启动类加载器来加载的，而这些接口的实现却来自于不同的jar包(厂商提供)，Java的启动类加载器是不会加载其他来源
+                          的jar包，这样传统的双亲委托模型就无法满足SPI的要求。而通过给当前线程设置上下文类加载器，就可以由设置的上下文类加载器来实现对于
+                          接口实现类的加载。
+
+                   */
+                  System.out.println(Thread.currentThread().getContextClassLoader()); // APPClassLoader
+                  System.out.println(Thread.class.getClassLoader()); // null BootstrapClassloader
+              }
+          }
+          ```
+      + 线程上下文类加载器默认是系统类加载器
+          ```java
+          public class MyTest25 implements Runnable {
+              private Thread thread;
+
+              public MyTest25(){
+                  this.thread = new Thread(this);
+                  thread.start();
+              }
+
+              @Override
+              public void run() {
+                  ClassLoader classLoader = this.thread.getContextClassLoader();
+
+                  this.thread.setContextClassLoader(classLoader);
+
+                  System.out.println("Class: " + classLoader.getClass()); // APPClassLoader
+                  System.out.println("Parent: " + classLoader.getParent().getClass()); // ExtClassLoader
+              }
+
+              public static void main(String[] args) {
+                  new MyTest25();
+              }
+          }
+          ```
+      + ServiceLoader使用
+          ```java
+          public class MyTest26 {
+              /*
+                  线程上下文类加载器的一般使用模式(获取 - 使用 - 还原)
+
+                  ClassLoader targetTccl = null; // new MyClassLoader();
+
+                  ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+                  try {
+                      Thread.currentThread().setContextClassLoader(targetTccl);
+                      myMethod();
+                  } finally {
+                      Thread.currentThread().setContextClassLoader(classLoader);
+                  }
+
+                  myMethod里面则调用了Thread.currentThread().getContextClassLoader()，获取当前线程的上下文类加载器做某些事情。
+
+                  如果一个类由类加载器A加载，那么这个类的依赖类也是由相同的类加载器加载的 (如果该依赖类之前没有被加载过的话)
+
+                  ContextClassLoader的作用是为了破坏Java的类加载委托机制。
+
+                  当高层提供了统一的接口让低层去实现，同时又要在高层加载 (或实例化) 低层的类时，就必须要通过线程上下文类加载器来
+                  帮助高层的ClassLoader找到并加载该类。
+               */
+              public static void main(String[] args) {
+
+                  /*
+                      ServiceLoader主要用于加载 META-INF/services/ 目录下的文件名(如:java.sql.Driver)所对应的的服务实现者
+                      (实现者位于文件中,如java.sql.Driver文件中的com.mysql.jdbc.Driver)
+                   */
+                  ServiceLoader<Driver> serviceLoader = ServiceLoader.load(Driver.class);
+                  Iterator<Driver> iterator = serviceLoader.iterator();
+
+                  while (iterator.hasNext()) {
+                      Driver driver = iterator.next();
+                      System.out.println("driver: " + driver.getClass() + ",loader: " + driver.getClass().getClassLoader());
+                  }
+
+                  System.out.println("当前线程上下文类加载器: " + Thread.currentThread().getContextClassLoader()); // APPClassLoader
+
+                  System.out.println("serviceLoader的类加载器: " + ServiceLoader.class.getClassLoader()); // null BootstrapClassLoader
+
+              }
+          }
+          ```
+      + SPI-JDBC-MySql示例
+          ```java
+          public class MyTest27 {
+              public static void main(String[] args) throws Exception {
+                  /*
+                      注册JDBC的驱动(使用ServiceLoader加载驱动)
+                          Class.forName加载并实例化Driver导致Driver静态代码块执行，进而导致DriverManager静态代码块执行，最终由ServiceLoader加载驱动
+                   */
+                  Class.forName("com.mysql.jdbc.Driver");
+
+                  /*
+                      遍历所有加载的驱动尝试连接数据库，哪一个连接成功了就返回哪一个的连接。
+                          使用Driver获取connection前，会判断加载Driver的类加载器和当前调用getConnection方法的类对应的类加载器是否为同一个类加载器(类加载器命名空间相同)，
+                          如果不是一个类加载器就会产生问题，因为不同类加载器加载同一个类，jvm会认为是不同的类。
+
+                   */
+                  DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
+              }
+          }
+          ```
         + **类加载器的双亲委派模型的好处：**
     		+ 可以确保Java核心库的类型安全：所有的Java应用都至少会引用`Java.lang.Object`类，也就是说在运行期，java.lang.Object这个类会被加载到Java虚拟机中；如果这个加载过程是由Java应用自己的类加载器所完成的，那么很可能会在JVM中存在多个版本的`java.lang.Object`类，而且这些类之间还是不兼容的，相互不可见的(正是命名空间在发挥着作用)。借助于双亲委派机制，Java核心类库中的类的加载工作都是由启动类加载器来统一完成，从而确保了Java应用所使用的都是同一个版本的Java核心类库，他们之间是相互兼容的。
     		+ 可以确保Java核心类库所提供的类不会被自定义的类所替代。

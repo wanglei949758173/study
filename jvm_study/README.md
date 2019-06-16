@@ -1205,8 +1205,8 @@
   ```
   method_info {
     u2 agcess_flags;
-  	u2 name_index;
-  	u2 descriptor_index;
+    u2 name_index;
+    u2 descriptor_index;
     u2 attributes_count;
     attribute_info attributes[attributes_count];
   }
@@ -1266,7 +1266,7 @@
               </tr>
           </tbody>
       </table>
-    + Code attribute的作用是保存该方法的结构，如所对应的字节码
+  + Code attribute的作用是保存该方法的结构，如所对应的字节码
       ```
       Code_attribute {
         u2 attribute_name_index;
@@ -1286,20 +1286,20 @@
         attribute_info attributes[attributes_count]
       }
       ```
-      + attribute_length表示attribute所包含的字节数，不包含attribute_name_index和
-      attribute_length字段
-      + max_stack表示这个方法运行的任何时刻所能达到的操作数栈的最大深度
-      + max_locals表示方法执行期间创建的局部变量的数目，包含用来表示传入的参数的局部变量
-      + code_length表示该方法所包含的字节码的字节数以及具体的指令码
-      + 具体字节码即是该方法被调用时，虚拟机所执行的字节码
-      + exception_table，这里存放的是处理异常的信息
-      + 每个exception_table表项由start_pc，end_pc,handler_pc,catch_type组成
-      + start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc，不包含
-      end_pc)的指令抛出的异常会由这个表项来处理
-      + handler_pc表示处理异常的代码的开始处。catch_type表示会被处理的异常类型，它指向常量池
-      的一个异常类。当catch_type为0时，表示处理所有的异常
-      + 附件属性-LineNumberTable:这个属性用来表示code数组中字节码和java代码行数之间的
-      关系。这个属性可以用来在调试的时候定位代码执行的行数
+    + attribute_length表示attribute所包含的字节数，不包含attribute_name_index和
+    attribute_length字段
+    + max_stack表示这个方法运行的任何时刻所能达到的操作数栈的最大深度
+    + max_locals表示方法执行期间创建的局部变量的数目，包含用来表示传入的参数的局部变量
+    + code_length表示该方法所包含的字节码的字节数以及具体的指令码
+    + 具体字节码即是该方法被调用时，虚拟机所执行的字节码
+    + exception_table，这里存放的是处理异常的信息
+    + 每个exception_table表项由start_pc，end_pc,handler_pc,catch_type组成
+    + start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc，不包含
+    end_pc)的指令抛出的异常会由这个表项来处理
+    + handler_pc表示处理异常的代码的开始处。catch_type表示会被处理的异常类型，它指向常量池
+    的一个异常类。当catch_type为0时，表示处理所有的异常
+    + 附件属性-LineNumberTable:这个属性用来表示code数组中字节码和java代码行数之间的
+    关系。这个属性可以用来在调试的时候定位代码执行的行数
         ```
         LineNumberTable_attribute {
           u2 attribute_name_index;
@@ -1355,5 +1355,11 @@
   35、成员变量描述信息索引: 指向#6 I
   36、成员变量附加属性个数: 0
   37、方法个数:3
-
+  38、方法访问控制符:1 public
+  39、方法名字索引:#7 <init>
+  40、方法描述符索引: #8 ()V
+  41、方法属性数量:1
+  42、属性名索引:#9 Code
+  43、属性长度:47
+  44、最大栈深度
   ```

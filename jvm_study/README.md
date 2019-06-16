@@ -1311,9 +1311,23 @@
           } line_number_table[line_number_table_length]
         }
         ```
-    jclasslib
-    attribute_info JVM给方法添加的附加信息
-* **附加属性(Attributes)**2+n个字节
+   + LocalVariableTable(局部变量表)表示方法的局部变量信息
+    ```
+    LocalVariableTable{
+      u2 attribute_name_index;
+      u4 attribute_length;
+      U2 local_variable_table_length;
+      local_variable_info[local_variable_table_length]
+    }
+    local_variable_info{
+      u2 start_pc;
+      u2 length;
+      u2 name_index;
+      u2 description_index;
+      u2 index;
+    }
+    ```
+* **附加属性(Attributes)** 2+n个字节
 
 * **字节码文件分析实例**
   ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
@@ -1361,5 +1375,21 @@
   41、方法属性数量:1
   42、属性名索引:#9 Code
   43、属性长度:47
-  44、最大栈深度
+  44、最大栈深度: 1
+  45、局部变量个数:1
+  46、code_length(执行指令“也叫助记符”的长度):5
+  47、aload_0 指令，指的是从局部变量表加载引用
+  48、invokespecial指令,指的是调用实例方法,后边的两个字节代表调用的方法的索引
+  49、调用方法的索引:#10 java/lang/Object.<init>
+  50、return 指令，表示返回值为void
+  51、异常表长度:0
+  52、附加属性个数:2
+  53、附加属性名字索引:#12 LineNumberTable
+  54、属性长度:6
+  55、行号表长度:1
+  56、start_pc：0
+  57、line_number:10
+  58、第二个附加属性的名字索引:#13 LocalVariableTable
+  59、第二个附加属性的属性长度:12
+  60、
   ```

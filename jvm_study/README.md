@@ -887,6 +887,7 @@
     + `javap`
     + `javap -c`
     + `javap -verbose`
+    + `javap -verbose -p` 可以查看私有的方法
     使用`javap -verbose`命令分析一个字节码文件时，将会分析该字节码文件的**魔数**、
     **版本号**、**常量池**、**类信息**、**类的构造方法**、**类中的方法信息**、
     **类变量** 与 **成员变量**等信息。
@@ -1476,3 +1477,152 @@
   132、属性长度:2
   133、源文件索引:#23 MyTest1.java
   ```
+* **synchronized关键字生成的字节码分析**
+  + 给方法添加synchronized关键字只会改变方法的访问修饰符，不会改变方法的Code属性
+    ```java
+    private void setX(int x) {
+        this.x = x;
+    }
+    ```
+    ```
+    private void setX(int);
+    descriptor: (I)V
+    flags: ACC_PRIVATE
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #4                  // Field x:I
+         5: return
+      LineNumberTable:
+        line 29: 0
+        line 30: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Ljvm/study/bytecode/MyTest2;
+            0       6     1     x   I
+    ```
+    ```java
+    private synchronized void setX(int x) {
+        this.x = x;
+    }
+    ```
+    ```
+    private synchronized void setX(int);
+    descriptor: (I)V
+    flags: ACC_PRIVATE, ACC_SYNCHRONIZED
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #4                  // Field x:I
+         5: return
+      LineNumberTable:
+        line 29: 0
+        line 30: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Ljvm/study/bytecode/MyTest2;
+            0       6     1     x   I
+    ```
+  + 给方法中添加synchronized代码块会改变方法的Code属性
+    ```java
+    private void test(){
+        synchronized (lock){
+            System.out.println("Hello World");
+        }
+    }
+    ```
+    ```
+    private void test();
+    descriptor: ()V
+    flags: ACC_PRIVATE
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: getfield      #6                  // Field lock:Ljava/lang/Object;
+         4: dup
+         5: astore_1
+         6: monitorenter
+         7: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        10: ldc           #13                 // String Hello World
+        12: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        15: aload_1
+        16: monitorexit
+        17: goto          25
+        20: astore_2
+        21: aload_1
+        22: monitorexit
+        23: aload_2
+        24: athrow
+        25: return
+      Exception table:
+         from    to  target type
+             7    17    20   any
+            20    23    20   any
+      LineNumberTable:
+        line 34: 0
+        line 35: 7
+        line 36: 15
+        line 37: 25
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      26     0  this   Ljvm/study/bytecode/MyTest2;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 20
+          locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+    ```
+  + 对class加synchronized字节码分析
+    ```java
+    private void test2() {
+        synchronized (MyTest2.class) {
+            System.out.println("Hello World");
+        }
+    }
+    ```
+    ```
+    private void test2();
+    descriptor: ()V
+    flags: ACC_PRIVATE
+    Code:
+      stack=2, locals=3, args_size=1
+         0: ldc           #7                  // class jvm/study/bytecode/MyTest2
+         2: dup
+         3: astore_1
+         4: monitorenter
+         5: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         8: ldc           #13                 // String Hello World
+        10: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        13: aload_1
+        14: monitorexit
+        15: goto          23
+        18: astore_2
+        19: aload_1
+        20: monitorexit
+        21: aload_2
+        22: athrow
+        23: return
+      Exception table:
+         from    to  target type
+             5    15    18   any
+            18    21    18   any
+      LineNumberTable:
+        line 41: 0
+        line 42: 5
+        line 43: 13
+        line 44: 23
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      24     0  this   Ljvm/study/bytecode/MyTest2;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 18
+          locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+    ```

@@ -1311,7 +1311,7 @@
           } line_number_table[line_number_table_length]
         }
         ```
-   + LocalVariableTable(局部变量表)表示方法的局部变量信息
+    + LocalVariableTable(局部变量表)表示方法的局部变量信息
       ```
       LocalVariableTable{
         u2 attribute_name_index;

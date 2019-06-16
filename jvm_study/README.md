@@ -1312,21 +1312,21 @@
         }
         ```
    + LocalVariableTable(局部变量表)表示方法的局部变量信息
-    ```
-    LocalVariableTable{
-      u2 attribute_name_index;
-      u4 attribute_length;
-      U2 local_variable_table_length;
-      local_variable_info[local_variable_table_length]
-    }
-    local_variable_info{
-      u2 start_pc;
-      u2 length;
-      u2 name_index;
-      u2 description_index;
-      u2 index;
-    }
-    ```
+      ```
+      LocalVariableTable{
+        u2 attribute_name_index;
+        u4 attribute_length;
+        U2 local_variable_table_length;
+        local_variable_info[local_variable_table_length]
+      }
+      local_variable_info{
+        u2 start_pc;
+        u2 length;
+        u2 name_index;
+        u2 description_index;
+        u2 index;
+      }
+      ```
 * **附加属性(Attributes)** 2+n个字节
 
 * **字节码文件分析实例**

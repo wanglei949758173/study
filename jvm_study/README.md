@@ -1202,45 +1202,158 @@
     }
     ```
 * **方法(Methods)** 2+n个字节
-    常量Code代表方法执行的指令
+  ```
+  method_info {
+    u2 agcess_flags;
+  	u2 name_index;
+  	u2 descriptor_index;
+    u2 attributes_count;
+    attribute_info attributes[attributes_count];
+  }
+  attribute_info {
+    u2 attribute_name_index
+    u4 attribute_length
+    u1 info[attribute_length]
+  }
+  ```
+  + JVM预定义了部分attribute，但是编译器自己也可以实现自己的attribute写入class文件里，
+  供运行时使用
+  + 不同的attribute通过attribute_name_index来区分
+  + 访问控制符
+    <table>
+          <thead>
+              <tr>
+                  <th>标志名称</th>
+                  <th>值</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>ACC-PRIVATE</td>
+                  <td>0X0002</td>
+              </tr>
+              <tr>
+                  <td>ACC-PUBLIC</td>
+                  <td>0X0001</td>
+              </tr>
+              <tr>
+                  <td>ACC-FINAL</td>
+                  <td>0X0010</td>
+              </tr>
+              <tr>
+                  <td>ACC-SUPER</td>
+                  <td>0X0020</td>
+              </tr>
+              <tr>
+                  <td>ACC-INTERFACE</td>
+                  <td>0X0200</td>
+              </tr>
+              <tr>
+                  <td>ACC-ABSTRACT</td>
+                  <td>0X0400</td>
+              </tr>
+              <tr>
+                  <td>ACC-synthetic(合成的,源代码中没有此关键字)</td>
+                  <td>0X1000</td>
+              </tr>
+              <tr>
+                  <td>ACC-annotation</td>
+                  <td>0X2000</td>
+              </tr>
+              <tr>
+                  <td>ACC-ENUM</td>
+                  <td>0X4000</td>
+              </tr>
+          </tbody>
+      </table>
+    + Code attribute的作用是保存该方法的结构，如所对应的字节码
+      ```
+      Code_attribute {
+        u2 attribute_name_index;
+        u4 attribute_length;
+        u2 max_stack;
+        u2 max_locals;
+        u4 code_length;
+        u1 code[code_length];
+        u2 exception_table_length;
+        {
+          u2 start_pc;
+          u2 end_pc;
+          u2 handler_pc;
+          u2 catch_type;
+        } exception_table[exception_table_length];
+        u2 attributes_count;
+        attribute_info attributes[attributes_count]
+      }
+      ```
+      + attribute_length表示attribute所包含的字节数，不包含attribute_name_index和
+      attribute_length字段
+      + max_stack表示这个方法运行的任何时刻所能达到的操作数栈的最大深度
+      + max_locals表示方法执行期间创建的局部变量的数目，包含用来表示传入的参数的局部变量
+      + code_length表示该方法所包含的字节码的字节数以及具体的指令码
+      + 具体字节码即是该方法被调用时，虚拟机所执行的字节码
+      + exception_table，这里存放的是处理异常的信息
+      + 每个exception_table表项由start_pc，end_pc,handler_pc,catch_type组成
+      + start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc，不包含
+      end_pc)的指令抛出的异常会由这个表项来处理
+      + handler_pc表示处理异常的代码的开始处。catch_type表示会被处理的异常类型，它指向常量池
+      的一个异常类。当catch_type为0时，表示处理所有的异常
+      + 附件属性-LineNumberTable:这个属性用来表示code数组中字节码和java代码行数之间的
+      关系。这个属性可以用来在调试的时候定位代码执行的行数
+        ```
+        LineNumberTable_attribute {
+          u2 attribute_name_index;
+          u4 attribute_length;
+          u2 line_number_table_length;
+          {
+            u2 start_pc;
+            u2 line_number;
+          } line_number_table[line_number_table_length]
+        }
+        ```
     jclasslib
     attribute_info JVM给方法添加的附加信息
 * **附加属性(Attributes)**2+n个字节
+
 * **字节码文件分析实例**
-![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
-1、魔数:CAFEBABE
-2、次版本号:0
-3、主版本号:52 代表1.8
-4、常量池数量:24 实际常量池数量24-1=23
-5、#1: 7 Class_Info 指向#2
-6、#2：1 UTF8_Info 长度26 jvm/study/bytecode/MyTest1
-7、#3: 7 Class_Info 指向#4
-8、#4: 1 UTF8_Info 长度16 java/lang/Object
-9、#5: 1 UTF8_Info 长度1 a
-10、#6: 1 UTF8_Info 长度1 I
-11、#7: 1 UTF8_Info 长度6 <init>
-12、#8: 1 UTF8_Info 长度3 ()V
-13、#9：1 UTF8_Info 长度4 Code
-14、#10: 10 Methodref_Info 声明方法的类的索引:#3,Name_And_Type的索引:#11
-15、#11: 12 NameAndType_Info Name索引:#7,Type索引:#8
-16、#12: 1 UTF8_Info 长度15 LineNumberTable
-17、#13: 1 UTF8_Info 长度18 LocalVariableTable
-18、#14: 1 UTF8_Info 长度4 this
-19、#15: 1 UTF8_Info 长度28 Ljvm/study/bytecode/MyTest1;
-20、#16: 1 UTF8_Info 长度4 getA
-21、#17: 1 UTF8_Info 长度3 ()I
-22、#18: 9 Fieldref_Info 类型:指向#1 NameAndType：指向19
-23、#19: 12 NameAndType_Info Name索引:#5,Type索引:#6
-24、#20: 1 UTF8_Info 长度4 setA
-25、#21: 1 UTF8_Info 长度4 (I)V
-26、#22: 1 UTF8_Info 长度10 SourceFile
-27、#23: 1 UTF8_Info 长度12 MyTest1.java
-28、访问控制符；0x21 ACC_Super + ACC_Public
-29、当前类名字； 指向#1 jvm/study/bytecode/MyTest1
-30、父类名字: 指向#3 java/lang/Object
-31、实现接口数量；0
-32、成员变量个数；1
-33、成员变量访问控制符；0x0002 private
-34、成员变量name索引: 指向#5 a
-35、成员变量描述信息索引: 指向#6 I
-36、成员变量附加属性个数: 0
+  ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
+  ```
+  1、魔数:CAFEBABE
+  2、次版本号:0
+  3、主版本号:52 代表1.8
+  4、常量池数量:24 实际常量池数量24-1=23
+  5、#1: 7 Class_Info 指向#2
+  6、#2：1 UTF8_Info 长度26 jvm/study/bytecode/MyTest1
+  7、#3: 7 Class_Info 指向#4
+  8、#4: 1 UTF8_Info 长度16 java/lang/Object
+  9、#5: 1 UTF8_Info 长度1 a
+  10、#6: 1 UTF8_Info 长度1 I
+  11、#7: 1 UTF8_Info 长度6 <init>
+  12、#8: 1 UTF8_Info 长度3 ()V
+  13、#9：1 UTF8_Info 长度4 Code
+  14、#10: 10 Methodref_Info 声明方法的类的索引:#3,Name_And_Type的索引:#11
+  15、#11: 12 NameAndType_Info Name索引:#7,Type索引:#8
+  16、#12: 1 UTF8_Info 长度15 LineNumberTable
+  17、#13: 1 UTF8_Info 长度18 LocalVariableTable
+  18、#14: 1 UTF8_Info 长度4 this
+  19、#15: 1 UTF8_Info 长度28 Ljvm/study/bytecode/MyTest1;
+  20、#16: 1 UTF8_Info 长度4 getA
+  21、#17: 1 UTF8_Info 长度3 ()I
+  22、#18: 9 Fieldref_Info 类型:指向#1 NameAndType：指向19
+  23、#19: 12 NameAndType_Info Name索引:#5,Type索引:#6
+  24、#20: 1 UTF8_Info 长度4 setA
+  25、#21: 1 UTF8_Info 长度4 (I)V
+  26、#22: 1 UTF8_Info 长度10 SourceFile
+  27、#23: 1 UTF8_Info 长度12 MyTest1.java
+  28、访问控制符；0x21 ACC_Super + ACC_Public
+  29、当前类名字； 指向#1 jvm/study/bytecode/MyTest1
+  30、父类名字: 指向#3 java/lang/Object
+  31、实现接口数量；0
+  32、成员变量个数；1
+  33、成员变量访问控制符；0x0002 private
+  34、成员变量name索引: 指向#5 a
+  35、成员变量描述信息索引: 指向#6 I
+  36、成员变量附加属性个数: 0
+  37、方法个数:3
+
+  ```

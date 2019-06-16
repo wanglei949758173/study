@@ -1207,7 +1207,7 @@
     attribute_info JVM给方法添加的附加信息
 * **附加属性(Attributes)**2+n个字节
 * **字节码文件分析实例**
-![字节码](../字节码.PNG)
+![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
 1、魔数:CAFEBABE
 2、次版本号:0
 3、主版本号:52 代表1.8

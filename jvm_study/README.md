@@ -1328,7 +1328,17 @@
       }
       ```
 * **附加属性(Attributes)** 2+n个字节
-
+  ```
+  {
+    u2 attribute_length;
+    u1 attribute_info[attribute_length]
+  }
+  attribute_info {
+    u2 attribute_name_index
+    u4 attribute_length
+    u1 info[attribute_length]
+  }
+  ```
 * **字节码文件分析实例**
   ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
   ```
@@ -1391,5 +1401,78 @@
   57、line_number:10
   58、第二个附加属性的名字索引:#13 LocalVariableTable
   59、第二个附加属性的属性长度:12
-  60、
+  60、局部变量表长度:1
+  61、start_pc:0
+  62、长度:5
+  63、name_index:#14 this
+  64、description_index: #15 Ljvm/study/bytecode/MyTest1;
+  65、index:0
+  66、第二个方法的访问控制符:1 public
+  67、第二个方法的名字索引:#16 getA
+  68、第二个方法的描述符索引:#17 ()I
+  69、方法属性数量:1
+  70、属性名索引:#9 Code
+  71、属性长度:47
+  72、最大栈深度:1
+  73、局部变量个数:1
+  74、code_length(执行指令“也叫助记符”的长度):5
+  75、aload_0 指令，指的是从局部变量表加载引用
+  76、getfield指令,指的是从对象获取一个字段，后面两个字节代表字段信息的索引
+  77、#18 指向jvm/study/bytecode/MyTest1.a
+  78、ireturn指令,指的是返回一个int值
+  79、异常表长度:0
+  80、附加属性个数:2
+  81、附加属性名字索引:#12 LineNumberTable
+  82、属性长度:6
+  83、行号表长度:1
+  84、start_pc：0
+  85、line_number:14
+  86、第二个附加属性的名字索引:#13 LocalVariableTable
+  87、第二个附加属性的属性长度:12
+  88、局部变量表长度:1
+  89、start_pc:0
+  90、长度:5
+  91、name_index:#14 this
+  92、description_index: #15 Ljvm/study/bytecode/MyTest1;
+  93、index:0
+  94、第三个方法的访问控制符:1 public
+  95、第三个方法的名字索引:#20 setA
+  96、第三个方法的描述符索引:#21 (I)V
+  97、方法属性数量:1
+  98、属性名索引:#9 Code
+  99、属性长度:62
+  100、最大栈深度:2
+  101、局部变量个数:2
+  102、code_length(执行指令“也叫助记符”的长度):6
+  103、aload_0 指令，指的是从局部变量表加载引用
+  104、iload指令,指的是从局部变量表加载int值
+  105、putfield指令，指的是为对象的属性赋值，后两个字节为索要赋值的字段信息的引用
+  106、赋值的字段信息:#18 jvm/study/bytecode/MyTest1.a
+  107、return 指令，表示返回值为void
+  108、异常表长度:0
+  109、附加属性个数:2
+  110、附加属性名字索引:#12 LineNumberTable
+  111、属性长度:10
+  112、行号表长度:2
+  113、start_pc:0
+  114、line_number:18
+  115、start_pc:5
+  116、line_number:19
+  117、附加属性名字索引:#13 LocalVariableTable
+  118、附加属性的属性长度:22
+  119、局部变量表长度:2
+  120、start_pc:0
+  121、长度:6
+  122、name_index:#14 this
+  123、description_index: #15 Ljvm/study/bytecode/MyTest1;
+  124、index:0
+  125、start_pc:0
+  126、长度:6
+  127、name_index:#5 a
+  128、description_index: #6 I
+  129、index:1
+  130、字节码附加属性个数:1
+  131、附加属性名字索引:#22 SourceFile
+  132、属性长度:2
+  133、源文件索引:#23 MyTest1.java
   ```

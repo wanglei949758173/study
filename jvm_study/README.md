@@ -1342,12 +1342,12 @@
   ```
 * **字节码文件分析实例**
   ```java
-  /*      
-	 * 模块编号  
-	 * 功能描述 
-	 * 文件名 MyTest1.java  
-	 * 作者 王磊 
-	 * 编写日期 2019年6月11日    
+  /*
+	 * 模块编号
+	 * 功能描述
+	 * 文件名 MyTest1.java
+	 * 作者 王磊
+	 * 编写日期 2019年6月11日
 	 */
 	package jvm.study.bytecode;
 
@@ -1361,10 +1361,10 @@
 		public void setA(int a) {
 			this.a = a;
 		}
-		
+
 	}
   ```
-  ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
+  ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
   ```
   1、魔数:CAFEBABE
   2、次版本号:0
@@ -1659,7 +1659,7 @@
       public static Integer i = 10;
       // 无构造函数，编译器会自动生成一个默认的构造函数
       ```
-      
+      ![<init>-赋值](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%B8%AD%E5%AF%B9%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC.png)
     + **实例成员变量**会在**所有的**构造函数中被赋予程序员指定初始值
     + **实例成员变量**的赋值会最先被执行，其次才会执行程序员在构造函数中所写的代码
     + **实例成员变量**的赋值与在代码行中的位置无关(无论写在哪里都会在构造函数中赋值)，

@@ -1341,6 +1341,29 @@
   }
   ```
 * **字节码文件分析实例**
+  ```java
+  /*      
+	 * 模块编号  
+	 * 功能描述 
+	 * 文件名 MyTest1.java  
+	 * 作者 王磊 
+	 * 编写日期 2019年6月11日    
+	 */
+	package jvm.study.bytecode;
+
+	public class MyTest1 {
+		private int a;
+
+		public int getA() {
+			return a;
+		}
+
+		public void setA(int a) {
+			this.a = a;
+		}
+		
+	}
+  ```
   ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
   ```
   1、魔数:CAFEBABE

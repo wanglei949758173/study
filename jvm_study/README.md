@@ -1661,8 +1661,40 @@
       ```
       ![<init>-赋值](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%B8%AD%E5%AF%B9%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC.png)
     + **实例成员变量**会在**所有的**构造函数中被赋予程序员指定初始值
+      ![<init>-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-2.png)
+      ![<init>-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-3.png)
     + **实例成员变量**的赋值会最先被执行，其次才会执行程序员在构造函数中所写的代码
+      ```java
+      public MyTest2(){
+          System.out.println("ni hao");
+      }
+      ```
+      ![<init>-4](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-4.png)
     + **实例成员变量**的赋值与在代码行中的位置无关(无论写在哪里都会在构造函数中赋值)，
     代码中的位置仅能决定赋值的顺序
+      ```java
+      String str = "Welcome";
+
+      public static Integer i = 10;
+
+      public MyTest2(){
+          System.out.println("ni hao");
+      }
+
+      public MyTest2(int i){
+
+      }
+
+      private int x = 5;
+      ```
+      ![<init>-5](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-5.png)
     + **静态成员变量**会在静态代码块中被赋予程序员指定的初始值
+      ![<clinit>-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/clinit-1.png)
+    + 当程序中存在静态变量时，即使程序中未写static{}代码块，编译器也会为程序生成静态代码块
     + **静态成员变量**的赋值会最先被执行，其次才会执行程序员在静态代码块中所写的代码
+      ```java
+      static {
+          System.out.println("hahaha");
+      }
+      ```
+      ![<clinit>-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/clinit-2.png)

@@ -13,9 +13,18 @@ package jvm.study.bytecode;
 public class MyTest2 {
     String str = "Welcome";
 
-    private int x = 5;
 
     public static Integer i = 10;
+
+    public MyTest2(){
+        System.out.println("ni hao");
+    }
+
+    public MyTest2(int i){
+
+    }
+
+    private int x = 5;
 
     public static void main(String[] args) {
         MyTest2 myTest2 = new MyTest2();
@@ -41,5 +50,9 @@ public class MyTest2 {
         synchronized (MyTest2.class) {
             System.out.println("Hello World");
         }
+    }
+
+    static {
+        System.out.println("hahaha");
     }
 }

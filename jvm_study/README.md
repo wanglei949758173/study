@@ -1698,3 +1698,51 @@
       }
       ```
       ![<clinit>-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/clinit-2.png)
+    + 对**异常**字节码的分析
+      + 统一采用异常表的方式来对异常进行处理
+        ```
+        // 异常表结构
+        {
+          u2 start_pc;
+          u2 end_pc;
+          u2 handler_pc;
+          u2 catch_type;
+          // start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc,不包含
+          end_pc)的指令抛出的异常会由这个表项来处理
+          // handler_pc表示处理异常的代码的开始处
+          // catch_type表示会被处理的异常类型,它指向常量池里的一个异常类。当catch_type为0时,
+          表示处理所有的异常
+        }
+        ```
+      + 在JDK1.4.2之前的版本中，并不是使用异常表的方式来对异常进行处理的，而是采用特定
+      的指令方式
+      + 当异常处理存在finally语句块时，现代化的JVM采取的处理方式是将finally语句块的字节码
+      拼接到每一个catch块后面，换句话说，程序中存在多少个catch块，就会在每一个catch块后面
+      重复多少个finally语句块的字节码
+      + 实例分析
+        ```java
+        public class MyTest3 {
+            public void test() {
+                try {
+                    InputStream is = new FileInputStream("test.txt");
+
+                    ServerSocket serverSocket = new ServerSocket(9999);
+                    serverSocket.accept();
+                } catch (FileNotFoundException ex) {
+
+                } catch (IOException ex) {
+
+                } catch (Exception ex) {
+
+                } finally {
+                    System.out.println("finally");
+                }
+            }
+        }
+        ```
+        异常表结构
+        ![exception-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-1.png)
+        catch_type为0时,表示处理所有异常，字节码中自动生成的
+        ![exception-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-2.png)
+        每一个catch块后都会重复finally代码块的执行指令
+        ![exception-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-3.png)

@@ -1740,9 +1740,9 @@
             }
         }
         ```
-        异常表结构
+        异常表结构<br/>
         ![exception-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-1.png)
-        catch_type为0时,表示处理所有异常，字节码中自动生成的
+        catch_type为0时,表示处理所有异常，字节码中自动生成的<br/>
         ![exception-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-2.png)
-        每一个catch块后都会重复finally代码块的执行指令
+        每一个catch块后都会重复finally代码块的执行指令<br/>
         ![exception-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-3.png)

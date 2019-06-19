@@ -1741,8 +1741,91 @@
         }
         ```
         异常表结构<br/>
-        ![exception-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-1.png)
+        ![exception-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-1.png)<br/>
         catch_type为0时,表示处理所有异常，字节码中自动生成的<br/>
-        ![exception-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-2.png)
+        ![exception-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-2.png)<br/>
         每一个catch块后都会重复finally代码块的执行指令<br/>
-        ![exception-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-3.png)
+        ![exception-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-3.png)<br/>
+        方法声明中thows的Exception是**定义在附加信息Exceptions中的**而不是在**附加属性Code**中的<br/>
+        ```java
+        public void test() throws IOException, NullPointerException {}
+        ```
+        ![exception-4](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-4.png)<br/>
+      + 栈帧
+        + 栈帧是一种用于帮助**虚拟机执行方法调用与方法执行**的数据结构。
+        + 栈帧本身是一种数据结构，封装了方法的**局部变量表**、**动态链接信息**、
+        **方法的返回地址** 及 **操作数栈**等信息。
+          + 局部变量表的说明
+            部变量表的容量以变量槽（Variable Slot，也称Slot）为最小单位，其中Slot的大小
+            在虚拟机规范中并没有说明，意味着如果一个Slot占32位，那么double,long等类型的变量就
+            需要存储在连续的Slot中，值得注意的是:**所有的局部变量所占的Slot的个数并不一定等于实际的Slot的个数，因为Slot是可以复用的**，
+            如下代码:
+            ```java
+            // c和d在if语句中才有效，因此在if代码块执行完时，c和d变量的Slot可能被e和f复用
+            public void test() {
+                int a = 2;
+                float b = 3.0f;
+
+                if (a < b) {
+                    int c = 1;
+                    int d = 4;
+                }
+                int e = 3;
+                int f = 6;
+            }
+            ```
+        + 符号引用
+          符号引用指的是类似常量池中类的全限定名方式的引用
+        + 直接引用
+          直接引用指的是引用内存中的地址，类似指针
+        + 有些符号引用是在类加载阶段或是第一次使用时就会转换为直接引用，这种转换叫做静态
+        解析；另外一些符号引用则是在每次运行期转换为直接引用，这种转换叫做动态链接，这体现
+        为Java的多态性。
+      + 方法调用的介绍
+        + `invokeinterface`: 调用接口中的方法，实际上是在运行期决定的，决定到底调用实现该接口的哪个对象的特定方法
+        + `invokestatic`:调用静态方法
+        + `invokespecial`: 调用自己的私有方法，构造方法(<init>)以及父类的方法
+        + `invokevirtual`:调用虚方法，运行期动态查找的过程
+        + `invokedynamic`: 动态调用方法(执行一些动态语言,如JavaScript)
+        + 静态解析的4中情形
+          + 静态方法
+          + 父类方法
+          + 构造方法
+          + 私有方法(无法被重写)
+          以上4类方法称作非虚方法，他们是在类加载阶段就可以将符号引用转换为直接引用的。
+        + 静态分派
+          ```java
+          public class MyTest5 {
+              public void test(Grandpa grandpa){
+                  System.out.println("grandpa");
+              }
+
+              public void test(Father father){
+                  System.out.println("father");
+              }
+
+              public void test(Son son){
+                  System.out.println("son");
+              }
+
+              public static void main(String[] args) {
+                  Grandpa father = new Father();
+                  Grandpa son = new Son();
+
+                  MyTest5 myTest5 = new MyTest5();
+                  myTest5.test(father); // grandpa
+                  myTest5.test(son); // grandpa
+              }
+          }
+
+          class Grandpa {
+          }
+
+          class Father extends Grandpa {
+          }
+
+          class Son extends Father {
+          }
+          // Grandpa father = new Father();
+          // 以上代码，father的静态类型是Grandpa，而实际类型是Father
+          ```

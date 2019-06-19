@@ -19,7 +19,7 @@ import java.net.ServerSocket;
  * @since 1.0.0
  */
 public class MyTest3 {
-    public void test() {
+    public void test() throws IOException, NullPointerException {
         try {
             InputStream is = new FileInputStream("test.txt");
 

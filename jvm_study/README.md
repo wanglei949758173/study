@@ -1829,3 +1829,45 @@
           // Grandpa father = new Father();
           // 以上代码，father的静态类型是Grandpa，而实际类型是Father
           ```
+        + 动态分派
+          + invokevirtual指令执行流程
+            1. 找到操作数栈栈顶的第一个元素；
+            2. 在找到的第一个元素中找到了与常量池方法描述符以及方法名称等都完全匹配的方法，
+            如果找到并且具有方法权限，则返回方法的直接引用，如果未找到完全匹配的方法，则从
+            子类向上一直查找，找到方法的直接引用并返回；
+            3. 调用找到的方法。
+         ```java
+         public class MyTest6 {
+              public static void main(String[] args) {
+                  Fruit apple = new Apple();
+                  Fruit orange = new Orange();
+
+                  apple.test(); // apple
+                  orange.test(); // orange
+
+                  apple = new Orange();
+                  apple.test(); // orange
+              }
+          }
+
+          class Fruit {
+              public void test() {
+                  System.out.println("Fruit");
+              }
+          }
+
+          class Apple extends Fruit {
+              @Override
+              public void test() {
+                  System.out.println("Apple");
+              }
+          }
+
+          class Orange extends Fruit {
+              @Override
+              public void test() {
+                  System.out.println("Orange");
+              }
+          }
+         ```
+         ![invokevirtual](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/invokevirtual.png)<br/>

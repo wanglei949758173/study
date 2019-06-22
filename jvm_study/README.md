@@ -1836,38 +1836,52 @@
             如果找到并且具有方法权限，则返回方法的直接引用，如果未找到完全匹配的方法，则从
             子类向上一直查找，找到方法的直接引用并返回；
             3. 调用找到的方法。
-         ```java
-         public class MyTest6 {
-              public static void main(String[] args) {
-                  Fruit apple = new Apple();
-                  Fruit orange = new Orange();
+            ```java
+             public class MyTest6 {
+                  public static void main(String[] args) {
+                      Fruit apple = new Apple();
+                      Fruit orange = new Orange();
 
-                  apple.test(); // apple
-                  orange.test(); // orange
+                      apple.test(); // apple
+                      orange.test(); // orange
 
-                  apple = new Orange();
-                  apple.test(); // orange
+                      apple = new Orange();
+                      apple.test(); // orange
+                  }
               }
-          }
 
-          class Fruit {
-              public void test() {
-                  System.out.println("Fruit");
+              class Fruit {
+                  public void test() {
+                      System.out.println("Fruit");
+                  }
               }
-          }
 
-          class Apple extends Fruit {
-              @Override
-              public void test() {
-                  System.out.println("Apple");
+              class Apple extends Fruit {
+                  @Override
+                  public void test() {
+                      System.out.println("Apple");
+                  }
               }
-          }
 
-          class Orange extends Fruit {
-              @Override
-              public void test() {
-                  System.out.println("Orange");
+              class Orange extends Fruit {
+                  @Override
+                  public void test() {
+                      System.out.println("Orange");
+                  }
               }
-          }
-         ```
-         ![invokevirtual](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/invokevirtual.png)<br/>
+            ```
+            ![invokevirtual](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/invokevirtual.png)<br/>
+          + 虚方法表
+            1. 针对**于方法调用动态分派的过程**，虚拟机会在类的方法区建立一个**虚方法表的数据结构**(virtual method table,vtable)
+                子类继承父类如果没有重写父类的方法时，**子类中不会copy父类的方法**，而是在调用时指向父类的方法
+                **子类中方法描述信息对应在常量池中的索引与父类是相同的**，这样可以加快在父类中检索方法的效率
+            2. 针对于`invokeinterface`指令来说，虚拟机会建立一个叫做**接口方法表的数据结构**(interface method table，itable)
+            ```java
+            Animal animal = new Animal();
+            //animal.test(null); 编译报错
+            animal.test("hello");
+
+            Dog dog = new Dog();
+            dog.test(new Date());
+            ```
+            ![vtable](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/vtable.png)<br/>

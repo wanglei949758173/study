@@ -1,0 +1,7 @@
+E:\git\study\c#\TestString\bin\Debug\TestString.exe.config
+E:\git\study\c#\TestString\bin\Debug\TestString.exe
+E:\git\study\c#\TestString\bin\Debug\TestString.pdb
+E:\git\study\c#\TestString\obj\Debug\TestString.csprojAssemblyReference.cache
+E:\git\study\c#\TestString\obj\Debug\TestString.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestString\obj\Debug\TestString.exe
+E:\git\study\c#\TestString\obj\Debug\TestString.pdb

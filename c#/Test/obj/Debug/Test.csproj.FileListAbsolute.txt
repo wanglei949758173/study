@@ -1,0 +1,6 @@
+E:\git\study\c#\Test\bin\Debug\Test.exe.config
+E:\git\study\c#\Test\bin\Debug\Test.exe
+E:\git\study\c#\Test\bin\Debug\Test.pdb
+E:\git\study\c#\Test\obj\Debug\Test.csproj.CoreCompileInputs.cache
+E:\git\study\c#\Test\obj\Debug\Test.exe
+E:\git\study\c#\Test\obj\Debug\Test.pdb

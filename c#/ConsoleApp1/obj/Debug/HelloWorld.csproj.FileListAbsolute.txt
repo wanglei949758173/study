@@ -1,0 +1,6 @@
+E:\git\study\c#\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+E:\git\study\c#\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+E:\git\study\c#\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+E:\git\study\c#\ConsoleApp1\obj\Debug\HelloWorld.csproj.CoreCompileInputs.cache
+E:\git\study\c#\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+E:\git\study\c#\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

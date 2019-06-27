@@ -1,0 +1,6 @@
+E:\git\study\c#\TestParams\bin\Debug\TestParams.exe.config
+E:\git\study\c#\TestParams\bin\Debug\TestParams.exe
+E:\git\study\c#\TestParams\bin\Debug\TestParams.pdb
+E:\git\study\c#\TestParams\obj\Debug\TestParams.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestParams\obj\Debug\TestParams.exe
+E:\git\study\c#\TestParams\obj\Debug\TestParams.pdb

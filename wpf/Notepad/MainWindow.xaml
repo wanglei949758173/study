@@ -1,0 +1,16 @@
+﻿<Window x:Class="Notepad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notepad"
+        mc:Ignorable="d"
+        Title="无标题 - 记事本" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,10,0,0" TextWrapping="Wrap" Text="文件(F)" VerticalAlignment="Top" Width="61"/>
+        <TextBlock HorizontalAlignment="Left" Margin="60,10,0,0" TextWrapping="Wrap" Text="编辑(E)" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="104,11,0,0" TextWrapping="Wrap" Text="格式(O)" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="156,10,0,0" TextWrapping="Wrap" Text="查看(V)" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="216,11,0,0" TextWrapping="Wrap" Text="帮助(H)" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

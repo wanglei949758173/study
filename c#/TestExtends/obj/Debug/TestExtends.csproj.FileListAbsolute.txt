@@ -1,0 +1,7 @@
+E:\git\study\c#\TestExtends\bin\Debug\TestExtends.exe.config
+E:\git\study\c#\TestExtends\bin\Debug\TestExtends.exe
+E:\git\study\c#\TestExtends\bin\Debug\TestExtends.pdb
+E:\git\study\c#\TestExtends\obj\Debug\TestExtends.csprojAssemblyReference.cache
+E:\git\study\c#\TestExtends\obj\Debug\TestExtends.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestExtends\obj\Debug\TestExtends.exe
+E:\git\study\c#\TestExtends\obj\Debug\TestExtends.pdb

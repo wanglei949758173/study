@@ -1,0 +1,7 @@
+E:\git\study\c#\TestProperty\obj\Debug\TestProperty.csprojAssemblyReference.cache
+E:\git\study\c#\TestProperty\obj\Debug\TestProperty.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestProperty\bin\Debug\TestProperty.exe.config
+E:\git\study\c#\TestProperty\bin\Debug\TestProperty.exe
+E:\git\study\c#\TestProperty\bin\Debug\TestProperty.pdb
+E:\git\study\c#\TestProperty\obj\Debug\TestProperty.exe
+E:\git\study\c#\TestProperty\obj\Debug\TestProperty.pdb

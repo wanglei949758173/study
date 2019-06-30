@@ -1,0 +1,7 @@
+E:\git\study\c#\TestCollection\bin\Debug\TestCollection.exe.config
+E:\git\study\c#\TestCollection\bin\Debug\TestCollection.exe
+E:\git\study\c#\TestCollection\bin\Debug\TestCollection.pdb
+E:\git\study\c#\TestCollection\obj\Debug\TestCollection.csprojAssemblyReference.cache
+E:\git\study\c#\TestCollection\obj\Debug\TestCollection.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestCollection\obj\Debug\TestCollection.exe
+E:\git\study\c#\TestCollection\obj\Debug\TestCollection.pdb

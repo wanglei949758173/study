@@ -1,0 +1,7 @@
+C:\Users\Administrator\source\repos\TestStream\bin\Debug\TestStream.exe.config
+C:\Users\Administrator\source\repos\TestStream\bin\Debug\TestStream.exe
+C:\Users\Administrator\source\repos\TestStream\bin\Debug\TestStream.pdb
+C:\Users\Administrator\source\repos\TestStream\obj\Debug\TestStream.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\TestStream\obj\Debug\TestStream.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\TestStream\obj\Debug\TestStream.exe
+C:\Users\Administrator\source\repos\TestStream\obj\Debug\TestStream.pdb

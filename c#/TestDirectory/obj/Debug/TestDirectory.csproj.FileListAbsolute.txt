@@ -1,0 +1,7 @@
+C:\Users\Administrator\source\repos\TestDirectory\bin\Debug\TestDirectory.exe.config
+C:\Users\Administrator\source\repos\TestDirectory\bin\Debug\TestDirectory.exe
+C:\Users\Administrator\source\repos\TestDirectory\bin\Debug\TestDirectory.pdb
+C:\Users\Administrator\source\repos\TestDirectory\obj\Debug\TestDirectory.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\TestDirectory\obj\Debug\TestDirectory.exe
+C:\Users\Administrator\source\repos\TestDirectory\obj\Debug\TestDirectory.pdb
+C:\Users\Administrator\source\repos\TestDirectory\obj\Debug\TestDirectory.csprojAssemblyReference.cache

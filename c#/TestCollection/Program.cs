@@ -56,6 +56,9 @@ namespace TestCollection
 
             Console.WriteLine("----------------------");
             Hashtable table = new Hashtable();
+            table.Add("name", "zhangsan");
+            table.Add("age",20);
+            Console.WriteLine(table.)
 
             Console.ReadKey();
         }

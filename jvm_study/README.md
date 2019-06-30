@@ -2080,3 +2080,11 @@
             }
             ```
 ---
+# 3. JVM内存区域划分
+* 虚拟机栈:Stack Frame 栈帧
+* 程序计数器(program Counter)
+* 本地方法栈:主要用于处理本地方法
+* 堆(Heap)：JVM管理的最大一块内存区域
+* 方法区(Method Area):存储元信息。永久代(permanent generation)，从JDK1.8开始，已经
+  彻底废弃了永久代，使用元空间(meta space)
+* 直接内存:Direct Memory

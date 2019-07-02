@@ -1,0 +1,7 @@
+C:\Users\Administrator\source\repos\TestVirtualMethod\bin\Debug\TestVirtualMethod.exe.config
+C:\Users\Administrator\source\repos\TestVirtualMethod\bin\Debug\TestVirtualMethod.exe
+C:\Users\Administrator\source\repos\TestVirtualMethod\bin\Debug\TestVirtualMethod.pdb
+C:\Users\Administrator\source\repos\TestVirtualMethod\obj\Debug\TestVirtualMethod.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\TestVirtualMethod\obj\Debug\TestVirtualMethod.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\TestVirtualMethod\obj\Debug\TestVirtualMethod.exe
+C:\Users\Administrator\source\repos\TestVirtualMethod\obj\Debug\TestVirtualMethod.pdb

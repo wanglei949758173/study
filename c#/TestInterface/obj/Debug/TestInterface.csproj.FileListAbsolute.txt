@@ -1,0 +1,7 @@
+E:\git\study\c#\TestInterface\bin\Debug\TestInterface.exe.config
+E:\git\study\c#\TestInterface\bin\Debug\TestInterface.exe
+E:\git\study\c#\TestInterface\bin\Debug\TestInterface.pdb
+E:\git\study\c#\TestInterface\obj\Debug\TestInterface.csprojAssemblyReference.cache
+E:\git\study\c#\TestInterface\obj\Debug\TestInterface.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestInterface\obj\Debug\TestInterface.exe
+E:\git\study\c#\TestInterface\obj\Debug\TestInterface.pdb

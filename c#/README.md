@@ -118,3 +118,17 @@
         s2.SayHello();
     }
     ```
+  * 显示实现接口
+    ```csharp
+    interface I1
+    {
+      void Test1();
+    }
+
+    class C1 : I1 {
+      // 显示实现接口,访问修饰符为private，且不能修改
+      void I1.Test1(){
+
+      }
+    }
+    ```

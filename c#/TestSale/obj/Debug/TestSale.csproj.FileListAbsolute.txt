@@ -1,0 +1,7 @@
+E:\git\study\c#\TestSale\bin\Debug\TestSale.exe.config
+E:\git\study\c#\TestSale\bin\Debug\TestSale.exe
+E:\git\study\c#\TestSale\bin\Debug\TestSale.pdb
+E:\git\study\c#\TestSale\obj\Debug\TestSale.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestSale\obj\Debug\TestSale.exe
+E:\git\study\c#\TestSale\obj\Debug\TestSale.pdb
+E:\git\study\c#\TestSale\obj\Debug\TestSale.csprojAssemblyReference.cache

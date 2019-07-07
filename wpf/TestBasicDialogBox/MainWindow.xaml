@@ -1,0 +1,19 @@
+﻿<Window x:Class="TestBasicDialogBox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestBasicDialogBox"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <!--基本对话框练习-->
+    <DockPanel Name="dockPanel1">
+        <StackPanel DockPanel.Dock="Bottom" Name="stakcPanel1" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Content="OK" Margin="10" Name="okBtn"  />
+            <Button Content="Cancel" Margin="10" Name="cancelBtn" />
+        </StackPanel>
+        <TextBox DockPanel.Dock="Top">This is text!!!</TextBox>
+    </DockPanel>
+</Window>

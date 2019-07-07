@@ -1,0 +1,18 @@
+﻿<Window x:Class="TestCanvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCanvas"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Canvas Name="canvas1">
+        <!--Canvas.Left Canvas.Right Canvas.Top Canvas.Bottom 表示距离Canvas的
+        左右、上下的距离,相当于绝对定位一样-->
+        <Button Content="Button" Canvas.Left="380" Canvas.Top="86" Width="75" Click="Button_Click"/>
+        <!--默认会被DataGrid控键遮住,设置Canvas.ZIndex="1"显示-->
+        <Button Content="Button" Canvas.ZIndex="1"  Canvas.Left="162" Canvas.Top="237" Width="75" RenderTransformOrigin="-2.639,-0.003"/>
+        <DataGrid Height="158" Canvas.Left="147" Canvas.Top="178" Width="260"/>
+
+    </Canvas>
+</Window>

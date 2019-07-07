@@ -1,0 +1,15 @@
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\bin\Debug\TestBubbleRouteEvent.exe.config
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\bin\Debug\TestBubbleRouteEvent.exe
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\bin\Debug\TestBubbleRouteEvent.pdb
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.csprojAssemblyReference.cache
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\App.g.cs
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent_MarkupCompile.cache
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent_MarkupCompile.lref
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\MainWindow.baml
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.g.resources
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.Properties.Resources.resources
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.csproj.GenerateResource.cache
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.exe
+E:\git\study\wpf\router-event\TestBubbleRouteEvent\TestBubbleRouteEvent\obj\Debug\TestBubbleRouteEvent.pdb

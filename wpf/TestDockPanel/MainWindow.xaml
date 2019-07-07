@@ -1,0 +1,19 @@
+﻿<Window x:Class="TestDockPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestDockPanel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DockPanel Name="dockPanel1" LastChildFill="True">
+            <Button Content="Top Button" DockPanel.Dock="Top" Name="button1" Height="35" />
+            <Button Content="Bottom Button" DockPanel.Dock="Bottom" Name="button3" Height="25" />
+            <Button Content="Left Button" DockPanel.Dock="Left" Name="button2" Width="150"/>
+            <Button Content="Rigth Button" DockPanel.Dock="Right" Name="button5" Width="100"/>
+            <Button Content="Remaining Space" Name="button4"  />
+        </DockPanel>
+
+    </Grid>
+</Window>

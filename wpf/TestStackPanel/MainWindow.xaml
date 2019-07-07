@@ -1,0 +1,28 @@
+﻿<Window x:Class="TestStackPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestStackPanel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <!--CornerRadius 设置圆角-->
+    <Border BorderBrush="Red" 
+            BorderThickness="2" Name="border1" Padding="20"
+            CornerRadius="5">
+        <!-- 默认垂直排列, 设置Orientation="Horizontal"水平排列-->
+        <StackPanel Name="stackPanel1" Orientation="Horizontal">
+            <Label Name="label1" Content="Label" Height="28"/>
+            <!--HorizontalAlignment="Left"设置水平对齐属性-->
+            <Button Name="Button1" Content="Button1" HorizontalAlignment="Left"/>
+            <!--VerticalAlignment="Center"设置垂直方向对齐属性-->
+            <Button Name="Button3" Content="Button3" VerticalAlignment="Center"/>
+            <!--Margin MinWidth MaxWidth-->
+            <Button Name="Button4" Content="Button4" Margin="10,10,10,10"
+                MinWidth="20" MaxWidth="40"/>
+            <Button Name="Button5" Content="Button5"/>
+
+        </StackPanel>
+    </Border>
+</Window>

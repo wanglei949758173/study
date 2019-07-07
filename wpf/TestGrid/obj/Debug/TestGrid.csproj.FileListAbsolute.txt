@@ -1,0 +1,15 @@
+E:\git\study\wpf\TestGrid\bin\Debug\TestGrid.exe.config
+E:\git\study\wpf\TestGrid\bin\Debug\TestGrid.exe
+E:\git\study\wpf\TestGrid\bin\Debug\TestGrid.pdb
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.csprojAssemblyReference.cache
+E:\git\study\wpf\TestGrid\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\TestGrid\obj\Debug\App.g.cs
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid_MarkupCompile.cache
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid_MarkupCompile.lref
+E:\git\study\wpf\TestGrid\obj\Debug\MainWindow.baml
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.g.resources
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.Properties.Resources.resources
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.csproj.GenerateResource.cache
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.exe
+E:\git\study\wpf\TestGrid\obj\Debug\TestGrid.pdb

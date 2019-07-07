@@ -1,0 +1,15 @@
+E:\git\study\wpf\TestBasicDialogBox\bin\Debug\TestBasicDialogBox.exe.config
+E:\git\study\wpf\TestBasicDialogBox\bin\Debug\TestBasicDialogBox.exe
+E:\git\study\wpf\TestBasicDialogBox\bin\Debug\TestBasicDialogBox.pdb
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.csprojAssemblyReference.cache
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\App.g.cs
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox_MarkupCompile.cache
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox_MarkupCompile.lref
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\MainWindow.baml
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.g.resources
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.Properties.Resources.resources
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.csproj.GenerateResource.cache
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.exe
+E:\git\study\wpf\TestBasicDialogBox\obj\Debug\TestBasicDialogBox.pdb

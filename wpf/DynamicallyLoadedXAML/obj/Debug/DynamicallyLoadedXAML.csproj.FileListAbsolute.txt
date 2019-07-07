@@ -1,0 +1,14 @@
+E:\git\study\wpf\DynamicallyLoadedXAML\bin\Debug\DynamicallyLoadedXAML.exe.config
+E:\git\study\wpf\DynamicallyLoadedXAML\bin\Debug\DynamicallyLoadedXAML.exe
+E:\git\study\wpf\DynamicallyLoadedXAML\bin\Debug\DynamicallyLoadedXAML.pdb
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.csprojAssemblyReference.cache
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML_MarkupCompile.cache
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML_MarkupCompile.lref
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\MainWindow.baml
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.g.resources
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.Properties.Resources.resources
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.csproj.GenerateResource.cache
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.exe
+E:\git\study\wpf\DynamicallyLoadedXAML\obj\Debug\DynamicallyLoadedXAML.pdb

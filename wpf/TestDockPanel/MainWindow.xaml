@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <!-- LastChildFill="True" 让最后一个子元素填满剩余的区域-->
         <DockPanel Name="dockPanel1" LastChildFill="True">
+            <!-- 元素的放置顺序会改变布局 -->
             <Button Content="Top Button" DockPanel.Dock="Top" Name="button1" Height="35" />
             <Button Content="Bottom Button" DockPanel.Dock="Bottom" Name="button3" Height="25" />
             <Button Content="Left Button" DockPanel.Dock="Left" Name="button2" Width="150"/>

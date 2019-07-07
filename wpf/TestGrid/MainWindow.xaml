@@ -6,25 +6,48 @@
         xmlns:local="clr-namespace:TestGrid"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid ShowGridLines="False" UseLayoutRounding="True">
+    <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="2*" MinWidth="50"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Button Margin="10" Content="LeftTop" Grid.Row="0" Grid.Column="0" />
-        <Button Margin="10" Content="CenterTop" Grid.Row="0" Grid.Column="3" />
-        <Button Margin="10" Content="RightTop" Grid.Row="0" Grid.Column="2" />
-        <Button Margin="10" Content="LeftBottom" Grid.Row="1" Grid.Column="0" />
-        <Button Margin="10" Content="CenterBottom" Grid.Row="1" Grid.Column="2" />
-        <Button Margin="10" Content="RightBottom" Grid.Row="1" Grid.Column="3" />
-        <GridSplitter Grid.Column="1" Width="3" Grid.RowSpan="2" 
+        <Grid ShowGridLines="False" UseLayoutRounding="True" Grid.Row="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <!-- 设置Width="*" Width="2*" 可以让一列的宽为另一列的二倍 -->
+                <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="2*" MinWidth="50"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Text" />
+            </Grid.ColumnDefinitions>
+            <Button Margin="10" Content="LeftTop" Grid.Row="0" Grid.Column="0" />
+            <Button Margin="10" Content="CenterTop" Grid.Row="0" Grid.Column="3" />
+            <Button Margin="10" Content="RightTop" Grid.Row="0" Grid.Column="2" />
+            <Button Margin="10" Content="LeftBottom" Grid.Row="1" Grid.Column="0" />
+            <Button Margin="10" Content="CenterBottom" Grid.Row="1" Grid.Column="2" />
+            <Button Margin="10" Content="RightBottom" Grid.Row="1" Grid.Column="3" />
+            <!-- RowSpan 和 ColSpan 可以指定元素占用多行或多列 -->
+            <!-- GridSplitter为分割线,可以左右拖动 -->
+            <GridSplitter Grid.Column="1" Width="3" Grid.RowSpan="2" 
                       HorizontalAlignment="Center"
                       VerticalAlignment="Stretch"/>
+            <Label Content="我的宽度很宽，你和我保持一样" Grid.Row="0" Grid.Column="4" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="Text" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="我的宽度很窄" />
+        </Grid>
     </Grid>
+   
 </Window>

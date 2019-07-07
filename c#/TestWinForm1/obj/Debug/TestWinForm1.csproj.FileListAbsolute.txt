@@ -1,0 +1,10 @@
+E:\git\study\c#\TestWinForm1\bin\Debug\TestWinForm1.exe.config
+E:\git\study\c#\TestWinForm1\bin\Debug\TestWinForm1.exe
+E:\git\study\c#\TestWinForm1\bin\Debug\TestWinForm1.pdb
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.csprojAssemblyReference.cache
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.Properties.Resources.resources
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.csproj.GenerateResource.cache
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.csproj.CoreCompileInputs.cache
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.exe
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.pdb
+E:\git\study\c#\TestWinForm1\obj\Debug\TestWinForm1.Form1.resources

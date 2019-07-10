@@ -167,5 +167,90 @@
     ```
     // 键盘输入依次触发的事件如下
     PreviewKeyDown
+    KeyDown
+    previewTextInput
+    TextInput
+    previewKeyUp
+    KeyUp
+    ```
+# 5. 控件类
+  * 设置字体更加清晰
+  ```xml
+  <!-- 通过设置附加属性TextOptions.TextFormattingMode="Display"来调整文本的清晰度 -->
+  <TextBox FontSize="12">这一行文本清晰度普通</TextBox>
+  <TextBox FontSize="12" TextOptions.TextFormattingMode="Display">这一行文本更加清晰</TextBox>
+  ```
+  * Target(Target可以绑定另一个控件)
+     ```xml
+     <!-- 测试Target属性 _A表示按A键光标直接转到textBox1 -->
+    <StackPanel Name="stackPanel1">
+        <Label Name="label1" Target="{Binding ElementName=textBox1}" Margin="5">按下 _A</Label>
+        <TextBox Name="textBox1" Margin="5" />
+    </StackPanel>
+     ```
+  * Button(`IsCanel`属性和`IsDefault`属性)
+    ```xml
+    <!-- 设置IsCancel="True"默认点击ESC键时触发该按钮点击事件 -->
+    <Button IsCancel="True" Margin="10" Height="40" Click="Button_Click">canelBtn</Button>
+    <!-- 设置IsDefault="True"默认点击回车时触发该按钮点击事件 -->
+    <Button IsDefault="True" Margin="10" Height="40" Click="Button_Click_1">defaultBtn</Button>
+    ```
+  * ToolTip
+    ```xml
+    <!-- 给按钮设置提示信息 -->
+    <Button Height="30" Margin="30"  Content="按钮">
+        <Button.ToolTip>
+            <ToolTip Background="AliceBlue">
+                <StackPanel>
+                    <TextBlock>THIS IS A Button</TextBlock>
+                </StackPanel>
+            </ToolTip>
+        </Button.ToolTip>
+    </Button>
+    ```
+  * RadioButton
+    ```xml
+    <!-- 放在同一容器下，默认是一组,如果放在不同容器下，可以使用GroupName=""属性标识单选按钮为一组 -->
+    <WrapPanel Margin="50,100,50,50">
+        <RadioButton Content="学习" />
+        <RadioButton Content="打游戏" />
+    </WrapPanel>
+    ```
+  * CheckBox
+    ```xml
+    <WrapPanel Orientation="Horizontal" Margin="50" Height="60" VerticalAlignment="Top">
+        <CheckBox Content="乒乓球" HorizontalAlignment="Left" />
+        <CheckBox Content="篮球" HorizontalAlignment="Left"  />
+        <CheckBox Content="足球" HorizontalAlignment="Left"  />
+    </WrapPanel>
+    ```
+  * Popup
+    ```xml
+    <StackPanel Margin="20">
+        <TextBlock TextWrapping="Wrap">
+            测试使用Popup，再说一些废话加长以下看看,换行就行。
+            <Run TextDecorations="Underline" MouseEnter="Run_MouseEnter">点我</Run>
+        </TextBlock>
+        <Popup Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200"
+               PopupAnimation="Slide" AllowsTransparency="True">
+            <Border BorderBrush="Beige" BorderThickness="2" Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap">
+                    查看更多信息,请看
+                    <Hyperlink NavigateUri="http://www.baidu.com" Click="Hyperlink_Click">百度</Hyperlink>
+                </TextBlock>
+            </Border>
+        </Popup>
+    </StackPanel>
+    ```
+    ```csharp
+    private void Run_MouseEnter(object sender, MouseEventArgs e)
+    {
+        // 显示Popup，设置IsOpen属性为true
+        this.popLink.IsOpen = true;
+    }
 
+    private void Hyperlink_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start(((Hyperlink)sender).NavigateUri.ToString());
+    }
     ```

@@ -1,0 +1,18 @@
+﻿<Window x:Class="TestButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestButton"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!-- 测试Button的IsCanel和IsDefault属性 -->
+        <StackPanel>
+            <!-- 设置IsCancel="True"默认点击ESC键时触发该按钮点击事件 -->
+            <Button IsCancel="True" Margin="10" Height="40" Click="Button_Click">canelBtn</Button>
+            <!-- 设置IsDefault="True"默认点击回车时触发该按钮点击事件 -->
+            <Button IsDefault="True" Margin="10" Height="40" Click="Button_Click_1">defaultBtn</Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="TestPopup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestPopup"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="300">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock TextWrapping="Wrap">
+                测试使用Popup，再说一些废话加长以下看看,换行就行。
+                <Run TextDecorations="Underline" MouseEnter="Run_MouseEnter">点我</Run>
+            </TextBlock>
+            <Popup Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200"
+                   PopupAnimation="Slide" AllowsTransparency="True">
+                <Border BorderBrush="Beige" BorderThickness="2" Background="White">
+                    <TextBlock Margin="10" TextWrapping="Wrap">
+                        查看更多信息,请看
+                        <Hyperlink NavigateUri="http://www.baidu.com" Click="Hyperlink_Click">百度</Hyperlink>
+                    </TextBlock>
+                </Border>
+            </Popup>
+        </StackPanel>
+    </Grid>
+</Window>

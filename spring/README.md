@@ -1,5 +1,5 @@
 # 1. IOC
-  ## 1.1 BeanFactory
+## 1.1 BeanFactory
   * **定义:** 访问spring容器的根接口
   * **获取Bean的步骤**
     1. 在当前容器中寻找Bean;
@@ -25,3 +25,38 @@
       (调用销毁通知后置处理器的postProcessBeforeDestruction()方法)
     2. DisposableBean's destroy (调用Bean的destroy()方法)
     3. a custom destroy-method definition (调用自定义的销毁方法)
+
+## 1.2 FactoryBean
+  * **说明:** FactoryBean是一个**创建Bean**的**工厂Bean**，FactoryBean本身也是一个Bean，
+    但其本身也是一个工厂,FactoryBean的作用是提供某个类型的Bean,**即调用FactoryBean的getBean()返回的是一个Bean，而不是FactoryBean的实例。**
+  * `&`的说明
+    ```java
+    // 假设myJndiObject是一个FactoryBean
+    getBean("myJndiObject"); // 此调用返回的是myJndiObject创建的Bean
+    getBean("&myJndiObject"); // 此调用返回的是myJndiObject本身,即FactoryBean本身
+    ```
+
+## 1.3 DefaultListableBeanFactory
+  * 创建Bean工厂,加载XML的示例
+  ```java
+  public static void main(String[] args) {
+		// 定义spring配置文件
+		// <bean name="person" class="study.spring.Person"></bean>
+
+		// 创建工厂
+		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+		// 创建resource
+		ClassPathResource resource = new ClassPathResource("testDefaultListableBeanFactory.xml");
+
+		// 创建Reader
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+
+		// 从resource加载BeanDefinition
+		reader.loadBeanDefinitions(resource);
+
+		// 获取Bean
+		Person person = beanFactory.getBean(Person.class);
+		System.out.println(person);
+	}
+  ```

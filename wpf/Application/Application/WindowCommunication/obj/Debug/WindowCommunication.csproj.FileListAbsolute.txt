@@ -1,0 +1,16 @@
+E:\git\study\wpf\Application\Application\WindowCommunication\bin\Debug\WindowCommunication.exe.config
+E:\git\study\wpf\Application\Application\WindowCommunication\bin\Debug\WindowCommunication.exe
+E:\git\study\wpf\Application\Application\WindowCommunication\bin\Debug\WindowCommunication.pdb
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\MyWindow.g.cs
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication_MarkupCompile.cache
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication_MarkupCompile.lref
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\MainWindow.baml
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\MyWindow.baml
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.g.resources
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.Properties.Resources.resources
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.csproj.GenerateResource.cache
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.exe
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.pdb
+E:\git\study\wpf\Application\Application\WindowCommunication\obj\Debug\WindowCommunication.csprojAssemblyReference.cache

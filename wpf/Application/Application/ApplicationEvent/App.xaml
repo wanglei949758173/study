@@ -1,0 +1,9 @@
+﻿<Application x:Class="ApplicationEvent.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ApplicationEvent"
+             ShutdownMode="OnLastWindowClose" StartupUri="Window1.xaml">
+    <Application.Resources>
+        <!--通过ShutdownMode="OnLastWindowClose"属性设置程序的关闭模式-->
+    </Application.Resources>
+</Application>

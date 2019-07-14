@@ -1,0 +1,23 @@
+﻿<Window x:Class="TestScrollViewer.CanContentScroll"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestScrollViewer"
+        mc:Ignorable="d"
+        Title="CanContentScroll" Height="208" Width="245">
+    <Grid>
+        <!-- 设置CanContentScroll="True"可以一次滚动一个元素 -->
+        <ScrollViewer Name="ScrollViewer1" Margin="3" 
+                      VerticalScrollBarVisibility="Auto"
+                      CanContentScroll="True">
+            <StackPanel Margin="2">
+                <Button Content="Button1" Height="100" Width="75" Margin="1" />
+                <Button Content="Button2" Height="100" Width="75" Margin="1" />
+                <Button Content="Button3" Height="100" Width="75" Margin="1" />
+                <Button Content="Button4" Height="100" Width="75" Margin="1" />
+                <Button Content="Button5" Height="100" Width="75" Margin="1" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,15 @@
+E:\git\study\wpf\component\component\TestExpander\bin\Debug\TestExpander.exe.config
+E:\git\study\wpf\component\component\TestExpander\bin\Debug\TestExpander.exe
+E:\git\study\wpf\component\component\TestExpander\bin\Debug\TestExpander.pdb
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.csprojAssemblyReference.cache
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\App.g.cs
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander_MarkupCompile.cache
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander_MarkupCompile.lref
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\MainWindow.baml
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.g.resources
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.Properties.Resources.resources
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.csproj.GenerateResource.cache
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.exe
+E:\git\study\wpf\component\component\TestExpander\obj\Debug\TestExpander.pdb

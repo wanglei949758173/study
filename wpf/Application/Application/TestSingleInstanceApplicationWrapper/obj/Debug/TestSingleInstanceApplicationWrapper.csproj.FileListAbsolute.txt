@@ -1,0 +1,14 @@
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\bin\Debug\TestSingleInstanceApplicationWrapper.exe.config
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\bin\Debug\TestSingleInstanceApplicationWrapper.exe
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\bin\Debug\TestSingleInstanceApplicationWrapper.pdb
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.csprojAssemblyReference.cache
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper_MarkupCompile.cache
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper_MarkupCompile.lref
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\MainWindow.baml
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.g.resources
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.Properties.Resources.resources
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.csproj.GenerateResource.cache
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.exe
+E:\git\study\wpf\Application\Application\TestSingleInstanceApplicationWrapper\obj\Debug\TestSingleInstanceApplicationWrapper.pdb

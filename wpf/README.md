@@ -254,3 +254,174 @@
         Process.Start(((Hyperlink)sender).NavigateUri.ToString());
     }
     ```
+  * ScrollViewer
+    ```xml
+    <!-- 一个可以滚动的容器组件 -->
+    <ScrollViewer Name="ScrollViewer1" Margin="3"
+                  VerticalScrollBarVisibility="Auto">
+        <TextBox TextWrapping="Wrap">
+            清华大学（Tsinghua University），简称“清华”，由中华人民共和国教育部直属，中央直管副部级建制，位列“211工程”、“985工程”、“世界一流大学和一流学科”，入选“基础学科拔尖学生培养试验计划”、“高等学校创新能力提升计划”、“高等学校学科创新引智计划”，为九校联盟、中国大学校长联谊会、亚洲大学联盟、环太平洋大学联盟、清华—剑桥—MIT低碳大学联盟成员，被誉为“红色工程师的摇篮”。
+清华大学的前身清华学堂始建于1911年，校名“清华”源于校址“清华园”地名，是清政府设立的留美预备学校，其建校的资金源于1908年美国退还的部分庚子赔款。1912年更名为清华学校。1928年更名为国立清华大学。1937年抗日战争全面爆发后南迁长沙，与国立北京大学、私立南开大学组建国立长沙临时大学，1938年迁至昆明改名为国立西南联合大学。1946年迁回清华园。1949年中华人民共和国成立，清华大学进入新的发展阶段。1952年全国高等学校院系调整后成为多科性工业大学。1978年以来逐步恢复和发展为综合性的研究型大学。
+水木清华，钟灵毓秀，清华大学秉持“自强不息、厚德载物”的校训和“行胜于言”的校风，坚持“中西融汇、古今贯通、文理渗透”的办学风格和“又红又专、全面发展”的培养特色，弘扬“爱国奉献、追求卓越”传统和“人文日新”精神。恰如清华园工字厅内对联所书——“槛外山光，历春夏秋冬、万千变幻，都非凡境；窗中云影，任东西南北、去来澹荡，洵是仙居”。
+        </TextBox>
+    </ScrollViewer>
+    ```
+    ```xml
+    <!-- 设置CanContentScroll="True"可以一次滚动一个元素 -->
+    <ScrollViewer Name="ScrollViewer1" Margin="3"
+                  VerticalScrollBarVisibility="Auto"
+                  CanContentScroll="True">
+        <StackPanel Margin="2">
+            <Button Content="Button1" Height="100" Width="75" Margin="1" />
+            <Button Content="Button2" Height="100" Width="75" Margin="1" />
+            <Button Content="Button3" Height="100" Width="75" Margin="1" />
+            <Button Content="Button4" Height="100" Width="75" Margin="1" />
+            <Button Content="Button5" Height="100" Width="75" Margin="1" />
+        </StackPanel>
+    </ScrollViewer>
+    ```
+  * GroupBox
+    ```xml
+    <GroupBox Header="填写爱好信息" Margin="3">
+        <StackPanel>
+            <RadioButton Content="乒乓球" Margin="3" Height="16" />
+            <RadioButton Content="羽毛球" Margin="3" Height="16" />
+            <RadioButton Content="篮球" Margin="3" Height="16" />
+            <Button Content="下一步" Height="30" Margin="3" />
+        </StackPanel>
+    </GroupBox>
+    ```
+  * TabControl
+    ```xml
+    <TabControl Name="tabControl1" Margin="3" >
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock>添加用户</TextBlock>
+            </TabItem.Header>
+            <StackPanel Margin="10">
+                <TextBox Text="username" Margin="10"/>
+                <TextBox Text="password" Margin="10"/>
+                <TextBox Text="age" Margin="10"/>
+                <Button Margin="10" Content="添加" />
+            </StackPanel>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock>用户列表</TextBlock>
+            </TabItem.Header>
+            <StackPanel Margin="10">
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+    ```
+  * Expander
+    ```xml
+    <StackPanel>
+        <Expander Header="清华大学" Margin="5" Padding="5" >
+            <TextBlock TextWrapping="Wrap">
+                清华大学（Tsinghua University），简称“清华”，由中华人民共和国教育部直属，中央直管副部级建制，位列“211工程”、“985工程”、“世界一流大学和一流学科”，入选“基础学科拔尖学生培养试验计划”、“高等学校创新能力提升计划”、“高等学校学科创新引智计划”，为九校联盟、中国大学校长联谊会、亚洲大学联盟、环太平洋大学联盟、清华—剑桥—MIT低碳大学联盟成员，被誉为“红色工程师的摇篮”。
+清华大学的前身清华学堂始建于1911年，校名“清华”源于校址“清华园”地名，是清政府设立的留美预备学校，其建校的资金源于1908年美国退还的部分庚子赔款。1912年更名为清华学校。1928年更名为国立清华大学。1937年抗日战争全面爆发后南迁长沙，与国立北京大学、私立南开大学组建国立长沙临时大学，1938年迁至昆明改名为国立西南联合大学。1946年迁回清华园。1949年中华人民共和国成立，清华大学进入新的发展阶段。1952年全国高等学校院系调整后成为多科性工业大学。1978年以来逐步恢复和发展为综合性的研究型大学。
+水木清华，钟灵毓秀，清华大学秉持“自强不息、厚德载物”的校训和“行胜于言”的校风，坚持“中西融汇、古今贯通、文理渗透”的办学风格和“又红又专、全面发展”的培养特色，弘扬“爱国奉献、追求卓越”传统和“人文日新”精神。恰如清华园工字厅内对联所书——“槛外山光，历春夏秋冬、万千变幻，都非凡境；窗中云影，任东西南北、去来澹荡，洵是仙居”。
+            </TextBlock>
+        </Expander>
+        <Expander Header="北京大学" Margin="5" Padding="5" IsExpanded="True">
+            <TextBlock TextWrapping="Wrap">
+                北京大学（Peking University），简称“北大”，由中华人民共和国教育部直属，中央直管副部级建制，位列“211工程”、“985工程”、“世界一流大学和一流学科”，入选“基础学科拔尖学生培养试验计划”、“高等学校创新能力提升计划”、“高等学校学科创新引智计划”，为九校联盟、中国大学校长联谊会、京港大学联盟、亚洲大学联盟、东亚研究型大学协会、国际研究型大学联盟、环太平洋大学联盟、东亚四大学论坛、国际公立大学论坛、中俄综合性大学联盟成员。
+北京大学创立于1898年维新变法之际，初名京师大学堂，是中国近现代第一所国立综合性大学，创办之初也是国家最高教育行政机关。1912年改为国立北京大学。1937年南迁至长沙，与国立清华大学和私立南开大学组成国立长沙临时大学，1938年迁至昆明，更名为国立西南联合大学。1946年复员返回北平。1952年经全国高校院系调整，成为以文理基础学科为主的综合性大学，并自北京城内沙滩等地迁至现址。2000年与原北京医科大学合并，组建为新的北京大学。
+北京大学是新文化运动的中心和五四运动的策源地，最早在中国传播马克思主义和科学、民主思想，是创建中国共产党的重要基地之一。长期以来，北京大学始终与中国和中国人民共命运，与时代和社会同前进，是培养和造就高素质创造性人才的摇篮，恰如蔡元培先生所言：“大学者，囊括大典，网罗众家之学府也……此思想自由之通则，而大学之所以为大也。”
+            </TextBlock>
+        </Expander>
+    </StackPanel>
+    ```
+  * TextBox
+  * PasswordBox
+  * ListBox
+    ```xml
+    <ListBox Height="Auto" Margin="5" Name="listBox1">
+        <StackPanel>
+            <TextBlock>中国</TextBlock>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock>美国</TextBlock>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock>英国</TextBlock>
+        </StackPanel>
+    </ListBox>
+    ```
+  * ComboBox
+  * Slider
+    ```xml
+    <Slider Maximum="100" Minimum="0" Value="10" Ticks="10,30,60" TickPlacement="BottomRight" />
+    ```
+  * ProgressBar
+    ```xml
+    <ProgressBar Maximum="100" Minimum="0" Height="20" Margin="10" IsIndeterminate="True" />
+    ```
+  * Calendar
+    ```xml
+    <!-- DisplayDateStart和DisplayDateEnd属性可以指定可以选择的开始时间和结束时间 -->
+    <Calendar SelectionMode="SingleDate"  DisplayDateStart="2019-07-01" DisplayDateEnd="2019-07-09"/>
+    ```
+  * DatePicker
+    ```xml
+    <!-- IsDropDownOpen属性可以让日历默认展开 -->
+    <DatePicker Margin="20" Width="200" IsDropDownOpen="True" />
+    ```
+# 6. Application
+  ```xml
+  <Application.Resources>
+      <!--通过ShutdownMode="OnLastWindowClose"属性设置程序的关闭模式-->
+  </Application.Resources>
+  ```
+  ```csharp
+  protected override void OnStartup(StartupEventArgs e)
+  {
+      // 通过回调事件OnXXX来干自己想干的事
+      base.OnStartup(e);
+      MainWindow window = new MainWindow();
+
+      if(e.Args.Length > 0)
+      {
+          string file = e.Args[0];
+          if (File.Exists(file))
+          {
+              window.LoadFile(file);
+          }
+      }
+      window.Show();
+  }
+  ```
+  * 创建一个单实例的wpf程序
+    ```csharp
+    // 先添加 Microsoft.VisualBasic的动态链接库
+    class SingleInstanceApplicationWrapper : WindowsFormsApplicationBase
+    {
+        public SingleInstanceApplicationWrapper()
+        {
+            // 设置单实例属性为true
+            this.IsSingleInstance = true;
+        }
+
+        private WpfApp app;
+
+        protected override bool OnStartup(StartupEventArgs eventArgs)
+        {
+            base.OnStartup(eventArgs);
+            app = new WpfApp();
+            app.Run();
+            return false;
+        }
+
+        protected override void OnStartupNextInstance(StartupNextInstanceEventArgs eventArgs)
+        {
+            base.OnStartupNextInstance(eventArgs);
+            app.ShowWindow();
+        }
+    }
+    ```
+# 7. 资源
+  * Resource <br>
+    打包时会直接嵌入到exe中
+  * 内容文件 <br>
+    输出到程序目录下

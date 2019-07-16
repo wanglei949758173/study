@@ -1,0 +1,15 @@
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\bin\Debug\BindingHelloWorld.exe.config
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\bin\Debug\BindingHelloWorld.exe
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\bin\Debug\BindingHelloWorld.pdb
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.csprojAssemblyReference.cache
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\App.g.cs
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld_MarkupCompile.cache
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld_MarkupCompile.lref
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\MainWindow.baml
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.g.resources
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.Properties.Resources.resources
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.csproj.GenerateResource.cache
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.exe
+E:\git\study\wpf\binding\Binding\BindingHelloWorld\obj\Debug\BindingHelloWorld.pdb

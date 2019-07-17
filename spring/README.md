@@ -68,12 +68,12 @@
 
     // DefaultListableBeanFactory父类 抽象的具有自动装配功能的工厂
     public AbstractAutowireCapableBeanFactory() {
-  		super();
-      // 忽略给定的自动装配依赖接口。
-  		ignoreDependencyInterface(BeanNameAware.class);
-  		ignoreDependencyInterface(BeanFactoryAware.class);
-  		ignoreDependencyInterface(BeanClassLoaderAware.class);
-  	}
+			super();
+			// 忽略给定的自动装配依赖接口。
+			ignoreDependencyInterface(BeanNameAware.class);
+			ignoreDependencyInterface(BeanFactoryAware.class);
+			ignoreDependencyInterface(BeanClassLoaderAware.class);
+		}
 
     // AbstractAutowireCapableBeanFactory的父类抽象Bean工厂
     public AbstractBeanFactory() {
@@ -131,7 +131,7 @@
     // XmlBeanDefinitionReader的父类
     protected AbstractBeanDefinitionReader(BeanDefinitionRegistry registry) {
   		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
-      // 为成员变量工厂赋值
+  		// 为成员变量工厂赋值
   		this.registry = registry;
 
   		// Determine ResourceLoader to use.
@@ -143,20 +143,19 @@
   		}
 
   		// Inherit Environment if possible
-      // 如果课程,继承一个环境
+  		// 如果可能,继承一个环境
   		if (this.registry instanceof EnvironmentCapable) {
   			this.environment = ((EnvironmentCapable) this.registry).getEnvironment();
   		}
   		else {
   			this.environment = new StandardEnvironment();
   		}
-  	}
+	}
     ```
   * `reader.loadBeanDefinitions(resource)`源码分析
     ```java
-    @Override
   	public int loadBeanDefinitions(Resource resource) throws BeanDefinitionStoreException {
-      // EncodedResource实际上只进行资源编码集的设定,没有干其他的事
+  		// EncodedResource实际上只进行资源编码集的设定,没有干其他的事
   		return loadBeanDefinitions(new EncodedResource(resource));
   	}
 
@@ -166,7 +165,7 @@
   			logger.info("Loading XML bean definitions from " + encodedResource);
   		}
 
-      // 从ThreadLocal中获取资源
+  		// 从ThreadLocal中获取资源
   		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
   		if (currentResources == null) {
   			currentResources = new HashSet<EncodedResource>(4);
@@ -184,18 +183,15 @@
   				if (encodedResource.getEncoding() != null) {
   					inputSource.setEncoding(encodedResource.getEncoding());
   				}
-          // 加载BeanDefinitions
+  				// 加载BeanDefinitions
   				return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
-  			}
-  			finally {
+  			} finally {
   				inputStream.close();
   			}
-  		}
-  		catch (IOException ex) {
+  		} catch (IOException ex) {
   			throw new BeanDefinitionStoreException(
   					"IOException parsing XML document from " + encodedResource.getResource(), ex);
-  		}
-  		finally {
+  		} finally {
   			currentResources.remove(encodedResource);
   			if (currentResources.isEmpty()) {
   				this.resourcesCurrentlyBeingLoaded.remove();
@@ -206,50 +202,96 @@
     protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 			throws BeanDefinitionStoreException {
   		try {
-        // 加载文档
+  			// 加载文档
   			Document doc = doLoadDocument(inputSource, resource);
 
-        // 注册BeanDefinitions
+  			// 注册BeanDefinitions
   			return registerBeanDefinitions(doc, resource);
-  		}
-  		catch (BeanDefinitionStoreException ex) {
+  		} catch (BeanDefinitionStoreException ex) {
   			throw ex;
-  		}
-  		catch (SAXParseException ex) {
+  		} catch (SAXParseException ex) {
   			throw new XmlBeanDefinitionStoreException(resource.getDescription(),
   					"Line " + ex.getLineNumber() + " in XML document from " + resource + " is invalid", ex);
-  		}
-  		catch (SAXException ex) {
+  		} catch (SAXException ex) {
   			throw new XmlBeanDefinitionStoreException(resource.getDescription(),
   					"XML document from " + resource + " is invalid", ex);
-  		}
-  		catch (ParserConfigurationException ex) {
+  		} catch (ParserConfigurationException ex) {
   			throw new BeanDefinitionStoreException(resource.getDescription(),
   					"Parser configuration exception parsing XML from " + resource, ex);
-  		}
-  		catch (IOException ex) {
+  		} catch (IOException ex) {
   			throw new BeanDefinitionStoreException(resource.getDescription(),
   					"IOException parsing XML document from " + resource, ex);
-  		}
-  		catch (Throwable ex) {
+  		} catch (Throwable ex) {
   			throw new BeanDefinitionStoreException(resource.getDescription(),
   					"Unexpected exception parsing XML document from " + resource, ex);
   		}
   	}
-
-    // 加载文档
-    protected Document doLoadDocument(InputSource inputSource, Resource resource) throws Exception {
-      // private DocumentLoader documentLoader = new DefaultDocumentLoader();
+  	protected Document doLoadDocument(InputSource inputSource, Resource resource) throws Exception {
+  		// private DocumentLoader documentLoader = new DefaultDocumentLoader();
   		return this.documentLoader.loadDocument(inputSource, getEntityResolver(), this.errorHandler,
   				getValidationModeForResource(resource), isNamespaceAware());
   	}
 
-    // 注册BeanDefinitions
     public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+  		// 通过反射创建了一个BeanDefinitionDocumentReader
   		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
   		int countBefore = getRegistry().getBeanDefinitionCount();
+  		// 创建了一个ReaderContext对象,该对象持有了resource
   		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
-      // 新注册的Bean = 总数 - 之前的数量
+  		// 新注册的Bean = 总数 - 之前的数量
   		return getRegistry().getBeanDefinitionCount() - countBefore;
+  	}
+
+    protected BeanDefinitionDocumentReader createBeanDefinitionDocumentReader() {
+  		// 运用反射创建了一个BeanDefinitionDocumentReader对象
+  		return BeanDefinitionDocumentReader.class.cast(BeanUtils.instantiateClass(this.documentReaderClass));
+  	}
+
+    public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {
+  		this.readerContext = readerContext;
+  		logger.debug("Loading bean definitions");
+  		Element root = doc.getDocumentElement();
+  		doRegisterBeanDefinitions(root);
+  	}
+
+    protected void doRegisterBeanDefinitions(Element root) {
+  		// 任何嵌套的<beans>节点都会导致此方法的递归调用
+  		// 为了正确地传播和保存<beans>缺省-*属性，需要跟踪当前(父)委托，它可能为空
+  		// 创建新的(子)委托，并使用对父委托的引用进行回退，然后最终将this.delegate重置为其原始(父)引用。
+  		/*
+  		 	<beans name="beans1">
+  		 		<beans name="beans2">
+  		 			<beans name="beans3">
+  		 			</beans>
+  		 		</beans>
+  		 	</beans>
+  		 	执行流程,先解析beans3,设置父委托为beans2,再解析beans2，设置父委托为beans1，最后解析beans1，设置父委托为null
+  		 */
+  		BeanDefinitionParserDelegate parent = this.delegate;
+  		this.delegate = createDelegate(getReaderContext(), root, parent);
+
+  		// 设置Environment
+  		if (this.delegate.isDefaultNamespace(root)) {
+  			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
+  			if (StringUtils.hasText(profileSpec)) {
+  				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(profileSpec,
+  						BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
+  				if (!getReaderContext().getEnvironment().acceptsProfiles(specifiedProfiles)) {
+  					if (logger.isInfoEnabled()) {
+  						logger.info("Skipped XML bean definition file due to specified profiles [" + profileSpec
+  								+ "] not matching: " + getReaderContext().getResource());
+  					}
+  					return;
+  				}
+  			}
+  		}
+
+  		// 处理xml前,实际上什么都没做
+  		preProcessXml(root);
+  		parseBeanDefinitions(root, this.delegate);
+  		// 处理xml后,实际上什么都没做
+  		postProcessXml(root);
+
+  		this.delegate = parent;
   	}
     ```

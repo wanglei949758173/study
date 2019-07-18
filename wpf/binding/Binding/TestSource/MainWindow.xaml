@@ -1,0 +1,21 @@
+﻿<Window x:Class="TestSource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestSource"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <FontFamily x:Key="CustomFont">我的字体</FontFamily>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Margin="10">
+            <!--绑定到系统字体家族对象上-->
+            <TextBlock Margin="10" Text="{Binding Source={x:Static SystemFonts.IconFontFamily}, Path=Source}" />
+            
+            <!--绑定到资源上-->
+            <TextBlock Margin="10" Text="{Binding Source={StaticResource CustomFont}, Path=Source}" />
+        </StackPanel>
+    </Grid>
+</Window>

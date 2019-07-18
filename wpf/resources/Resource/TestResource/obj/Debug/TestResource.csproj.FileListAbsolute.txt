@@ -12,4 +12,6 @@ E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource.csproj.G
 E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource.csproj.CoreCompileInputs.cache
 E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource.exe
 E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource.pdb
+E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource.csprojAssemblyReference.cache
 E:\git\study\wpf\resources\Resource\TestResource\obj\Debug\TestResource_Content.g.cs
+E:\git\study\wpf\resources\Resource\TestResource\bin\Debug\images\timg.jpg

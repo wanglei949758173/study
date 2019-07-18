@@ -22,6 +22,7 @@
             this is a aaa        bbb
     </TextBox>
     ```
+
 # 2. wpf布局
   * StackPanel <br>
     **StackPanel**主要是控制容器内元素的排列方式(水平排列/垂直排列)
@@ -152,6 +153,7 @@
         <DataGrid Height="158" Canvas.Left="147" Canvas.Top="178" Width="260"/>
     </Canvas>
     ```
+
 # 3. 路由事件
   * 路由事件的三种方式
     + 直接路由事件
@@ -162,6 +164,7 @@
         e.Handled = true;让路由事件不再向上传递
     + 隧道路由事件
       事件由上级元素向下级元素传递 preview
+
 # 4. 事件
   * 键盘输入
     ```
@@ -173,6 +176,7 @@
     previewKeyUp
     KeyUp
     ```
+
 # 5. 控件类
   * 设置字体更加清晰
   ```xml
@@ -368,6 +372,7 @@
     <!-- IsDropDownOpen属性可以让日历默认展开 -->
     <DatePicker Margin="20" Width="200" IsDropDownOpen="True" />
     ```
+
 # 6. Application
   ```xml
   <Application.Resources>
@@ -420,12 +425,16 @@
         }
     }
     ```
+
 # 7. 资源
   * Resource <br>
     打包时会直接嵌入到exe中
   * 内容文件 <br>
     输出到程序目录下
+
 # 8. 绑定
+
+## 8.1 绑定到元素对象
   * 绑定表达式
     ```xml
     <Slider Name="Slider1" Height="Auto"  Margin="10" Minimum="15" Maximum="40" Value="20"
@@ -471,4 +480,53 @@
     {
         BindingOperations.ClearAllBindings(this.textblock1);
     }
+    ```
+  *
+
+## 8.2 绑定到非元素对象
+  * Source属性
+    ```xml
+    <Window.Resources>
+        <FontFamily x:Key="CustomFont">我的字体</FontFamily>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Margin="10">
+            <!--绑定到系统字体家族对象上-->
+            <TextBlock Margin="10" Text="{Binding Source={x:Static SystemFonts.IconFontFamily}, Path=Source}" />
+
+            <!--绑定到资源上-->
+            <TextBlock Margin="10" Text="{Binding Source={StaticResource CustomFont}, Path=Source}" />
+        </StackPanel>
+    </Grid>
+    ```
+  * RelativeSource属性
+    ```xml
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- 绑定到window的窗口上 -->
+            <TextBlock Margin="10">
+                <TextBlock.Text>
+                    <Binding Path="Title">
+                        <Binding.RelativeSource>
+                            <RelativeSource Mode="FindAncestor" AncestorType="{x:Type Window}" />
+                        </Binding.RelativeSource>
+                    </Binding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <!-- 更简洁的使用RelativeSource属性 -->
+            <TextBlock Margin="10" Text="{Binding Path=Title,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}" />
+        </StackPanel>
+    </Grid>
+    ```
+  * DataContext属性
+    ```xml
+    <StackPanel Margin="10" DataContext="{x:Static SystemFonts.IconFontFamily}">
+        <!-- 相当于{Binding Source={x:Static SystemFonts.IconFontFamily}, Path=Source} -->
+        <TextBlock Text="{Binding Path=Source}" Margin="10" />
+        <!-- 相当于{Binding Source={x:Static SystemFonts.IconFontFamily}, Path=LineSpacing} -->
+        <TextBlock Text="{Binding Path=LineSpacing}" Margin="10" />
+        <!-- 相当于{Binding Source={x:Static SystemFonts.IconFontFamily}, Path=FamilyTypefaces[0].Style} -->
+        <TextBlock Text="{Binding Path=FamilyTypefaces[0].Style}" Margin="10" />
+    </StackPanel>
     ```

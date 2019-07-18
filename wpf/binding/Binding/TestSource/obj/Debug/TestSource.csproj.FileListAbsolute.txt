@@ -1,0 +1,15 @@
+E:\git\study\wpf\binding\Binding\TestSource\bin\Debug\TestSource.exe.config
+E:\git\study\wpf\binding\Binding\TestSource\bin\Debug\TestSource.exe
+E:\git\study\wpf\binding\Binding\TestSource\bin\Debug\TestSource.pdb
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.csprojAssemblyReference.cache
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\App.g.cs
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource_MarkupCompile.cache
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource_MarkupCompile.lref
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\MainWindow.baml
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.g.resources
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.Properties.Resources.resources
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.csproj.GenerateResource.cache
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.exe
+E:\git\study\wpf\binding\Binding\TestSource\obj\Debug\TestSource.pdb

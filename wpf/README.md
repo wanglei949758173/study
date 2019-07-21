@@ -530,3 +530,59 @@
         <TextBlock Text="{Binding Path=FamilyTypefaces[0].Style}" Margin="10" />
     </StackPanel>
     ```
+
+# 9. 资源
+  * WPF资源
+    ```xml
+    <!-- 定义资源 -->
+    <Window.Resources>
+        <ImageBrush x:Key="TileBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="image/timg.jpg" />
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <!-- 使用资源 -->
+        <Button Margin="10" Background="{StaticResource ResourceKey=TileBrush}" Content="Button" Padding="5" FontSize="14"/>
+        <Button Margin="10" Content="Button" Padding="5" FontSize="14"/>
+        <Button Margin="10" Content="Button" Padding="5" FontSize="14"/>
+    </StackPanel>
+    ```
+  * 资源层次
+    + 控件可以使用父元素的资源
+    + 一个元素下的资源的`x:key`不能重复
+    + 控件寻找资源会由下至上找,直到找到就不再向上继续寻找
+  * 静态资源和动态资源
+    ```xml
+    <StackPanel Name="stackPanel1" Margin="10">
+        <StackPanel.Resources>
+            <ImageBrush x:Key="TileBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="image/timg.jpg" />
+        </StackPanel.Resources>
+        <!-- 静态资源当资源改变时其不变 -->
+        <Button Margin="10" Background="{StaticResource ResourceKey=TileBrush}" Content="Button" Padding="5" FontSize="14"/>
+        <Button Margin="10" Content="改变资源" Padding="5" FontSize="14" Click="Button_Click"/>
+        <!-- 动态资源随着资源的改变而改变 -->
+        <Button Margin="10" Background="{DynamicResource ResourceKey=TileBrush}" Content="Button" Padding="5" FontSize="14"/>
+    </StackPanel>
+    ```
+  * 通过代码访问资源
+    ```csharp
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        this.stackPanel1.Resources["TileBrush"] = new SolidColorBrush(Colors.LightBlue);
+    }
+    ```
+  * 应用程序资源
+    + 资源由下至上寻找，找到Window并未结束,还会寻找App.xaml中的Application.Resources
+      ```xml
+      <Application.Resources>
+          <ImageBrush x:Key="TileBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="image/timg.jpg" />
+      </Application.Resources>
+      ```
+  * 系统资源
+    ```xml
+    <StackPanel Name="stackPanel1" Margin="10">
+        <!-- 设置系统文本画刷 -->
+        <Button Margin="10" Content="Button" Foreground="{x:Static SystemColors.WindowTextBrush}" Padding="5" FontSize="14"/>
+
+        <!--绑定为动态资源,系统属性改变后会立马改变 -->
+        <Button Margin="10" Content="Button" Foreground="{DynamicResource ResourceKey={x:Static SystemColors.WindowTextBrushKey}}" Padding="5" FontSize="14"/>
+    </StackPanel>
+    ```

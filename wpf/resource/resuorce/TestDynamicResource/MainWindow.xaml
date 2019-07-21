@@ -1,0 +1,19 @@
+﻿<Window x:Class="TestDynamicResource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestDynamicResource"
+        mc:Ignorable="d"
+        Title="测试静态资源和动态资源" Height="450" Width="800">
+    <StackPanel Name="stackPanel1" Margin="10">
+        <StackPanel.Resources>
+            <ImageBrush x:Key="TileBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="image/timg.jpg" />
+        </StackPanel.Resources>
+        <!-- 静态资源当资源改变时其不变 -->
+        <Button Margin="10" Background="{StaticResource ResourceKey=TileBrush}" Content="Button" Padding="5" FontSize="14"/>
+        <Button Margin="10" Content="改变资源" Padding="5" FontSize="14" Click="Button_Click"/>
+        <!-- 动态资源随着资源的改变而改变 -->
+        <Button Margin="10" Background="{DynamicResource ResourceKey=TileBrush}" Content="Button" Padding="5" FontSize="14"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,16 @@
+﻿<Window x:Class="TestSystemResouce.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestSystemResouce"
+        mc:Ignorable="d"
+        Title="系统资源" Height="450" Width="800">
+    <StackPanel Name="stackPanel1" Margin="10">
+        <!-- 设置系统文本画刷 -->
+        <Button Margin="10" Content="Button" Foreground="{x:Static SystemColors.WindowTextBrush}" Padding="5" FontSize="14"/>
+
+        <!--绑定为动态资源,系统属性改变后会立马改变 -->
+        <Button Margin="10" Content="Button" Foreground="{DynamicResource ResourceKey={x:Static SystemColors.WindowTextBrushKey}}" Padding="5" FontSize="14"/>
+    </StackPanel>
+</Window>

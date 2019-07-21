@@ -1,0 +1,15 @@
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\bin\Debug\TestResourceHelloWorld.exe.config
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\bin\Debug\TestResourceHelloWorld.exe
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\bin\Debug\TestResourceHelloWorld.pdb
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.csprojAssemblyReference.cache
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\App.g.cs
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld_MarkupCompile.cache
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld_MarkupCompile.lref
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\MainWindow.baml
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.g.resources
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.Properties.Resources.resources
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.csproj.GenerateResource.cache
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.exe
+E:\git\study\wpf\resource\resuorce\TestResourceHelloWorld\obj\Debug\TestResourceHelloWorld.pdb

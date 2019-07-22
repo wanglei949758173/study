@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ResourceLib">
+
+    <ImageBrush 
+        x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type local:CustomControl1},ResourceId=test}" 
+        ImageSource="/ResourceLib;component/images/happy.jpg"
+        TileMode="Tile"
+        ViewportUnits="Absolute"
+        Viewport="0 0 32 32">
+        
+    </ImageBrush>
+
+</ResourceDictionary>

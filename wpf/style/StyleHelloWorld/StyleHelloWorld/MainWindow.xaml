@@ -1,0 +1,38 @@
+﻿<Window x:Class="StyleHelloWorld.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StyleHelloWorld"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <!-- 定义样式 -->
+    <Window.Resources >
+        <!-- 使用TargetType让控件自动应用样式,不想使用此样式设置控件style={x:Null} -->
+        <Style x:Key="BigFontButtonStyle" TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+            <Setter Property="Control.FontSize" Value="18" />
+            <Setter Property="Control.FontWeight" Value="Bold" />
+            <Setter Property="Control.Background">
+                <Setter.Value>
+                    <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" Opacity="0.3" ImageSource="happy.jpg"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 使用其他样式,设置BasedOn属性-->
+        <Style x:Key="HasBackgroudColorStyle" BasedOn="{StaticResource ResourceKey=BigFontButtonStyle}">
+            <Setter Property="Control.Foreground" Value="White"/>
+            <Setter Property="Control.Background" Value="DarkBlue"/>
+            <!-- 样式重复,使用自己的 -->
+            <Setter Property="Control.FontSize" Value="10" />
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <!-- 设置样式 -->
+        <Button Content="Custom Button" Padding="5" Margin="5" Style="{StaticResource ResourceKey=BigFontButtonStyle}"/>
+        <TextBlock  Text="Normal Content" Margin="5" Padding="5" />
+        <Button Content="Normal Button" Padding="5" Margin="5" />
+        <TextBlock  Text="More Normal Content" Margin="5" Padding="5" />
+        <Button Content="Another Custom Button" Padding="5" Margin="5" Style="{x:Null}"/>
+    </StackPanel>
+</Window>

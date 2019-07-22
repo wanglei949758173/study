@@ -1,0 +1,16 @@
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.csprojAssemblyReference.cache
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\MainWindow.g.cs
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib_MarkupCompile.cache
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib_MarkupCompile.lref
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\bin\Debug\ResourceLib.dll.config
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\bin\Debug\ResourceLib.dll
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\bin\Debug\ResourceLib.pdb
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\Themes\Dictionary1.baml
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\MainWindow.baml
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.g.resources
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.Properties.Resources.resources
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.csproj.GenerateResource.cache
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.csproj.CoreCompileInputs.cache
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.dll
+E:\git\study\wpf\resourceDic\ResourceDic\ResourceLib\obj\Debug\ResourceLib.pdb

@@ -1,0 +1,22 @@
+﻿<Window x:Class="TestEventHandlerStyle.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestEventHandlerStyle"
+        mc:Ignorable="d"
+        Title="测试关联事件处理程序" Height="450" Width="800">
+    <Window.Resources>
+        <!-- 定义资源 -->
+        <Style x:Key="MouseOverHighLight">
+            <Setter Property="TextBlock.Padding" Value="10" />
+            <EventSetter Event="FrameworkElement.MouseEnter" Handler="mouseEnter" />
+            <EventSetter Event="FrameworkElement.MouseLeave" Handler="mouseLeave" />
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <TextBlock Text="Hello, I am fine" Margin="5" Padding="5" Style="{StaticResource ResourceKey=MouseOverHighLight}"/>
+        <TextBlock Text="Are you OK?" Margin="5" Padding="5" />
+        <TextBlock Text="Thank You" Margin="5" Padding="5" />
+    </StackPanel>
+</Window>

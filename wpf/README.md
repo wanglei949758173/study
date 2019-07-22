@@ -586,3 +586,102 @@
         <Button Margin="10" Content="Button" Foreground="{DynamicResource ResourceKey={x:Static SystemColors.WindowTextBrushKey}}" Padding="5" FontSize="14"/>
     </StackPanel>
     ```
+
+# 10. 资源字典
+  * 使用资源字典
+    + 创建资源字典(右键 -> 添加资源字典)
+      ```xml
+      <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:local="clr-namespace:UseResourceDic">
+          <ImageBrush x:Key="TileBrush1" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="images/happy.jpg"></ImageBrush>
+          <ImageBrush x:Key="TileBrush2" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" ImageSource="images/sad.jpg"></ImageBrush>
+      </ResourceDictionary>
+      ```
+    + App.xaml中引用资源字典
+      ```xml
+      <Application.Resources>
+          <ResourceDictionary>
+              <ResourceDictionary.MergedDictionaries>
+                  <ResourceDictionary Source="Dictionary1.xaml"  />
+              </ResourceDictionary.MergedDictionaries>
+          </ResourceDictionary>
+      </Application.Resources>
+      ```
+    + 使用资源字典
+      ```xml
+      <StackPanel Margin="10">
+          <Button Margin="10" Padding="5" Content="Button" FontSize="14" Background="{StaticResource ResourceKey=TileBrush1}"/>
+          <Button Margin="10" Padding="5" Content="Button" FontSize="14" Background="{DynamicResource ResourceKey=TileBrush2}"/>
+      </StackPanel>
+      ```
+  * 程序集之间共享资源
+
+# 11. 样式
+  * 样式基本使用
+    ```xml
+    <!-- 定义样式 -->
+    <Window.Resources>
+        <Style x:Key="BigFontButtonStyle">
+            <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+            <Setter Property="Control.FontSize" Value="18" />
+            <Setter Property="Control.FontWeight" Value="Bold" />
+            <Setter Property="Control.Background">
+                <Setter.Value>
+                    <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 32 32" Opacity="0.3" ImageSource="happy.jpg"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <!-- 设置样式 -->
+        <Button Content="Custom Button" Padding="5" Margin="5" Style="{StaticResource ResourceKey=BigFontButtonStyle}"/>
+        <TextBlock  Text="Normal Content" Margin="5" Padding="5" />
+        <Button Content="Normal Button" Padding="5" Margin="5" />
+        <TextBlock  Text="More Normal Content" Margin="5" Padding="5" />
+        <Button Content="Another Custom Button" Padding="5" Margin="5" Style="{StaticResource ResourceKey=BigFontButtonStyle}"/>
+    </StackPanel>
+    ```
+  * 关联事件处理程序
+    ```xml
+    <Window.Resources>
+        <!-- 定义资源 -->
+        <Style x:Key="MouseOverHighLight">
+            <Setter Property="TextBlock.Padding" Value="10" />
+            <EventSetter Event="FrameworkElement.MouseEnter" Handler="mouseEnter" />
+            <EventSetter Event="FrameworkElement.MouseLeave" Handler="mouseLeave" />
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <TextBlock Text="Hello, I am fine" Margin="5" Padding="5" Style="{StaticResource ResourceKey=MouseOverHighLight}"/>
+        <TextBlock Text="Are you OK?" Margin="5" Padding="5" />
+        <TextBlock Text="Thank You" Margin="5" Padding="5" />
+    </StackPanel>
+    ```
+    ```csharp
+    public void mouseEnter(Object sender,MouseEventArgs args)
+    {
+        ((TextBlock)sender).Background = new SolidColorBrush(Colors.LightGoldenrodYellow);
+    }
+
+    public void mouseLeave(Object sender, MouseEventArgs args)
+    {
+        ((TextBlock)sender).Background = null;
+    }
+    ```
+  * 多层样式
+    ```xml
+     <!-- 使用其他样式,设置BasedOn属性-->
+    <Style x:Key="HasBackgroudColorStyle" BasedOn="{StaticResource ResourceKey=BigFontButtonStyle}">
+        <Setter Property="Control.Foreground" Value="White"/>
+        <Setter Property="Control.Background" Value="DarkBlue"/>
+        <!-- 样式重复,使用自己的 -->
+        <Setter Property="Control.FontSize" Value="10" />
+    </Style>
+    ```
+  * 通过类型自动应用样式
+    ```xml
+    <!-- 使用TargetType让控件自动应用样式,不想使用此样式设置控件style={x:Null} -->
+    <Style x:Key="BigFontButtonStyle" TargetType="Button">
+    </Style>
+    ```

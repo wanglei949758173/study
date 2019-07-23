@@ -685,3 +685,82 @@
     <Style x:Key="BigFontButtonStyle" TargetType="Button">
     </Style>
     ```
+
+# 12. 触发器
+  * 简单触发器
+    ```xml
+    <Window.Resources>
+        <Style x:Key="BigFontBtn">
+            <Style.Setters>
+                <Setter Property="Control.FontSize" Value="18" />
+                <Setter Property="Control.FontFamily" Value="Time New Roman" />
+            </Style.Setters>
+            <!-- 触发器 -->
+            <Style.Triggers>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Control.Foreground" Value="DarkRed" />
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property="Control.Foreground" Value="Yellow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <Button Height="200" Content="Button" Margin="10" Style="{StaticResource ResourceKey=BigFontBtn}"/>
+    </StackPanel>
+    ```
+  * 多值触发器
+    ```xml
+    <Window.Resources>
+        <Style x:Key="MultiTrigger">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Control.IsFocused" Value="True"/>
+                        <Condition Property="Control.IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Control.Foreground" Value="Red" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <Button Content="Button" Height="200" Margin="10" Style="{StaticResource ResourceKey=MultiTrigger}"/>
+        <TextBox Height="50" Margin="10"/>
+    </StackPanel>
+    ```
+  * 事件触发器
+    ```xml
+    <Window.Resources>
+        <Style x:Key="EventTrigger">
+            <Style.Triggers>
+                <!-- MouseEnter时字体放大 -->
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:3" To="48" Storyboard.TargetProperty="FontSize" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <!-- MouseLeave时字体恢复到原来的大小 -->
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="FontSize" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <Button Margin="10" Content="Button" Height="200" Style="{StaticResource ResourceKey=EventTrigger}"/>
+    </StackPanel>
+    ```

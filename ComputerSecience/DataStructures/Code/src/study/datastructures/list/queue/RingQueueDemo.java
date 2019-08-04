@@ -51,7 +51,9 @@ public class RingQueueDemo {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
                 continue;
-            }
+            } finally {
+				scanner.close();
+			}
         }
     }
 }

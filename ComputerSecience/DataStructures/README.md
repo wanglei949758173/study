@@ -12,4 +12,7 @@
 ### 应用实例
   * 使用稀疏数组来保存如下的棋盘
     ![稀疏数组应用实例](https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Images/sparsearray/sparsearray-1.jpg)
-    
+  * 思路分析
+    ![思路分析](https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Images/sparsearray/sparsearray-2.jpg)
+  * 代码实现
+    <a href="https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Code/src/study/datastructures/list/SparseArray.java">稀疏数组代码示例</a>

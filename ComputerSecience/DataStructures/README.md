@@ -11,3 +11,5 @@
 
 ### 应用实例
   * 使用稀疏数组来保存如下的棋盘
+    ![稀疏数组应用实例](https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Images/sparsearray/sparsearray-1.jpg)
+    

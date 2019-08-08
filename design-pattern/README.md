@@ -1,5 +1,4 @@
 # 1. 七大设计原则
-
 ## 1.1 单一职责原则
   * 对类来说,一个类应该**只负责一项职责**。
 
@@ -44,3 +43,62 @@
 
 ## 1.7 合成复用原则
   * 原则是尽量使用**合成**, **聚合**的方式，而**不是使用继承**
+
+# 2. 类与类之间的关系
+## 2.1 泛化关系(generalization)
+  * 泛化关系==继承关系
+
+  * 代码示例
+    ```java
+    public abstract class DaoSupport{
+      public void save(Object entity){
+      }
+      public void delete(Object id){
+      }
+    }
+
+    public class PersonServiceBean extends Daosupport{
+    }
+    ```
+
+## 2.2 实现关系（Implementation）
+  * 代码示例
+    ```java
+    public interface PersonService {
+      void delete(Interger id);
+    }
+    public class PersonServiceBean implements PersonService {
+      public void delete(Interger id){
+      }
+    }
+    ```
+
+## 2.3 依赖关系（Dependence）
+  * 只要是**在类中用到了对方**，那么他们之间就存在依赖关系。如果
+    **没有对方，连编绎都通过不了**。
+
+  * 依赖的5种情况
+    1. 类中用到了对方
+    2. 如果是类的成员属性
+    3. 如果是方法的返回类型
+    4. 是方法接收的参数类型
+    5. 方法中使用到
+
+
+  * 代码示例
+    ```java
+    public class PersonServiceBean {
+      private PersonDao personDao;
+      public void save(Person person){}
+      public IDCard getIDCard(Integer personid){}
+      public void modify(){
+        Department department = new Department();
+      }
+    }
+    public class PersonDao{}
+    public class IDCard{}
+    public class Person{}
+    public class Department{}
+    ```
+
+## 2.4 

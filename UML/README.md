@@ -1,5 +1,6 @@
 # OOAD与UML
 ## OOAD(object o analyse design)
+
 ### OOA()
 * 概念:面向对象的分析，分析业务(what to do)
 ### OOD
@@ -105,6 +106,7 @@
           + 便于更好地维护项目进度
           + 便于团队的协作开发
           + 便于适应用户需求的动态变化
+
 ## UML(Unified Modeling Language)
   + **定义:** 统一建模语言。
   + **静态建模**

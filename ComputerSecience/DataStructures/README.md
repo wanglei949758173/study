@@ -16,3 +16,10 @@
     ![思路分析](https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Images/sparsearray/sparsearray-2.jpg)
   * 代码实现 <br/>
     <a target="_blank" href="https://github.com/wanglei949758173/study/blob/master/ComputerSecience/DataStructures/Code/src/study/datastructures/list/SparseArray.java">稀疏数组代码示例</a>
+
+## 1.2 队列
+### 定义
+  遵循**先进先出**的一种线性的**数据结构**。
+
+### 应用实例1-数组模拟队列
+  

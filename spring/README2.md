@@ -20,7 +20,11 @@
 # 2. BeanDefinition加载过程的分析
   * 类图
 
+  ![LoadBeanDefinitionClassDiagram](https://github.com/wanglei949758173/study/blob/master/spring/images/LoadBeanDefinitionClassDiagram.png)
+
   * 时序图
+
+  ![LoadBeanDefinitionClassDiagram](https://github.com/wanglei949758173/study/blob/master/spring/images/LoadBeanDefinitionClassDiagram.png)
 
   * 流程分析
     1. 将资源文件`resource`进行`encode`;

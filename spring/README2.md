@@ -25,7 +25,6 @@
 
   ## 2.1 BeanDefinition  
   
-  ![BeanDefinition](https://github.com/wanglei949758173/study/tree/master/spring/images/GenericBeanDefinition.png)
   ![BeanDefinition](https://github.com/wanglei949758173/study/blob/master/spring/images/GenericBeanDefinition.png)
 
   
@@ -33,7 +32,7 @@
 
   ## 2.2 BeanFactory
   
-  ![BeanFactory](https://github.com/wanglei949758173/study/tree/master/spring/images/BeanFactory.png)
+  ![BeanFactory](https://github.com/wanglei949758173/study/blob/master/spring/images/BeanFactory.png)
   
   BeanFactory 有三个子类：`ListableBeanFactory`、`HierarchicalBeanFactory` 和 `AutowireCapableBeanFactory`。从上图中可以发现最终的默认实现类是 `DefaultListableBeanFactory`，实现了所有的接口。`ListableBeanFactory` 接口表示这些 Bean 是可列表的(即这个Bean工厂具有保存和生产多个Bean的功能)，而 `HierarchicalBeanFactory` 表示层级工厂(即当前工厂可以存在父工厂)。`AutowireCapableBeanFactory` 表示此工厂具有自动装配的功能。
 # 3. BeanDefinition加载过程的分析

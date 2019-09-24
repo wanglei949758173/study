@@ -26,6 +26,8 @@
   ## 2.1 BeanDefinition  
   
   ![BeanDefinition](https://github.com/wanglei949758173/study/tree/master/spring/images/GenericBeanDefinition.png)
+  ![BeanDefinition](https://github.com/wanglei949758173/study/blob/master/spring/images/my-LoadBeanDefinitionClassDiagram.png)
+
   
   Bean 的定义就是完整的描述了在 Spring 的配置文件中你定义的 <bean/> 节点中所有的信息，包括各种子节点。当 Spring 成功解析你定义的一个 <bean/> 节点后，在 Spring 的内部就被转化成 BeanDefinition 对象。以后所有的操作都是对这个对象完成的。
 

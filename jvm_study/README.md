@@ -2225,3 +2225,53 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
         }
     }
     ```
+
+  * 模拟元空间(MetaSpace)内存溢出
+    ```java
+    public class TestMetaSpaceOOM {
+        public static void main(String[] args) {
+            /*
+                1.编写使用cglib生成字节码文件的代码
+                2.调整VM Options -XX:MaxMetaspaceSize=10m 观察元空间内存溢出情况
+                3.调整VM Options -XX:MaxMetaspaceSize=200m
+                    并使用jvisualvm查看类加载个数和元空间大小的变化情况
+             */
+            for (; ; ) {
+                Enhancer enhancer = new Enhancer();
+                enhancer.setSuperclass(TestMetaSpaceOOM.class);
+                enhancer.setUseCache(false);
+                enhancer.setCallback((MethodInterceptor) (obj, method, args1, proxy) ->
+                        proxy.invokeSuper(obj, args1));
+
+                System.out.println("hello world");
+                enhancer.create();
+            }
+        }
+    }
+    ```
+    https://www.infoq.cn/article/java-permgen-Removed
+
+  * `jmap`
+    + **说明：** jmap是一个多功能的命令。、
+      1. 生成 java 程序的 dump 文件；
+      2. 查看堆内对象示例的统计信息
+      3. 查看 ClassLoader 的信息
+      4. 查看 finalizer 队列。
+  * `jstat`
+    + **说明：** 查看统计信息
+     ```bash
+     jstat -options
+
+     -class
+      -compiler
+      -gc
+      -gccapacity
+      -gccause
+      -gcmetacapacity
+      -gcnew
+      -gcnewcapacity
+      -gcold
+      -gcoldcapacity
+      -gcutil
+      -printcompilation
+     ```

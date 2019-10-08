@@ -2275,3 +2275,26 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
       -gcutil
       -printcompilation
      ```
+  * `jcmd`
+    1. `jcmd pid VM.flags` 查看JVM的启动参数
+    2. `jcmd pid help` 列出当前运行的Java进程可以执行的操作
+    3. `jcmd pid help JFR.dump` 查看具体命令的选项
+    4. `jcmd pid PrefCounter.print` 查看JVM性能相关的参数
+    5. `jcmd pid VM.uptime` 查看JVM的启动时长
+    6. `jcmd pid GC.class_histogram` 查看系统中类的统计信息
+    7. `jcmd pid Thread.print` 查看线程堆栈信息
+    8. `jcmd pid GC.help_dump filename` 导出Heap dump文件，导出的文件可以通过jvisualvm查看
+    9. `jcmd pid VM.system_properties` 查看JVM的属性信息
+    10. `jcmd pid VM.version` 查看目标JVM进程的版本信息
+    11. `jcmd pid VM.command_line` 查看JVM启动的命令行参数信息
+
+  * `jstack`
+     查看或是导出Java应用程序中线程的堆栈信息
+
+  * `jmc`
+    Java Mission Control
+
+  * `jfr`
+    Java Flight Recorder
+
+  * `jhat`

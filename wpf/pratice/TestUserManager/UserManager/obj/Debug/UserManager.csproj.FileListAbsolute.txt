@@ -1,0 +1,13 @@
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\bin\Debug\UserManager.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\bin\Debug\UserManager.pdb
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.csprojResolveAssemblyReference.cache
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\MainWindow.baml
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\MainWindow.g.cs
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager_MarkupCompile.cache
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.g.resources
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.Properties.Resources.resources
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.csproj.GenerateResource.Cache
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.pdb
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.baml
+d:\documents\visual studio 2013\Projects\TestUserManager\UserManager\obj\Debug\UserManager.g.cs

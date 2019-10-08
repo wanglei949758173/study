@@ -1,0 +1,35 @@
+﻿<Window x:Class="UserManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ext="clr-namespace:jdsn.wpf.runner.view;assembly=wpfrunner"
+        xmlns:cov="clr-namespace:jdsn.wpf.runner.cov;assembly=wpfrunner"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="用户登录" Height="350" Width="525">
+    <Grid>
+        <StackPanel Margin="20,60,20,60">
+            <TextBox Height="40" Name="username" Margin="10" FontSize="20" Text="{Binding loginForm.Parameters[userName].Value}"/>
+            <ext:PasswdBox Height="40" Margin="10" FontSize="20" Password="{Binding loginForm.Parameters[passwd].Value}"/>
+            <Button Height="40" Name="loginBtn" Content="登录" FontSize="20" Margin="10" Command="{Binding loginForm.Submit}" />
+        </StackPanel>
+        <ext:MsgBox x:Name="ErrorMsgBox"  Title="登录失败" Message="{Binding Path=loginForm.ErrorMessage}"  Button="OK" Image="Error" />
+        <ext:MsgBox x:Name="SuccessMsgBox"  Title="登录成功" Message="登录成功"  Button="OK" Image="Information"/>
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <!--提交成功-->
+        <i:EventTrigger SourceObject="{Binding loginForm}" EventName="Successed">
+            <i:InvokeCommandAction Command="{Binding Path=saveUidInSession.Exec}" />
+            <i:InvokeCommandAction Command="{Binding Path=saveTokenIdInSession.Exec}" />
+            <i:InvokeCommandAction Command="{Binding ElementName=SuccessMsgBox, Path=Show}" />
+            <i:InvokeCommandAction Command="{Binding ShowWindow}" CommandParameter="UserManager.UserManager" />
+        </i:EventTrigger>
+        <!--提交失败-->
+        <i:EventTrigger SourceObject="{Binding loginForm}" EventName="Failed">
+            <i:InvokeCommandAction Command="{Binding ElementName=ErrorMsgBox, Path=Show}" />
+        </i:EventTrigger>
+        <!--参数非法-->
+        <i:EventTrigger SourceObject="{Binding loginForm}" EventName="IllegalInput">
+            <i:InvokeCommandAction Command="{Binding ElementName=ErrorMsgBox, Path=Show}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</Window>

@@ -1,0 +1,18 @@
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\WpfRunner Main Project1.exe.config
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\WpfRunner Main Project1.exe
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\WpfRunner Main Project1.pdb
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\log4net.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\MySql.Data.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\Newtonsoft.Json.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\System.Data.SQLite.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\System.Windows.Interactivity.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\wpfrunner.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\App.g.cs
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner Main Project1_MarkupCompile.cache
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner_Main_Project1.Properties.Resources.resources
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner Main Project1.csproj.GenerateResource.Cache
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner Main Project1.exe
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner Main Project1.pdb
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\UserManager.dll
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\bin\Debug\UserManager.pdb
+d:\documents\visual studio 2013\Projects\TestUserManager\WpfRunner Main Project1\obj\Debug\WpfRunner Main Project1.csprojResolveAssemblyReference.cache

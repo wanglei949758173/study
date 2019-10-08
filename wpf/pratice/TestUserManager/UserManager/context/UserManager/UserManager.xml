@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataContext type="window" class="UserManager.UserManager">
+  <RFDataSource name="userList" Url="{BaseUrl}/user" AutoLoad="true" >
+    <Parameters>
+      <Parameter name="loginUid" ParamName="loginUid" ValuePath="Session['loginUid']"/>
+      <Parameter name="tokenId" ParamName="tokenId" ValuePath="Session['tokenId']"/>
+    </Parameters>
+    <Tokens>
+      <Token TokenName="BaseUrl" ValuePath="Configurations['BaseUrl']" />
+    </Tokens>
+  </RFDataSource>
+  <DataSelector name="userListDS" SourcePath="userList.Data['users']" SelectPath="\[contains(userName,'{userName}')].addcol('_index',rowno() + 1)">
+    <Tokens>
+      <Token name="userName" TokenName="userName" InitValue=""/>
+    </Tokens>
+  </DataSelector>
+  <Expression AutoExec="true" Text="userListDS.Tokens['userName'].SetValue('')"/>
+</DataContext>

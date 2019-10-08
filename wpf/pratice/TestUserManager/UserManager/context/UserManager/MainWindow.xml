@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataContext type="window" class="UserManager.MainWindow">
+  <RFForm name="loginForm" Url="{BaseUrl}/session" Method="POST" >
+    <Parameters>
+      <Parameter name="userName" ParamName="userName" />
+      <Parameter name="passwd" ParamName="passwd" />
+    </Parameters>
+    <Tokens>
+      <Token TokenName="BaseUrl" ValuePath="Configurations['BaseUrl']" />
+    </Tokens>
+    <Rules>
+      <Rule ID="UserName" Expression="userName &lt;&gt; null &amp; userName &lt;&gt; ''" Prompt="用户名不能为空！" LazyCheck="true" />
+      <Rule ID="Password" Expression="passwd &lt;&gt; null &amp; passwd &lt;&gt; ''" Prompt="密码不能为空！" LazyCheck="true" />
+    </Rules>
+  </RFForm>
+
+  <Expression name="saveUidInSession" Text="Session.SetValue('loginUid', loginForm.Data['userUid'])" />
+  <Expression name="saveTokenIdInSession" Text="Session.SetValue('tokenId', loginForm.Data['tokenId'])" />
+</DataContext>

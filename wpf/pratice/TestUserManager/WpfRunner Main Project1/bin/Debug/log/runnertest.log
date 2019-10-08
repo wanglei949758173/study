@@ -1,0 +1,285 @@
+
+[2019-07-10 19:08:31,253] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:09:56,177] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:11:37,864] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:12:03,039] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:13:12,306] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:13:30,142] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:13:30,169] [FATAL]    不存在的窗口类：UserManager.MainWindow
+   在 jdsn.wpf.runner.core.UiManager.ShowWindow(String clazz)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:14:16,965] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:14:16,981] [FATAL]    不存在的窗口类：UserManager.MainWindow
+   在 jdsn.wpf.runner.core.UiManager.ShowWindow(String clazz)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:16:04,704] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:16:04,722] [FATAL]    不存在的窗口类：UserManager.MainWindow
+   在 jdsn.wpf.runner.core.UiManager.ShowWindow(String clazz)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:17:12,549] [FATAL]    系统找不到指定的文件。 (异常来自 HRESULT:0x80070002)
+   在 System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   在 System.Reflection.Assembly.LoadFile(String path)
+   在 jdsn.wpf.runner.core.UiManager.LoadUiAssembly(String asmeblyPath)
+   在 jdsn.wpf.runner.core.UiManager.Initialize(List`1 uiAssemblys)
+   在 jdsn.wpf.runner.core.WpfRunner.Initialize(Dictionary`2 parameters, List`1 uiAssemblys, String firstWindowClazz)
+
+
+[2019-07-10 19:17:39,034] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:21:51,739] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:28:59,106] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:29:23,374] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:50:19,193] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:50:52,731] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:53:34,882] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:57:35,183] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:58:33,963] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 19:59:27,154] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:00:02,867] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:00:53,719] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:00:59,003] [FATAL]    远程服务器返回错误: (404) 未找到。
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:01:07,419] [FATAL]    远程服务器返回错误: (404) 未找到。
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:01:51,149] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:01:56,712] [ERROR] error code :-1
+[2019-07-10 20:01:56,740] [FATAL]    该用户不存在！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:02:41,902] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:02:57,873] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:03:30,459] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:09:17,139] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:09:47,537] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:21:01,189] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:21:32,223] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:33:28,315] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:33:41,720] [FATAL]    No exist property:Parent
+   在 jdsn.wpf.runner.context.BindableModel.GetPropertyValue(Object obj, String property)
+   在 jdsn.wpf.runner.context.BindableModel.LoadSource(BaseContext context)
+   在 jdsn.wpf.runner.context.Parameter.Initialize(BaseContext context)
+
+
+[2019-07-10 20:33:41,749] [FATAL]    No exist property:Parent
+   在 jdsn.wpf.runner.context.BindableModel.GetPropertyValue(Object obj, String property)
+   在 jdsn.wpf.runner.context.BindableModel.LoadSource(BaseContext context)
+   在 jdsn.wpf.runner.context.Parameter.Initialize(BaseContext context)
+
+
+[2019-07-10 20:33:41,781] [FATAL]    未将对象引用设置到对象的实例。
+   在 jdsn.wpf.runner.helper.Jsoner.WriteMap(JsonWriter writer, IDictionary map)
+   在 jdsn.wpf.runner.helper.Jsoner.ToJsonString(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Map2Json(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Get(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFContext.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:37:56,263] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:37:59,404] [ERROR] error code :-1
+[2019-07-10 20:37:59,427] [FATAL]    该用户不存在！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:38:11,732] [FATAL]    No exist property:Parent
+   在 jdsn.wpf.runner.context.BindableModel.GetPropertyValue(Object obj, String property)
+   在 jdsn.wpf.runner.context.BindableModel.LoadSource(BaseContext context)
+   在 jdsn.wpf.runner.context.Parameter.Initialize(BaseContext context)
+
+
+[2019-07-10 20:38:11,759] [FATAL]    No exist property:Parent
+   在 jdsn.wpf.runner.context.BindableModel.GetPropertyValue(Object obj, String property)
+   在 jdsn.wpf.runner.context.BindableModel.LoadSource(BaseContext context)
+   在 jdsn.wpf.runner.context.Parameter.Initialize(BaseContext context)
+
+
+[2019-07-10 20:38:11,788] [FATAL]    未将对象引用设置到对象的实例。
+   在 jdsn.wpf.runner.helper.Jsoner.WriteMap(JsonWriter writer, IDictionary map)
+   在 jdsn.wpf.runner.helper.Jsoner.ToJsonString(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Map2Json(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Get(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFContext.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:39:30,942] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:39:38,279] [ERROR] error code :-1
+[2019-07-10 20:39:38,307] [FATAL]    用户名或密码错误！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:39:44,532] [FATAL]    未将对象引用设置到对象的实例。
+   在 jdsn.wpf.runner.helper.Jsoner.WriteMap(JsonWriter writer, IDictionary map)
+   在 jdsn.wpf.runner.helper.Jsoner.ToJsonString(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Map2Json(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Get(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFContext.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:45:24,352] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:45:33,879] [FATAL]    无法连接到远程服务器
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+   由于目标计算机积极拒绝，无法连接。 192.168.8.124:8080
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+
+
+[2019-07-10 20:45:41,539] [FATAL]    无法连接到远程服务器
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+   由于目标计算机积极拒绝，无法连接。 192.168.8.124:8080
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+
+
+[2019-07-10 20:45:46,387] [FATAL]    未将对象引用设置到对象的实例。
+   在 jdsn.wpf.runner.helper.Jsoner.WriteMap(JsonWriter writer, IDictionary map)
+   在 jdsn.wpf.runner.helper.Jsoner.ToJsonString(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Map2Json(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Get(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFContext.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:48:52,356] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:49:02,032] [FATAL]    未将对象引用设置到对象的实例。
+   在 jdsn.wpf.runner.helper.Jsoner.WriteMap(JsonWriter writer, IDictionary map)
+   在 jdsn.wpf.runner.helper.Jsoner.ToJsonString(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Map2Json(Dictionary`2 map)
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Get(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFContext.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:50:19,958] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:50:28,474] [ERROR] error code :-1
+[2019-07-10 20:50:28,501] [FATAL]    用户名或密码错误！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-10 20:51:29,972] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:52:53,115] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:54:36,085] [INFO ] WpfRunner 成功初始化.
+[2019-07-10 20:56:33,295] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:28:04,660] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:29:14,981] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:38:23,371] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:38:34,999] [ERROR] error code :-1
+[2019-07-11 15:38:35,082] [FATAL]    用户名或密码错误！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-11 15:39:20,923] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:42:30,901] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:43:29,496] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:44:05,822] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:47:24,912] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:53:04,331] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 15:58:45,883] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 17:54:15,087] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:07:03,056] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:08:27,645] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:14:22,846] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:15:21,602] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:15:29,087] [ERROR] error code :-1
+[2019-07-11 18:15:29,147] [FATAL]    用户名或密码错误！
+   在 jdsn.wpf.runner.helper.RestfulService.Request(String urlPath, String method, Dictionary`2 args)
+   在 jdsn.wpf.runner.helper.RestfulService.Post(String url, Dictionary`2 args)
+   在 jdsn.wpf.runner.context.RFForm.RequestData()
+   在 jdsn.wpf.runner.context.RFContext.OnSubmit(Object param)
+
+
+[2019-07-11 18:17:33,618] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:20:02,761] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:22:30,954] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:23:17,452] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:23:39,391] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:29:11,825] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:29:58,619] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:30:24,513] [INFO ] WpfRunner 成功初始化.
+[2019-07-11 18:32:13,713] [INFO ] WpfRunner 成功初始化.

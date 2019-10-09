@@ -2091,7 +2091,7 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
 * 线程共享区域
   * 堆(Heap)：JVM管理的最大一块内存区域
   * 方法区(Method Area):存储元信息。永久代(permanent generation)，从JDK1.8开始，已经
-    彻底废弃了永久代，使用元空间(meta space)，**运行时常量池为方法区的一部分内容**
+    彻底废弃了永久代，使用元空间(Metaspace)，**运行时常量池为方法区的一部分内容**
 
 * 非JVM管理区域
   * 直接内存:Direct Memory
@@ -2254,15 +2254,30 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
   * `jmap`
     + **说明：** jmap是一个多功能的命令。、
       1. 生成 java 程序的 dump 文件；
+        ```bash
+        jmap -dump:file=C:\Users\Administrator\Desktop\test1.hprof pid
+        ```
       2. 查看堆内对象示例的统计信息
+        ```bash
+        jmap -heap pid
+        ```
       3. 查看 ClassLoader 的信息
+        ```bash
+        jmap -clstats pid
+        // class_loader    classes  bytes   parent_loader   alive?  type
+        // <bootstrap>     419      805040  null            live    <internal>
+        ```
       4. 查看 finalizer 队列。
+        ```bash
+        jmap -finalizerinfo pid
+        ```
+
   * `jstat`
     + **说明：** 查看统计信息
      ```bash
+     // 查看jstat命令的选项
      jstat -options
-
-     -class
+      -class
       -compiler
       -gc
       -gccapacity
@@ -2274,12 +2289,15 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
       -gcoldcapacity
       -gcutil
       -printcompilation
+
+     // 示例1
+     jstat -gc pid //查看进程的gc统计信息
      ```
   * `jcmd`
     1. `jcmd pid VM.flags` 查看JVM的启动参数
     2. `jcmd pid help` 列出当前运行的Java进程可以执行的操作
-    3. `jcmd pid help JFR.dump` 查看具体命令的选项
-    4. `jcmd pid PrefCounter.print` 查看JVM性能相关的参数
+    3. `jcmd pid help 某个具体的option(JFR.dump)` 查看具体命令的选项
+    4. `jcmd pid PerfCounter.print` 查看JVM性能相关的参数
     5. `jcmd pid VM.uptime` 查看JVM的启动时长
     6. `jcmd pid GC.class_histogram` 查看系统中类的统计信息
     7. `jcmd pid Thread.print` 查看线程堆栈信息
@@ -2289,12 +2307,19 @@ HotSpot虚拟机将其放在了方法区中**)用来封装类在方法区内的�
     11. `jcmd pid VM.command_line` 查看JVM启动的命令行参数信息
 
   * `jstack`
-     查看或是导出Java应用程序中线程的堆栈信息
 
+     **说明：** 查看或是导出Java应用程序中线程的堆栈信息
+     ```bash
+     jstack -l pid
+     ```
   * `jmc`
     Java Mission Control
 
   * `jfr`
+
     Java Flight Recorder
 
   * `jhat`
+
+  **功能：** 分析虚拟机堆转储快照
+http://outofmemory.cn/java/jvm/jvm-tools-jps-jstat-jinfo-jmap-jhat-jstack

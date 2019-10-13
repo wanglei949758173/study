@@ -930,1442 +930,1513 @@ public class MyTest27 {
 ---
 
 # 2. Java字节码文件结构
-* 查看字节码文件内容:
-    + `javap`
-    + `javap -c`
-    + `javap -verbose`
-    + `javap -verbose -p` 可以查看私有的方法
-    使用`javap -verbose`命令分析一个字节码文件时，将会分析该字节码文件的**魔数**、
-    **版本号**、**常量池**、**类信息**、**类的构造方法**、**类中的方法信息**、
-    **类变量** 与 **成员变量**等信息。
-* **字节码结构**
-    ```
-    ClassFile {
-    	u4						magic;
-    	u2						minor—version;
-    	u2						major_version;
-    	u2						constant_pool_count;
-    	cp_info					contant_pool[constant_pool_count - 1];
-    	u2						access_flags;
-    	u2						this_class;
-    	u2						super class;
-    	u2						interfaces_count;
-    	interface_info			interfaces(interfaces_count];
-    	u2						fields_count;
-    	field_info				fields[fields_count];
-    	u2						methods_count;
-    	method_info				methods[methods_count];
-    	u2						attributes_count;
-    	attribute_info			attributes[attributes_count];
-    }
-    ```
-* **魔数**(4个字节)
-    + 所有的.class字节码文件的前4个字节都是魔数
-    + 魔数值为固定值:`0xCAFEBABE`
-* **版本号**(2+2个字节)
-    + 魔数之后的4个字节为版本信息
-    + 前两个字节表示**minor version(次版本号)**
-    + 后两个字节表示**major version(主版本号)**
+## 查看字节码文件内容
+* `javap`
+* `javap -c`
+* `javap -verbose`
+* `javap -verbose -p` 可以查看私有的方法
+使用`javap -verbose`命令分析一个字节码文件时，将会分析该字节码文件的**魔数**、**版本号**、**常量池**、**类信息**、**类的构造方法**、**类中的方法信息**、
+**类变量** 与 **成员变量**等信息。
+
+## 字节码结构
+```
+ClassFile {
+	u4						magic;
+	u2						minor—version;
+	u2						major_version;
+	u2						constant_pool_count;
+	cp_info				contant_pool[constant_pool_count - 1];
+	u2						access_flags;
+	u2						this_class;
+	u2						super class;
+	u2						interfaces_count;
+	interface_info			interfaces(interfaces_count];
+	u2						fields_count;
+	field_info				fields[fields_count];
+	u2						methods_count;
+	method_info				methods[methods_count];
+	u2						attributes_count;
+	attribute_info			attributes[attributes_count];
+}
+```
+### 魔数(4个字节)
+* 所有的.class字节码文件的前4个字节都是魔数
+* 魔数值为固定值:`0xCAFEBABE`
+
+### 版本号(2+2个字节)
+* 魔数之后的4个字节为版本信息
+* 前两个字节表示**minor version(次版本号)**
+* 后两个字节表示**major version(主版本号)**
         这里的版本号为`00 00 00 34`换算成十进制，表示次版本号为0，主版本号为52。
         所以，该文件的版本号为1.8.0。可以用`java -version`命令来验证这一点。
-* **常量池(constant pool )**(2+n个字节)
-    + 紧接着主版本号之后的就是常量池入口，前两个字节为常量池中的**常量数量**。
-    **值得注意的是：**
-        ```
-        常量池数组中元素的个数 = 常量池数 - 1
-        ```
-        **其中0暂时不使用**目的是满足某些常量池索引值的数据在特定情况下需要**表达不引用任何一个常量池的含义**；
-        根本原因在于，索引为0也是一个常量(保留常量)，只不过它不位于常量表中，
-        这个常量就对应**null**值；所以，常量池的索引从1而非0开始。
-    + 一个java类中定义的很多信息都是由常量池来维护和描述的，可以将常量池看做是**class文件的资源仓库**，
-    比如说java类中定义的**方法**与**变量信息**，都是存储在常量池中。
-    + 常量池中主要存储两类常量：
-        + 字面量
-            字面量如文本字符串，java中声明为final的常量值等
-        + 符号引用
-            符号引用如类和接口的全局限定名，字段的名称和描述符，方法的名称和描述符等等。
-    + 常量池的总体结构:
-        java类所对应的常量池主要由**常量池数量**与**常量池数组**(常量表)这两部分组成
-        + **常量池数量：** 紧跟在主版本号后面，占据2个字节
-        + **常量池数组：** 紧跟在常量池数量之后。常量池数组与一般的数组不同的是，
-        **常量池数组中的元素类型并不相同**、结构都是不同的，长度当然也就不同；但是，
-        每一种元素的第一个数据都是u1类型，该字节是个标志位，占据1个字节。
-        JVM在解析常量池时，**会根据这个u1类型来获取元素的具体类型**。
-    + 常量池中数据类型的结构表
-        <table>
-            <thead>
-                <tr>
-                    <th>常量</th>
-                    <th>项目</th>
-                    <th>类型</th>
-                    <th>描述</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="3">CONSTANT_Utf8_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为1</td>
-                </tr>
-                <tr>
-                    <td>length</td>
-                    <td>u2</td>
-                    <td>UTF-8编码的字符串长度</td>
-                </tr>
-                <tr>
-                    <td>bytes</td>
-                    <td>u1</td>
-                    <td>长度为length的UTF-8编码的字符串</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_Integer_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为3</td>
-                </tr>
-                <tr>
-                    <td>bytes</td>
-                    <td>u4</td>
-                    <td>按照高位在前存储的int值</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_Float_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为4</td>
-                </tr>
-                <tr>
-                    <td>bytes</td>
-                    <td>u4</td>
-                    <td>按照高位在前存储的float值</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_Long_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为5</td>
-                </tr>
-                <tr>
-                    <td>bytes</td>
-                    <td>u8</td>
-                    <td>按照高位在前存储的long值</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_Double_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为6</td>
-                </tr>
-                <tr>
-                    <td>bytes</td>
-                    <td>u8</td>
-                    <td>按照高位在前存储的double值</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_Class_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为7</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向全限定名常量项的索引</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">CONSTANT_String_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为8</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向字符串字面量的索引</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">CONSTANT_Fieldref_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为9</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向字段的类或接口的描述符CONSTANT_Class_info的索引项</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向字段描述符CONSTANT_NameAndType_info的索引项</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">CONSTANT_Methodref_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为10</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向声明方法的类描述符CONSTANT_Class_info的索引项</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向名称及类型描述符CONSTANT_NameAndType_info的索引项</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">CONSTANT_InterfaceMethodref_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为11</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向声明方法的接口描述符CONSTANT_Class_info的索引项</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向名称及类型描述符CONSTANT_NameAndType_info的索引项</td>
-                </tr>
-                 <tr>
-                    <td rowspan="3">CONSTANT_NameAndType_info</td>
-                    <td>tag</td>
-                    <td>u1</td>
-                    <td>值为12</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向该字段或方法名称常量项的索引</td>
-                </tr>
-                <tr>
-                    <td>index</td>
-                    <td>u2</td>
-                    <td>指向该字段或方法描述符常量项的索引</td>
-                </tr>
-            </tbody>
-        </table>
-    + 在JVM规范中，每个变量/字段都有描述信息，描述信息主要的作用是描述字段的数据类型、
-    方法的参数列表(包括数量、类型与顺序)与返回值。根据描述符规则，基本数据类型和代表无
-    返回值的void类型都用一个大写字符来表示，对象类型则使用字符L加对象的全限定名称来表示。
-    为了压缩字节码文件的体积，对于基本数据类型，JVM都只使用一个大写字母来表示，如下所示:
-        ```
-        B - byte
-        C - char
-        D - double
-        F - float
-        I - int
-        J - long
-        S - short
-        z - boolean
-        V - void
-        L - 对象类型，如Ljava/lang/String;
-        ```
-    + 对于数组类型来说，每一个维度使用一个前置的`[`来表示，如`int[]`被记录为`[I`,`String[][]`被记录为`[[Ljava/lang/String`;
-      用描述符描述方法时，按照先参数列表，后返回值的顺序来描述。参数列表按照参数的严格顺序放在一组()之内。具体示例如下:
-        ```java
-        // 描述符为:(I ,Ljava/lang/String)Ljava/lang/String;
-        String getRealNameByIdAndNickname(int id,String name)
 
-        // 描述符为:a:I
-        private int a;
+### 常量池(constant pool )(2+n个字节)
+* 紧接着主版本号之后的就是常量池入口，前两个字节为常量池中的**常量数量**。
+* **值得注意的是：**
+  ```
+  常量池数组中元素的个数 = 常量池数 - 1
+  ```
+  **其中0暂时不使用**目的是满足某些常量池索引值的数据在特定情况下需要**表达不引用任何一个常量池的含义**；根本原因在于，索引为0也是一个常量(保留常量)，只不过它不位于常量表中，这个常量就对应**null**值；所以，常量池的索引从1而非0开始。
+* 一个java类中定义的很多信息都是由常量池来维护和描述的，可以将常量池看做是**class文件的资源仓库**，比如说java类中定义的**方法**与**变量信息**，都是存储在常量池中。
+* 常量池中主要存储两类常量：
+  * 字面量
+      字面量如文本字符串，java中声明为final的常量值等
+  * 符号引用
+      符号引用如类和接口的全局限定名，字段的名称和描述符，方法的名称和描述符等等。
 
-        // 描述符为<init>:()V
-        public MyTest(){
+#### 常量池的总体结构:
+java类所对应的常量池主要由**常量池数量**与**常量池数组**(常量表)这两部分组成
+* **常量池数量：** 紧跟在主版本号后面，占据2个字节
+* **常量池数组：** 紧跟在常量池数量之后。常量池数组与一般的数组不同的是，**常量池数组中的元素类型并不相同**、结构都是不同的，长度当然也就不同；但是，每一种元素的第一个数据都是u1类型，该字节是个标志位，占据1个字节。JVM在解析常量池时，**会根据这个u1类型来获取元素的具体类型**。
 
-        }
-        ```
-* **访问标志(Access Flags)** 2个字节
-    <table>
-        <thead>
-            <tr>
-                <th>标志名称</th>
-                <th>值</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>ACC-PRIVATE</td>
-                <td>0X0002</td>
-            </tr>
-            <tr>
-                <td>ACC-PUBLIC</td>
-                <td>0X0001</td>
-            </tr>
-            <tr>
-                <td>ACC-FINAL</td>
-                <td>0X0010</td>
-            </tr>
-            <tr>
-                <td>ACC-SUPER</td>
-                <td>0X0020</td>
-            </tr>
-            <tr>
-                <td>ACC-INTERFACE</td>
-                <td>0X0200</td>
-            </tr>
-            <tr>
-                <td>ACC-ABSTRACT</td>
-                <td>0X0400</td>
-            </tr>
-            <tr>
-                <td>ACC-synthetic(合成的,源代码中没有此关键字)</td>
-                <td>0X1000</td>
-            </tr>
-            <tr>
-                <td>ACC-annotation</td>
-                <td>0X2000</td>
-            </tr>
-            <tr>
-                <td>ACC-ENUM</td>
-                <td>0X4000</td>
-            </tr>
-        </tbody>
-    </table>
+#### 常量池中数据类型的结构表
+<table>
+    <thead>
+        <tr>
+            <th>常量</th>
+            <th>项目</th>
+            <th>类型</th>
+            <th>描述</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="3">CONSTANT_Utf8_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为1</td>
+        </tr>
+        <tr>
+            <td>length</td>
+            <td>u2</td>
+            <td>UTF-8编码的字符串长度</td>
+        </tr>
+        <tr>
+            <td>bytes</td>
+            <td>u1</td>
+            <td>长度为length的UTF-8编码的字符串</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_Integer_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为3</td>
+        </tr>
+        <tr>
+            <td>bytes</td>
+            <td>u4</td>
+            <td>按照高位在前存储的int值</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_Float_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为4</td>
+        </tr>
+        <tr>
+            <td>bytes</td>
+            <td>u4</td>
+            <td>按照高位在前存储的float值</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_Long_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为5</td>
+        </tr>
+        <tr>
+            <td>bytes</td>
+            <td>u8</td>
+            <td>按照高位在前存储的long值</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_Double_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为6</td>
+        </tr>
+        <tr>
+            <td>bytes</td>
+            <td>u8</td>
+            <td>按照高位在前存储的double值</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_Class_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为7</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向全限定名常量项的索引</td>
+        </tr>
+        <tr>
+            <td rowspan="2">CONSTANT_String_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为8</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向字符串字面量的索引</td>
+        </tr>
+        <tr>
+            <td rowspan="3">CONSTANT_Fieldref_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为9</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向字段的类或接口的描述符CONSTANT_Class_info的索引项</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向字段描述符CONSTANT_NameAndType_info的索引项</td>
+        </tr>
+        <tr>
+            <td rowspan="3">CONSTANT_Methodref_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为10</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向声明方法的类描述符CONSTANT_Class_info的索引项</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向名称及类型描述符CONSTANT_NameAndType_info的索引项</td>
+        </tr>
+        <tr>
+            <td rowspan="3">CONSTANT_InterfaceMethodref_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为11</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向声明方法的接口描述符CONSTANT_Class_info的索引项</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向名称及类型描述符CONSTANT_NameAndType_info的索引项</td>
+        </tr>
+         <tr>
+            <td rowspan="3">CONSTANT_NameAndType_info</td>
+            <td>tag</td>
+            <td>u1</td>
+            <td>值为12</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向该字段或方法名称常量项的索引</td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>u2</td>
+            <td>指向该字段或方法描述符常量项的索引</td>
+        </tr>
+    </tbody>
+</table>
+
+* 在JVM规范中，每个变量/字段都有描述信息，描述信息主要的作用是描述字段的数据类型、方法的参数列表(包括数量、类型与顺序)与返回值。根据描述符规则，基本数据类型和代表无返回值的void类型都用一个大写字符来表示，对象类型则使用字符L加对象的全限定名称来表示。为了压缩字节码文件的体积，对于基本数据类型，JVM都只使用一个大写字母来表示，如下所示:
   ```
-  访问标志在字节码中的值 = 对应的被修饰对象(类、方法、或属性)的所有访问控制符相加的值
+    B - byte
+    C - char
+    D - double
+    F - float
+    I - int
+    J - long
+    S - short
+    z - boolean
+    V - void
+    L - 对象类型，如Ljava/lang/String;
   ```
-* **当前类名字(This Class Name)** 2个字节
-    指向常量池中的索引
-* **父类名字(Super Class Name)** 2个字节
-    指向常量池中的索引
-* **实现的接口(Interfaces)** 2+n个字节
-    前两个字节:实现的接口数
-    n:n个接口的名字
-* **成员变量(Fields)** 2+n个字节
-    **包含静态变量**
-    * 字段信息结构
-    ```
-    field_info {
-    	u2 agcess_flags;
-    	u2 name_index;
-    	u2 descriptor_index;
-    	u2 attributes_count;
-    	attribute_info attributes[attributes_count];
-    }
-    ```
-* **方法(Methods)** 2+n个字节
-  ```
-  method_info {
-    u2 agcess_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    attribute_info attributes[attributes_count];
-  }
-  attribute_info {
-    u2 attribute_name_index
-    u4 attribute_length
-    u1 info[attribute_length]
-  }
-  ```
-  + JVM预定义了部分attribute，但是编译器自己也可以实现自己的attribute写入class文件里，
-  供运行时使用
-  + 不同的attribute通过attribute_name_index来区分
-  + 访问控制符
-    <table>
-          <thead>
-              <tr>
-                  <th>标志名称</th>
-                  <th>值</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>ACC-PRIVATE</td>
-                  <td>0X0002</td>
-              </tr>
-              <tr>
-                  <td>ACC-PUBLIC</td>
-                  <td>0X0001</td>
-              </tr>
-              <tr>
-                  <td>ACC-FINAL</td>
-                  <td>0X0010</td>
-              </tr>
-              <tr>
-                  <td>ACC-SUPER</td>
-                  <td>0X0020</td>
-              </tr>
-              <tr>
-                  <td>ACC-INTERFACE</td>
-                  <td>0X0200</td>
-              </tr>
-              <tr>
-                  <td>ACC-ABSTRACT</td>
-                  <td>0X0400</td>
-              </tr>
-              <tr>
-                  <td>ACC-synthetic(合成的,源代码中没有此关键字)</td>
-                  <td>0X1000</td>
-              </tr>
-              <tr>
-                  <td>ACC-annotation</td>
-                  <td>0X2000</td>
-              </tr>
-              <tr>
-                  <td>ACC-ENUM</td>
-                  <td>0X4000</td>
-              </tr>
-          </tbody>
-      </table>
-  + Code attribute的作用是保存该方法的结构，如所对应的字节码
-      ```
-      Code_attribute {
-        u2 attribute_name_index;
-        u4 attribute_length;
-        u2 max_stack;
-        u2 max_locals;
-        u4 code_length;
-        u1 code[code_length];
-        u2 exception_table_length;
-        {
-          u2 start_pc;
-          u2 end_pc;
-          u2 handler_pc;
-          u2 catch_type;
-        } exception_table[exception_table_length];
-        u2 attributes_count;
-        attribute_info attributes[attributes_count]
-      }
-      ```
-    + attribute_length表示attribute所包含的字节数，不包含attribute_name_index和
-    attribute_length字段
-    + max_stack表示这个方法运行的任何时刻所能达到的操作数栈的最大深度
-    + max_locals表示方法执行期间创建的局部变量的数目，包含用来表示传入的参数的局部变量
-    + code_length表示该方法所包含的字节码的字节数以及具体的指令码
-    + 具体字节码即是该方法被调用时，虚拟机所执行的字节码
-    + exception_table，这里存放的是处理异常的信息
-    + 每个exception_table表项由start_pc，end_pc,handler_pc,catch_type组成
-    + start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc，不包含
-    end_pc)的指令抛出的异常会由这个表项来处理
-    + handler_pc表示处理异常的代码的开始处。catch_type表示会被处理的异常类型，它指向常量池
-    的一个异常类。当catch_type为0时，表示处理所有的异常
-    + 附件属性-LineNumberTable:这个属性用来表示code数组中字节码和java代码行数之间的
-    关系。这个属性可以用来在调试的时候定位代码执行的行数
-        ```
-        LineNumberTable_attribute {
-          u2 attribute_name_index;
-          u4 attribute_length;
-          u2 line_number_table_length;
-          {
-            u2 start_pc;
-            u2 line_number;
-          } line_number_table[line_number_table_length]
-        }
-        ```
-    + LocalVariableTable(局部变量表)表示方法的局部变量信息
-      ```
-      LocalVariableTable{
-        u2 attribute_name_index;
-        u4 attribute_length;
-        U2 local_variable_table_length;
-        local_variable_info[local_variable_table_length]
-      }
-      local_variable_info{
-        u2 start_pc;
-        u2 length;
-        u2 name_index;
-        u2 description_index;
-        u2 index;
-      }
-      ```
-* **附加属性(Attributes)** 2+n个字节
-  ```
-  {
-    u2 attribute_length;
-    u1 attribute_info[attribute_length]
-  }
-  attribute_info {
-    u2 attribute_name_index
-    u4 attribute_length
-    u1 info[attribute_length]
-  }
-  ```
-* **字节码文件分析实例**
+* 对于数组类型来说，每一个维度使用一个前置的`[`来表示，如`int[]`被记录为`[I`,`String[][]`被记录为`[[Ljava/lang/String`;
+* 用描述符描述方法时，按照先参数列表，后返回值的顺序来描述。参数列表按照参数的严格顺序放在一组()之内。具体示例如下:
   ```java
-  /*
-	 * 模块编号
-	 * 功能描述
-	 * 文件名 MyTest1.java
-	 * 作者 王磊
-	 * 编写日期 2019年6月11日
-	 */
-	package jvm.study.bytecode;
+  // 描述符为:(I ,Ljava/lang/String)Ljava/lang/String;
+  String getRealNameByIdAndNickname(int id,String name)
 
-	public class MyTest1 {
-		private int a;
+  // 描述符为:a:I
+  private int a;
 
-		public int getA() {
-			return a;
-		}
+  // 描述符为<init>:()V
+  public MyTest(){
 
-		public void setA(int a) {
-			this.a = a;
-		}
+  }
+  ```
 
+### 访问标志(Access Flags)2个字节
+<table>
+    <thead>
+        <tr>
+            <th>标志名称</th>
+            <th>值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ACC-PRIVATE</td>
+            <td>0X0002</td>
+        </tr>
+        <tr>
+            <td>ACC-PUBLIC</td>
+            <td>0X0001</td>
+        </tr>
+        <tr>
+            <td>ACC-FINAL</td>
+            <td>0X0010</td>
+        </tr>
+        <tr>
+            <td>ACC-SUPER</td>
+            <td>0X0020</td>
+        </tr>
+        <tr>
+            <td>ACC-INTERFACE</td>
+            <td>0X0200</td>
+        </tr>
+        <tr>
+            <td>ACC-ABSTRACT</td>
+            <td>0X0400</td>
+        </tr>
+        <tr>
+            <td>ACC-synthetic(合成的,源代码中没有此关键字)</td>
+            <td>0X1000</td>
+        </tr>
+        <tr>
+            <td>ACC-annotation</td>
+            <td>0X2000</td>
+        </tr>
+        <tr>
+            <td>ACC-ENUM</td>
+            <td>0X4000</td>
+        </tr>
+    </tbody>
+</table>
+```
+访问标志在字节码中的值 = 对应的被修饰对象(类、方法、或属性)的所有访问控制符相加的值
+```
+
+### 当前类名字(This Class Name)2个字节
+指向常量池中的索引
+
+### 父类名字(Super Class Name)2个字节
+指向常量池中的索引
+
+### 实现的接口(Interfaces) 2+n个字节
+前两个字节:实现的接口数
+n:n个接口的名字
+
+### 成员变量(Fields) 2+n个字节
+* **包含静态变量**
+* 字段信息结构
+  ```
+  field_info {
+  	u2 agcess_flags;
+  	u2 name_index;
+  	u2 descriptor_index;
+  	u2 attributes_count;
+  	attribute_info attributes[attributes_count];
+  }
+  ```
+
+### 方法(Methods) 2+n个字节
+```
+method_info {
+  u2 agcess_flags;
+  u2 name_index;
+  u2 descriptor_index;
+  u2 attributes_count;
+  attribute_info attributes[attributes_count];
+}
+attribute_info {
+  u2 attribute_name_index
+  u4 attribute_length
+  u1 info[attribute_length]
+}
+```
+* JVM预定义了部分attribute，但是编译器自己也可以实现自己的attribute写入class文件里，
+  供运行时使用
+* 不同的attribute通过attribute_name_index来区分
+* 访问控制符
+<table>
+      <thead>
+          <tr>
+              <th>标志名称</th>
+              <th>值</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>ACC-PRIVATE</td>
+              <td>0X0002</td>
+          </tr>
+          <tr>
+              <td>ACC-PUBLIC</td>
+              <td>0X0001</td>
+          </tr>
+          <tr>
+              <td>ACC-FINAL</td>
+              <td>0X0010</td>
+          </tr>
+          <tr>
+              <td>ACC-SUPER</td>
+              <td>0X0020</td>
+          </tr>
+          <tr>
+              <td>ACC-INTERFACE</td>
+              <td>0X0200</td>
+          </tr>
+          <tr>
+              <td>ACC-ABSTRACT</td>
+              <td>0X0400</td>
+          </tr>
+          <tr>
+              <td>ACC-synthetic(合成的,源代码中没有此关键字)</td>
+              <td>0X1000</td>
+          </tr>
+          <tr>
+              <td>ACC-annotation</td>
+              <td>0X2000</td>
+          </tr>
+          <tr>
+              <td>ACC-ENUM</td>
+              <td>0X4000</td>
+          </tr>
+      </tbody>
+  </table>
+
+* Code attribute的作用是保存该方法的结构，如所对应的字节码
+  ```
+  Code_attribute {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 max_stack;
+    u2 max_locals;
+    u4 code_length;
+    u1 code[code_length];
+    u2 exception_table_length;
+    {
+      u2 start_pc;
+      u2 end_pc;
+      u2 handler_pc;
+      u2 catch_type;
+    } exception_table[exception_table_length];
+    u2 attributes_count;
+    attribute_info attributes[attributes_count]
+  }
+  ```
+  * attribute_length表示attribute所包含的字节数，不包含attribute_name_index和attribute_length字段
+  * max_stack表示这个方法运行的任何时刻所能达到的操作数栈的最大深度
+  * max_locals表示方法执行期间创建的局部变量的数目，包含用来表示传入的参数的局部变量
+  * code_length表示该方法所包含的字节码的字节数以及具体的指令码
+  * 具体字节码即是该方法被调用时，虚拟机所执行的字节码
+  * exception_table，这里存放的是处理异常的信息
+  * 每个exception_table表项由start_pc，end_pc,handler_pc,catch_type组成
+  * start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc，不包含
+    end_pc)的指令抛出的异常会由这个表项来处理
+  * handler_pc表示处理异常的代码的开始处。catch_type表示会被处理的异常类型，它指向常量池
+    的一个异常类。当catch_type为0时，表示处理所有的异常
+  * 附件属性-LineNumberTable:这个属性用来表示code数组中字节码和java代码行数之间的
+    关系。这个属性可以用来在调试的时候定位代码执行的行数
+    ```
+    LineNumberTable_attribute {
+      u2 attribute_name_index;
+      u4 attribute_length;
+      u2 line_number_table_length;
+      {
+        u2 start_pc;
+        u2 line_number;
+      } line_number_table[line_number_table_length]
+    }
+    ```
+  * LocalVariableTable(局部变量表)表示方法的局部变量信息
+    ```
+    LocalVariableTable{
+      u2 attribute_name_index;
+      u4 attribute_length;
+      U2 local_variable_table_length;
+      local_variable_info[local_variable_table_length]
+    }
+    local_variable_info{
+      u2 start_pc;
+      u2 length;
+      u2 name_index;
+      u2 description_index;
+      u2 index;
+    }
+    ```
+
+### 附加属性(Attributes) 2+n个字节
+```
+{
+  u2 attribute_length;
+  u1 attribute_info[attribute_length]
+}
+attribute_info {
+  u2 attribute_name_index
+  u4 attribute_length
+  u1 info[attribute_length]
+}
+  ```
+
+## 字节码文件分析实例
+```java
+/*
+ * 模块编号
+ * 功能描述
+ * 文件名 MyTest1.java
+ * 作者 王磊
+ * 编写日期 2019年6月11日
+ */
+package jvm.study.bytecode;
+
+public class MyTest1 {
+	private int a;
+
+	public int getA() {
+		return a;
 	}
+
+	public void setA(int a) {
+		this.a = a;
+	}
+}
+```
+
+![字节码](/assets/字节码.PNG)
+```
+1、魔数:CAFEBABE
+2、次版本号:0
+3、主版本号:52 代表1.8
+4、常量池数量:24 实际常量池数量24-1=23
+5、#1: 7 Class_Info 指向#2
+6、#2：1 UTF8_Info 长度26 jvm/study/bytecode/MyTest1
+7、#3: 7 Class_Info 指向#4
+8、#4: 1 UTF8_Info 长度16 java/lang/Object
+9、#5: 1 UTF8_Info 长度1 a
+10、#6: 1 UTF8_Info 长度1 I
+11、#7: 1 UTF8_Info 长度6 <init>
+12、#8: 1 UTF8_Info 长度3 ()V
+13、#9：1 UTF8_Info 长度4 Code
+14、#10: 10 Methodref_Info 声明方法的类的索引:#3,Name_And_Type的索引:#11
+15、#11: 12 NameAndType_Info Name索引:#7,Type索引:#8
+16、#12: 1 UTF8_Info 长度15 LineNumberTable
+17、#13: 1 UTF8_Info 长度18 LocalVariableTable
+18、#14: 1 UTF8_Info 长度4 this
+19、#15: 1 UTF8_Info 长度28 Ljvm/study/bytecode/MyTest1;
+20、#16: 1 UTF8_Info 长度4 getA
+21、#17: 1 UTF8_Info 长度3 ()I
+22、#18: 9 Fieldref_Info 类型:指向#1 NameAndType：指向19
+23、#19: 12 NameAndType_Info Name索引:#5,Type索引:#6
+24、#20: 1 UTF8_Info 长度4 setA
+25、#21: 1 UTF8_Info 长度4 (I)V
+26、#22: 1 UTF8_Info 长度10 SourceFile
+27、#23: 1 UTF8_Info 长度12 MyTest1.java
+28、访问控制符；0x21 ACC_Super + ACC_Public
+29、当前类名字； 指向#1 jvm/study/bytecode/MyTest1
+30、父类名字: 指向#3 java/lang/Object
+31、实现接口数量；0
+32、成员变量个数；1
+33、成员变量访问控制符；0x0002 private
+34、成员变量name索引: 指向#5 a
+35、成员变量描述信息索引: 指向#6 I
+36、成员变量附加属性个数: 0
+37、方法个数:3
+38、方法访问控制符:1 public
+39、方法名字索引:#7 <init>
+40、方法描述符索引: #8 ()V
+41、方法属性数量:1
+42、属性名索引:#9 Code
+43、属性长度:47
+44、最大栈深度: 1
+45、局部变量个数:1
+46、code_length(执行指令“也叫助记符”的长度):5
+47、aload_0 指令，指的是从局部变量表加载引用
+48、invokespecial指令,指的是调用实例方法,后边的两个字节代表调用的方法的索引
+49、调用方法的索引:#10 java/lang/Object.<init>
+50、return 指令，表示返回值为void
+51、异常表长度:0
+52、附加属性个数:2
+53、附加属性名字索引:#12 LineNumberTable
+54、属性长度:6
+55、行号表长度:1
+56、start_pc：0
+57、line_number:10
+58、第二个附加属性的名字索引:#13 LocalVariableTable
+59、第二个附加属性的属性长度:12
+60、局部变量表长度:1
+61、start_pc:0
+62、长度:5
+63、name_index:#14 this
+64、description_index: #15 Ljvm/study/bytecode/MyTest1;
+65、index:0
+66、第二个方法的访问控制符:1 public
+67、第二个方法的名字索引:#16 getA
+68、第二个方法的描述符索引:#17 ()I
+69、方法属性数量:1
+70、属性名索引:#9 Code
+71、属性长度:47
+72、最大栈深度:1
+73、局部变量个数:1
+74、code_length(执行指令“也叫助记符”的长度):5
+75、aload_0 指令，指的是从局部变量表加载引用
+76、getfield指令,指的是从对象获取一个字段，后面两个字节代表字段信息的索引
+77、#18 指向jvm/study/bytecode/MyTest1.a
+78、ireturn指令,指的是返回一个int值
+79、异常表长度:0
+80、附加属性个数:2
+81、附加属性名字索引:#12 LineNumberTable
+82、属性长度:6
+83、行号表长度:1
+84、start_pc：0
+85、line_number:14
+86、第二个附加属性的名字索引:#13 LocalVariableTable
+87、第二个附加属性的属性长度:12
+88、局部变量表长度:1
+89、start_pc:0
+90、长度:5
+91、name_index:#14 this
+92、description_index: #15 Ljvm/study/bytecode/MyTest1;
+93、index:0
+94、第三个方法的访问控制符:1 public
+95、第三个方法的名字索引:#20 setA
+96、第三个方法的描述符索引:#21 (I)V
+97、方法属性数量:1
+98、属性名索引:#9 Code
+99、属性长度:62
+100、最大栈深度:2
+101、局部变量个数:2
+102、code_length(执行指令“也叫助记符”的长度):6
+103、aload_0 指令，指的是从局部变量表加载引用
+104、iload指令,指的是从局部变量表加载int值
+105、putfield指令，指的是为对象的属性赋值，后两个字节为索要赋值的字段信息的引用
+106、赋值的字段信息:#18 jvm/study/bytecode/MyTest1.a
+107、return 指令，表示返回值为void
+108、异常表长度:0
+109、附加属性个数:2
+110、附加属性名字索引:#12 LineNumberTable
+111、属性长度:10
+112、行号表长度:2
+113、start_pc:0
+114、line_number:18
+115、start_pc:5
+116、line_number:19
+117、附加属性名字索引:#13 LocalVariableTable
+118、附加属性的属性长度:22
+119、局部变量表长度:2
+120、start_pc:0
+121、长度:6
+122、name_index:#14 this
+123、description_index: #15 Ljvm/study/bytecode/MyTest1;
+124、index:0
+125、start_pc:0
+126、长度:6
+127、name_index:#5 a
+128、description_index: #6 I
+129、index:1
+130、字节码附加属性个数:1
+131、附加属性名字索引:#22 SourceFile
+132、属性长度:2
+133、源文件索引:#23 MyTest1.java
+```
+
+### synchronized关键字生成的字节码分析
+* 给方法添加synchronized关键字只会改变方法的访问修饰符，不会改变方法的Code属性
+  ```java
+  private void setX(int x) {
+      this.x = x;
+  }
   ```
-  ![字节码](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/%E5%AD%97%E8%8A%82%E7%A0%81.PNG)
   ```
-  1、魔数:CAFEBABE
-  2、次版本号:0
-  3、主版本号:52 代表1.8
-  4、常量池数量:24 实际常量池数量24-1=23
-  5、#1: 7 Class_Info 指向#2
-  6、#2：1 UTF8_Info 长度26 jvm/study/bytecode/MyTest1
-  7、#3: 7 Class_Info 指向#4
-  8、#4: 1 UTF8_Info 长度16 java/lang/Object
-  9、#5: 1 UTF8_Info 长度1 a
-  10、#6: 1 UTF8_Info 长度1 I
-  11、#7: 1 UTF8_Info 长度6 <init>
-  12、#8: 1 UTF8_Info 长度3 ()V
-  13、#9：1 UTF8_Info 长度4 Code
-  14、#10: 10 Methodref_Info 声明方法的类的索引:#3,Name_And_Type的索引:#11
-  15、#11: 12 NameAndType_Info Name索引:#7,Type索引:#8
-  16、#12: 1 UTF8_Info 长度15 LineNumberTable
-  17、#13: 1 UTF8_Info 长度18 LocalVariableTable
-  18、#14: 1 UTF8_Info 长度4 this
-  19、#15: 1 UTF8_Info 长度28 Ljvm/study/bytecode/MyTest1;
-  20、#16: 1 UTF8_Info 长度4 getA
-  21、#17: 1 UTF8_Info 长度3 ()I
-  22、#18: 9 Fieldref_Info 类型:指向#1 NameAndType：指向19
-  23、#19: 12 NameAndType_Info Name索引:#5,Type索引:#6
-  24、#20: 1 UTF8_Info 长度4 setA
-  25、#21: 1 UTF8_Info 长度4 (I)V
-  26、#22: 1 UTF8_Info 长度10 SourceFile
-  27、#23: 1 UTF8_Info 长度12 MyTest1.java
-  28、访问控制符；0x21 ACC_Super + ACC_Public
-  29、当前类名字； 指向#1 jvm/study/bytecode/MyTest1
-  30、父类名字: 指向#3 java/lang/Object
-  31、实现接口数量；0
-  32、成员变量个数；1
-  33、成员变量访问控制符；0x0002 private
-  34、成员变量name索引: 指向#5 a
-  35、成员变量描述信息索引: 指向#6 I
-  36、成员变量附加属性个数: 0
-  37、方法个数:3
-  38、方法访问控制符:1 public
-  39、方法名字索引:#7 <init>
-  40、方法描述符索引: #8 ()V
-  41、方法属性数量:1
-  42、属性名索引:#9 Code
-  43、属性长度:47
-  44、最大栈深度: 1
-  45、局部变量个数:1
-  46、code_length(执行指令“也叫助记符”的长度):5
-  47、aload_0 指令，指的是从局部变量表加载引用
-  48、invokespecial指令,指的是调用实例方法,后边的两个字节代表调用的方法的索引
-  49、调用方法的索引:#10 java/lang/Object.<init>
-  50、return 指令，表示返回值为void
-  51、异常表长度:0
-  52、附加属性个数:2
-  53、附加属性名字索引:#12 LineNumberTable
-  54、属性长度:6
-  55、行号表长度:1
-  56、start_pc：0
-  57、line_number:10
-  58、第二个附加属性的名字索引:#13 LocalVariableTable
-  59、第二个附加属性的属性长度:12
-  60、局部变量表长度:1
-  61、start_pc:0
-  62、长度:5
-  63、name_index:#14 this
-  64、description_index: #15 Ljvm/study/bytecode/MyTest1;
-  65、index:0
-  66、第二个方法的访问控制符:1 public
-  67、第二个方法的名字索引:#16 getA
-  68、第二个方法的描述符索引:#17 ()I
-  69、方法属性数量:1
-  70、属性名索引:#9 Code
-  71、属性长度:47
-  72、最大栈深度:1
-  73、局部变量个数:1
-  74、code_length(执行指令“也叫助记符”的长度):5
-  75、aload_0 指令，指的是从局部变量表加载引用
-  76、getfield指令,指的是从对象获取一个字段，后面两个字节代表字段信息的索引
-  77、#18 指向jvm/study/bytecode/MyTest1.a
-  78、ireturn指令,指的是返回一个int值
-  79、异常表长度:0
-  80、附加属性个数:2
-  81、附加属性名字索引:#12 LineNumberTable
-  82、属性长度:6
-  83、行号表长度:1
-  84、start_pc：0
-  85、line_number:14
-  86、第二个附加属性的名字索引:#13 LocalVariableTable
-  87、第二个附加属性的属性长度:12
-  88、局部变量表长度:1
-  89、start_pc:0
-  90、长度:5
-  91、name_index:#14 this
-  92、description_index: #15 Ljvm/study/bytecode/MyTest1;
-  93、index:0
-  94、第三个方法的访问控制符:1 public
-  95、第三个方法的名字索引:#20 setA
-  96、第三个方法的描述符索引:#21 (I)V
-  97、方法属性数量:1
-  98、属性名索引:#9 Code
-  99、属性长度:62
-  100、最大栈深度:2
-  101、局部变量个数:2
-  102、code_length(执行指令“也叫助记符”的长度):6
-  103、aload_0 指令，指的是从局部变量表加载引用
-  104、iload指令,指的是从局部变量表加载int值
-  105、putfield指令，指的是为对象的属性赋值，后两个字节为索要赋值的字段信息的引用
-  106、赋值的字段信息:#18 jvm/study/bytecode/MyTest1.a
-  107、return 指令，表示返回值为void
-  108、异常表长度:0
-  109、附加属性个数:2
-  110、附加属性名字索引:#12 LineNumberTable
-  111、属性长度:10
-  112、行号表长度:2
-  113、start_pc:0
-  114、line_number:18
-  115、start_pc:5
-  116、line_number:19
-  117、附加属性名字索引:#13 LocalVariableTable
-  118、附加属性的属性长度:22
-  119、局部变量表长度:2
-  120、start_pc:0
-  121、长度:6
-  122、name_index:#14 this
-  123、description_index: #15 Ljvm/study/bytecode/MyTest1;
-  124、index:0
-  125、start_pc:0
-  126、长度:6
-  127、name_index:#5 a
-  128、description_index: #6 I
-  129、index:1
-  130、字节码附加属性个数:1
-  131、附加属性名字索引:#22 SourceFile
-  132、属性长度:2
-  133、源文件索引:#23 MyTest1.java
+  private void setX(int);
+  descriptor: (I)V
+  flags: ACC_PRIVATE
+  Code:
+    stack=2, locals=2, args_size=2
+       0: aload_0
+       1: iload_1
+       2: putfield      #4                  // Field x:I
+       5: return
+    LineNumberTable:
+      line 29: 0
+      line 30: 5
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0       6     0  this   Ljvm/study/bytecode/MyTest2;
+          0       6     1     x   I
   ```
-* **synchronized关键字生成的字节码分析**
-  + 给方法添加synchronized关键字只会改变方法的访问修饰符，不会改变方法的Code属性
+  ```java
+  private synchronized void setX(int x) {
+      this.x = x;
+  }
+  ```
+  ```
+  private synchronized void setX(int);
+  descriptor: (I)V
+  flags: ACC_PRIVATE, ACC_SYNCHRONIZED
+  Code:
+    stack=2, locals=2, args_size=2
+       0: aload_0
+       1: iload_1
+       2: putfield      #4                  // Field x:I
+       5: return
+    LineNumberTable:
+      line 29: 0
+      line 30: 5
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0       6     0  this   Ljvm/study/bytecode/MyTest2;
+          0       6     1     x   I
+  ```
+* 给方法中添加synchronized代码块会改变方法的Code属性
+  ```java
+  private void test(){
+      synchronized (lock){
+          System.out.println("Hello World");
+      }
+  }
+  ```
+  ```
+  private void test();
+  descriptor: ()V
+  flags: ACC_PRIVATE
+  Code:
+    stack=2, locals=3, args_size=1
+       0: aload_0
+       1: getfield      #6                  // Field lock:Ljava/lang/Object;
+       4: dup
+       5: astore_1
+       6: monitorenter
+       7: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      10: ldc           #13                 // String Hello World
+      12: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      15: aload_1
+      16: monitorexit
+      17: goto          25
+      20: astore_2
+      21: aload_1
+      22: monitorexit
+      23: aload_2
+      24: athrow
+      25: return
+    Exception table:
+       from    to  target type
+           7    17    20   any
+          20    23    20   any
+    LineNumberTable:
+      line 34: 0
+      line 35: 7
+      line 36: 15
+      line 37: 25
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0      26     0  this   Ljvm/study/bytecode/MyTest2;
+    StackMapTable: number_of_entries = 2
+      frame_type = 255 /* full_frame */
+        offset_delta = 20
+        locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
+        stack = [ class java/lang/Throwable ]
+      frame_type = 250 /* chop */
+        offset_delta = 4
+  ```
+* 对class加synchronized字节码分析
+  ```java
+  private void test2() {
+      synchronized (MyTest2.class) {
+          System.out.println("Hello World");
+      }
+  }
+  ```
+  ```
+  private void test2();
+  descriptor: ()V
+  flags: ACC_PRIVATE
+  Code:
+    stack=2, locals=3, args_size=1
+       0: ldc           #7                  // class jvm/study/bytecode/MyTest2
+       2: dup
+       3: astore_1
+       4: monitorenter
+       5: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       8: ldc           #13                 // String Hello World
+      10: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      13: aload_1
+      14: monitorexit
+      15: goto          23
+      18: astore_2
+      19: aload_1
+      20: monitorexit
+      21: aload_2
+      22: athrow
+      23: return
+    Exception table:
+       from    to  target type
+           5    15    18   any
+          18    21    18   any
+    LineNumberTable:
+      line 41: 0
+      line 42: 5
+      line 43: 13
+      line 44: 23
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0      24     0  this   Ljvm/study/bytecode/MyTest2;
+    StackMapTable: number_of_entries = 2
+      frame_type = 255 /* full_frame */
+        offset_delta = 18
+        locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
+        stack = [ class java/lang/Throwable ]
+      frame_type = 250 /* chop */
+        offset_delta = 4
+  ```
+
+### 构造函数(`<init>`)与静态代码块(`<clinit>`)
+* **实例成员变量**会在构造函数中被赋予程序员指定初始值
+  ```java
+  String str = "Welcome";
+
+  private int x = 5;
+
+  public static Integer i = 10;
+  // 无构造函数，编译器会自动生成一个默认的构造函数
+  ```
+  ![构造方法中对成员变量赋值](/assets/构造方法中对成员变量赋值.png)
+* **实例成员变量**会在**所有的**构造函数中被赋予程序员指定初始值
+  ![init-2](/assets/init-2.png)
+  ![init-3](/assets/init-3.png)
+* **实例成员变量**的赋值会最先被执行，其次才会执行程序员在构造函数中所写的代码
+  ```java
+  public MyTest2(){
+      System.out.println("ni hao");
+  }
+  ```
+  ![init-4](/assets/init-4.png)
+* **实例成员变量**的赋值与在代码行中的位置无关(无论写在哪里都会在构造函数中赋值)代码中的位置仅能决定赋值的顺序
+  ```java
+  String str = "Welcome";
+
+  public static Integer i = 10;
+
+  public MyTest2(){
+      System.out.println("ni hao");
+  }
+
+  public MyTest2(int i){
+
+  }
+
+  private int x = 5;
+  ```
+  ![init-5](/assets/init-5.png)
+
+* **静态成员变量**会在静态代码块中被赋予程序员指定的初始值
+  ![clinit-1](/assets/clinit-1.png)
+  * 当程序中存在静态变量时，即使程序中未写static{}代码块，编译器也会为程序生成静态代码块
+  * **静态成员变量**的赋值会最先被执行，其次才会执行程序员在静态代码块中所写的代码
     ```java
-    private void setX(int x) {
-        this.x = x;
+    static {
+        System.out.println("hahaha");
     }
     ```
-    ```
-    private void setX(int);
-    descriptor: (I)V
-    flags: ACC_PRIVATE
-    Code:
-      stack=2, locals=2, args_size=2
-         0: aload_0
-         1: iload_1
-         2: putfield      #4                  // Field x:I
-         5: return
-      LineNumberTable:
-        line 29: 0
-        line 30: 5
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0       6     0  this   Ljvm/study/bytecode/MyTest2;
-            0       6     1     x   I
-    ```
-    ```java
-    private synchronized void setX(int x) {
-        this.x = x;
-    }
-    ```
-    ```
-    private synchronized void setX(int);
-    descriptor: (I)V
-    flags: ACC_PRIVATE, ACC_SYNCHRONIZED
-    Code:
-      stack=2, locals=2, args_size=2
-         0: aload_0
-         1: iload_1
-         2: putfield      #4                  // Field x:I
-         5: return
-      LineNumberTable:
-        line 29: 0
-        line 30: 5
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0       6     0  this   Ljvm/study/bytecode/MyTest2;
-            0       6     1     x   I
-    ```
-  + 给方法中添加synchronized代码块会改变方法的Code属性
-    ```java
-    private void test(){
-        synchronized (lock){
-            System.out.println("Hello World");
+    ![clinit-2](/assets/clinit-2.png)
+
+### 对**异常**字节码的分析
+* 统一采用异常表的方式来对异常进行处理
+  ```
+  // 异常表结构
+  {
+    u2 start_pc;
+    u2 end_pc;
+    u2 handler_pc;
+    u2 catch_type;
+    // start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc,不包含
+    end_pc)的指令抛出的异常会由这个表项来处理
+    // handler_pc表示处理异常的代码的开始处
+    // catch_type表示会被处理的异常类型,它指向常量池里的一个异常类。当catch_type为0时,
+    表示处理所有的异常
+  }
+  ```
+* 在JDK1.4.2之前的版本中，并不是使用异常表的方式来对异常进行处理的，而是采用特定的指令方式
+* 当异常处理存在finally语句块时，现代化的JVM采取的处理方式是将finally语句块的字节码拼接到每一个catch块后面，换句话说，程序中存在多少个catch块，就会在每一个catch块后面重复多少个finally语句块的字节码
+ * 实例分析
+  ```java
+  public class MyTest3 {
+      public void test() {
+          try {
+              InputStream is = new FileInputStream("test.txt");
+
+              ServerSocket serverSocket = new ServerSocket(9999);
+              serverSocket.accept();
+          } catch (FileNotFoundException ex) {
+
+          } catch (IOException ex) {
+
+          } catch (Exception ex) {
+
+          } finally {
+              System.out.println("finally");
+          }
+      }
+  }
+  ```
+  异常表结构
+  ![exception-1](/assets/exception-1.png)
+  catch_type为0时,表示处理所有异常，字节码中自动生成的
+  ![exception-2](/assets/exception-2.png)
+  每一个catch块后都会重复finally代码块的执行指令
+  ![exception-3](/assets/exception-3.png)
+  方法声明中thows的Exception是**定义在附加信息Exceptions中的**而不是在**附加属性Code**中的
+  ```java
+  public void test() throws IOException, NullPointerException {}
+  ```
+  ![exception-4](/assets/exception-4.png)
+
+### 栈帧
+* 栈帧是一种用于帮助**虚拟机执行方法调用与方法执行**的数据结构。
+* 栈帧本身是一种数据结构，封装了方法的**局部变量表**、**动态链接信息**、**方法的返回地址** 及 **操作数栈**等信息。
+
+### 局部变量表的说明
+局部变量表的容量以变量槽（Variable Slot，也称Slot）为最小单位，其中Slot的大小在虚拟机规范中并没有说明，意味着如果一个Slot占32位，那么double,long等类型的变量就需要存储在连续的Slot中，值得注意的是:**所有的局部变量所占的Slot的个数并不一定等于实际的Slot的个数，因为Slot是可以复用的**，
+如下代码:
+  ```java
+  // c和d在if语句中才有效，因此在if代码块执行完时，c和d变量的Slot可能被e和f复用
+  public void test() {
+      int a = 2;
+      float b = 3.0f;
+
+      if (a < b) {
+          int c = 1;
+          int d = 4;
+      }
+      int e = 3;
+      int f = 6;
+  }
+  ```
+### 特殊的指令
+* 符号引用
+  符号引用指的是类似常量池中类的全限定名方式的引用
+* 直接引用
+  直接引用指的是引用内存中的地址，类似指针
+* 有些符号引用是在类加载阶段或是第一次使用时就会转换为直接引用，这种转换叫做静态解析；另外一些符号引用则是在每次运行期转换为直接引用，这种转换叫做动态链接，这体现为Java的多态性。
+#### 方法调用的介绍
+* `invokeinterface`: 调用接口中的方法，实际上是在运行期决定的，决定到底调用实现该接口的哪个对象的特定方法
+* `invokestatic`:调用静态方法
+* `invokespecial`: 调用自己的私有方法，构造方法(<init>)以及父类的方法
+* `invokevirtual`:调用虚方法，运行期动态查找的过程
+* `invokedynamic`: 动态调用方法(执行一些动态语言,如JavaScript)
+* 静态解析的4中情形
+  * 静态方法
+  * 父类方法
+  * 构造方法
+  * 私有方法(无法被重写)
+以上4类方法称作非虚方法，他们是在类加载阶段就可以将符号引用转换为直接引用的。
+* 静态分派
+  ```java
+  public class MyTest5 {
+      public void test(Grandpa grandpa){
+          System.out.println("grandpa");
+      }
+
+      public void test(Father father){
+          System.out.println("father");
+      }
+
+      public void test(Son son){
+          System.out.println("son");
+      }
+
+      public static void main(String[] args) {
+          Grandpa father = new Father();
+          Grandpa son = new Son();
+
+          MyTest5 myTest5 = new MyTest5();
+          myTest5.test(father); // grandpa
+          myTest5.test(son); // grandpa
+      }
+  }
+
+  class Grandpa {
+  }
+
+  class Father extends Grandpa {
+  }
+
+  class Son extends Father {
+  }
+  // Grandpa father = new Father();
+  // 以上代码，father的静态类型是Grandpa，而实际类型是Father
+  ```
+* 动态分派
+  invokevirtual指令执行流程
+  1. 找到操作数栈栈顶的第一个元素；
+  2. 在找到的第一个元素中找到了与常量池方法描述符以及方法名称等都完全匹配的方法，
+  如果找到并且具有方法权限，则返回方法的直接引用，如果未找到完全匹配的方法，则从
+  子类向上一直查找，找到方法的直接引用并返回；
+  3. 调用找到的方法。
+  ```java
+   public class MyTest6 {
+        public static void main(String[] args) {
+            Fruit apple = new Apple();
+            Fruit orange = new Orange();
+
+            apple.test(); // apple
+            orange.test(); // orange
+
+            apple = new Orange();
+            apple.test(); // orange
         }
     }
-    ```
-    ```
-    private void test();
-    descriptor: ()V
-    flags: ACC_PRIVATE
-    Code:
-      stack=2, locals=3, args_size=1
-         0: aload_0
-         1: getfield      #6                  // Field lock:Ljava/lang/Object;
-         4: dup
-         5: astore_1
-         6: monitorenter
-         7: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
-        10: ldc           #13                 // String Hello World
-        12: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
-        15: aload_1
-        16: monitorexit
-        17: goto          25
-        20: astore_2
-        21: aload_1
-        22: monitorexit
-        23: aload_2
-        24: athrow
-        25: return
-      Exception table:
-         from    to  target type
-             7    17    20   any
-            20    23    20   any
-      LineNumberTable:
-        line 34: 0
-        line 35: 7
-        line 36: 15
-        line 37: 25
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0      26     0  this   Ljvm/study/bytecode/MyTest2;
-      StackMapTable: number_of_entries = 2
-        frame_type = 255 /* full_frame */
-          offset_delta = 20
-          locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
-          stack = [ class java/lang/Throwable ]
-        frame_type = 250 /* chop */
-          offset_delta = 4
-    ```
-  + 对class加synchronized字节码分析
-    ```java
-    private void test2() {
-        synchronized (MyTest2.class) {
-            System.out.println("Hello World");
+
+    class Fruit {
+        public void test() {
+            System.out.println("Fruit");
         }
     }
-    ```
-    ```
-    private void test2();
-    descriptor: ()V
-    flags: ACC_PRIVATE
-    Code:
-      stack=2, locals=3, args_size=1
-         0: ldc           #7                  // class jvm/study/bytecode/MyTest2
-         2: dup
-         3: astore_1
-         4: monitorenter
-         5: getstatic     #12                 // Field java/lang/System.out:Ljava/io/PrintStream;
-         8: ldc           #13                 // String Hello World
-        10: invokevirtual #14                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
-        13: aload_1
-        14: monitorexit
-        15: goto          23
-        18: astore_2
-        19: aload_1
-        20: monitorexit
-        21: aload_2
-        22: athrow
-        23: return
-      Exception table:
-         from    to  target type
-             5    15    18   any
-            18    21    18   any
-      LineNumberTable:
-        line 41: 0
-        line 42: 5
-        line 43: 13
-        line 44: 23
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0      24     0  this   Ljvm/study/bytecode/MyTest2;
-      StackMapTable: number_of_entries = 2
-        frame_type = 255 /* full_frame */
-          offset_delta = 18
-          locals = [ class jvm/study/bytecode/MyTest2, class java/lang/Object ]
-          stack = [ class java/lang/Throwable ]
-        frame_type = 250 /* chop */
-          offset_delta = 4
-    ```
-  + 构造函数(`<init>`)与静态代码块(`<clinit>`)
-    + **实例成员变量**会在构造函数中被赋予程序员指定初始值
-      ```java
-      String str = "Welcome";
 
-      private int x = 5;
+    class Apple extends Fruit {
+        @Override
+        public void test() {
+            System.out.println("Apple");
+        }
+    }
 
-      public static Integer i = 10;
-      // 无构造函数，编译器会自动生成一个默认的构造函数
-      ```
-      ![<init>-赋值](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%B8%AD%E5%AF%B9%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC.png)
-    + **实例成员变量**会在**所有的**构造函数中被赋予程序员指定初始值
-      ![<init>-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-2.png)
-      ![<init>-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-3.png)
-    + **实例成员变量**的赋值会最先被执行，其次才会执行程序员在构造函数中所写的代码
+    class Orange extends Fruit {
+        @Override
+        public void test() {
+            System.out.println("Orange");
+        }
+    }
+  ```
+  ![invokevirtual](/assets/invokevirtual.png)
+  * 虚方法表
+    1. 针对**于方法调用动态分派的过程**，虚拟机会在类的方法区建立一个**虚方法表的数据结构**(virtual method table,vtable)子类继承父类如果没有重写父类的方法时，**子类中不会copy父类的方法**，而是在调用时指向父类的方法**子类中方法描述信息对应在常量池中的索引与父类是相同的**，这样可以加快在父类中检索方法的效率
+    2. 针对于`invokeinterface`指令来说，虚拟机会建立一个叫做**接口方法表的数据结构**(interface method table，itable)
+    ```java
+    Animal animal = new Animal();
+    //animal.test(null); 编译报错
+    animal.test("hello");
+
+    Dog dog = new Dog();
+    dog.test(new Date());
+    ```
+    ![vtable](/assets/vtable.png)
+  * 基于**栈的指令集**和基于**寄存器的指令集**
+    * 现代JVM在执行Java代码的时候，通常都会将解释执行与编译执行二者结合起来进行。所谓解释执行，就是通过解释器来读取字节码，遇到相应的指令就去执行该指令。所谓编译执行，就是通过及时编译器(Just In Time,JIT)将字节码转换为本地机器码来执行；现代JVM会根据代码热点来生成相应的本地机器码。
+    * 两种指令集的关系:
+      1. JVM执行指令时所采取的方式是基于栈的指令集。
+      2. 基于栈的指令集主要的操作有入栈和出栈两种。
+      3. 基于栈的指令集的优势在于它可以在不同平台之间移植，而基于寄存器的指令集是与硬件架构紧密关联的，无法做到可移植。
+      4. 基于栈的指令集的缺点在于完成相同的操作，指令数量通常要比寄存器的指令集数量要多；基于栈的指令集是在内存中完成
+      操作的，而基于寄存器的指令集是直接由CPU来执行的，它是在高速缓冲区中进行执行的，速度要快很多。虽然虚拟机可以采用一些优化手段，但总体来说，基于栈的指令集的执行速度要慢一些。
+    * 基于**栈的指令集**实例分析
       ```java
-      public MyTest2(){
-          System.out.println("ni hao");
+      public int calculate() {
+          int a = 6;
+          int b = 3;
+          int c = 2;
+          int d = 1;
+
+          int result = (a + b - c) * d;
+
+          return result;
       }
       ```
-      ![<init>-4](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-4.png)
-    + **实例成员变量**的赋值与在代码行中的位置无关(无论写在哪里都会在构造函数中赋值)，
-    代码中的位置仅能决定赋值的顺序
-      ```java
-      String str = "Welcome";
-
-      public static Integer i = 10;
-
-      public MyTest2(){
-          System.out.println("ni hao");
-      }
-
-      public MyTest2(int i){
-
-      }
-
-      private int x = 5;
+      ![stack-code](/assets/stack-code.png)
       ```
-      ![<init>-5](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/init-5.png)
-    + **静态成员变量**会在静态代码块中被赋予程序员指定的初始值
-      ![<clinit>-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/clinit-1.png)
-    + 当程序中存在静态变量时，即使程序中未写static{}代码块，编译器也会为程序生成静态代码块
-    + **静态成员变量**的赋值会最先被执行，其次才会执行程序员在静态代码块中所写的代码
-      ```java
+      0 bipush 6 将int类型的6压入操作数栈顶
+      2 istore_1 将操作数栈顶的第一个数(6)放置局部变量表的第1个位置
+      3 iconst_3 将int类型的3压入操作数栈顶
+      4 istore_2 将操作数栈顶的第一个数(3)放置局部变量表的第2个位置
+      5 iconst_2 将int类型的2压入操作数栈顶
+      6 istore_3 将操作数栈顶的第一个数(2)放置局部变量表的第3个位置
+      7 iconst_1 将int类型的1压入操作数栈顶
+      8 istore 4 将操作数栈顶的第一个数(1)放置局部变量表的第4个位置
+      10 iload_1 将局部变量表中第1个位置索引的数(6)压入操作数栈
+      11 iload_2 将局部变量表中第2个位置索引的数(3)压入操作数栈
+      12 iadd    将操作数栈顶中的两个数相加并将结果(9)压入至操作数栈
+      13 iload_3 将局部变量表中第3个位置索引的数(2)压入操作数栈
+      14 isub    弹出操作数栈顶的两个元素，用第二个减去第一个并将结果(7)压入操作数栈
+      15 iload 4 将局部变量表中第4个位置索引的数(1)压入操作数栈
+      17 imul    将操作数栈顶的两个元素相乘，并将结果(7)压入至操作数栈
+      18 istore 5将操作数栈顶的元素(7)放置局部变量表的第5个位置
+      20 iload 5 将局部变量表中第5个位置索引的数(7)压入操作数栈
+      22 ireturn 返回操作数栈顶的元素(7)
+      ```
+### 动态代理字节码分析
+* 动态代理代码
+  ```java
+  public interface Subject {
+      void request();
+  }
+  public class RealSubject implements Subject {
+
+  public void request() {
+        System.out.println("From Real Subject");
+      }
+  }
+  public class DynamicSubject implements InvocationHandler {
+      private Object obj;
+
+      public DynamicSubject(Object obj) {
+          this.obj = obj;
+      }
+
+      public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+          System.out.println("begin invoke" + method);
+
+          method.invoke(obj, args);
+
+          System.out.println("end invoke" + method);
+
+          return null;
+      }
+  }
+  public class Client {
+      public static void main(String[] args) {
+          System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+          RealSubject realSubject = new RealSubject();
+          DynamicSubject dynamicSubject = new DynamicSubject(realSubject);
+
+          Class<? extends RealSubject> clazz = realSubject.getClass();
+
+          Subject subject = (Subject) Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), dynamicSubject);
+          subject.request();
+
+          System.out.println(subject.getClass()); //com.sun.proxy.$Proxy0
+          System.out.println(subject.getClass().getSuperclass()); // java.lang.reflect.Proxy
+      }
+  }
+  ```
+* 指定系统属性生成动态代理字节码文件
+  ```java
+  // sun.misc.ProxyGenerator类
+  // 生成字节码的方法
+  public static byte[] generateProxyClass(final String var0, Class<?>[] var1, int var2) {
+      ProxyGenerator var3 = new ProxyGenerator(var0, var1, var2);
+      final byte[] var4 = var3.generateClassFile();
+      // saveGeneratedFiles保存生成的class文件，对应该类第91行
+      // private static final boolean saveGeneratedFiles = (Boolean)AccessController.doPrivileged(new GetBooleanAction("sun.misc.ProxyGenerator.saveGeneratedFiles"));
+      if (saveGeneratedFiles) {
+          AccessController.doPrivileged(new PrivilegedAction<Void>() {
+              public Void run() {
+                  try {
+                      int var1 = var0.lastIndexOf(46);
+                      Path var2;
+                      if (var1 > 0) {
+                          Path var3 = Paths.get(var0.substring(0, var1).replace('.', File.separatorChar));
+                          Files.createDirectories(var3);
+                          var2 = var3.resolve(var0.substring(var1 + 1, var0.length()) + ".class");
+                      } else {
+                          var2 = Paths.get(var0 + ".class");
+                      }
+
+                      Files.write(var2, var4, new OpenOption[0]);
+                      return null;
+                  } catch (IOException var4x) {
+                      throw new InternalError("I/O exception saving generated file: " + var4x);
+                  }
+              }
+          });
+      }
+
+      return var4;
+  }
+  ```
+* 生成的字节码文件分析
+  ```java
+  public final class $Proxy0 extends Proxy implements Subject {
+      private static Method m1; // Object类中的equals方法
+      private static Method m2; // Object类中的toString方法
+      private static Method m3; // 自定义的Subject的request方法(被代理的方法)
+      private static Method m0; // Object类中的hashCode方法
+
+      // 队成员变量进行赋值，实际上是程序员编写的功能增强类
+      public $Proxy0(InvocationHandler var1) throws  {
+          super(var1);
+      }
+
+      // 会对equals toString hashCode方法进行增强
+      public final boolean equals(Object var1) throws  {
+          try {
+              return (Boolean)super.h.invoke(this, m1, new Object[]{var1});
+          } catch (RuntimeException | Error var3) {
+              throw var3;
+          } catch (Throwable var4) {
+              throw new UndeclaredThrowableException(var4);
+          }
+      }
+
+      public final String toString() throws  {
+          try {
+              return (String)super.h.invoke(this, m2, (Object[])null);
+          } catch (RuntimeException | Error var2) {
+              throw var2;
+          } catch (Throwable var3) {
+              throw new UndeclaredThrowableException(var3);
+          }
+      }
+
+      public final void request() throws  {
+          try {
+              super.h.invoke(this, m3, (Object[])null);
+          } catch (RuntimeException | Error var2) {
+              throw var2;
+          } catch (Throwable var3) {
+              throw new UndeclaredThrowableException(var3);
+          }
+      }
+
+      public final int hashCode() throws  {
+          try {
+              return (Integer)super.h.invoke(this, m0, (Object[])null);
+          } catch (RuntimeException | Error var2) {
+              throw var2;
+          } catch (Throwable var3) {
+              throw new UndeclaredThrowableException(var3);
+          }
+      }
+
       static {
-          System.out.println("hahaha");
+          try {
+              m1 = Class.forName("java.lang.Object").getMethod("equals", Class.forName("java.lang.Object"));
+              m2 = Class.forName("java.lang.Object").getMethod("toString");
+              m3 = Class.forName("jvm.study.bytecode.proxy.Subject").getMethod("request");
+              m0 = Class.forName("java.lang.Object").getMethod("hashCode");
+          } catch (NoSuchMethodException var2) {
+              throw new NoSuchMethodError(var2.getMessage());
+          } catch (ClassNotFoundException var3) {
+              throw new NoClassDefFoundError(var3.getMessage());
+          }
       }
-      ```
-      ![<clinit>-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/clinit-2.png)
-    + 对**异常**字节码的分析
-      + 统一采用异常表的方式来对异常进行处理
-        ```
-        // 异常表结构
-        {
-          u2 start_pc;
-          u2 end_pc;
-          u2 handler_pc;
-          u2 catch_type;
-          // start_pc和end_pc表示在code数组中的从start_pc到end_pc(包含start_pc,不包含
-          end_pc)的指令抛出的异常会由这个表项来处理
-          // handler_pc表示处理异常的代码的开始处
-          // catch_type表示会被处理的异常类型,它指向常量池里的一个异常类。当catch_type为0时,
-          表示处理所有的异常
-        }
-        ```
-      + 在JDK1.4.2之前的版本中，并不是使用异常表的方式来对异常进行处理的，而是采用特定
-      的指令方式
-      + 当异常处理存在finally语句块时，现代化的JVM采取的处理方式是将finally语句块的字节码
-      拼接到每一个catch块后面，换句话说，程序中存在多少个catch块，就会在每一个catch块后面
-      重复多少个finally语句块的字节码
-      + 实例分析
-        ```java
-        public class MyTest3 {
-            public void test() {
-                try {
-                    InputStream is = new FileInputStream("test.txt");
+  }
+  ```
 
-                    ServerSocket serverSocket = new ServerSocket(9999);
-                    serverSocket.accept();
-                } catch (FileNotFoundException ex) {
-
-                } catch (IOException ex) {
-
-                } catch (Exception ex) {
-
-                } finally {
-                    System.out.println("finally");
-                }
-            }
-        }
-        ```
-        异常表结构<br/>
-        ![exception-1](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-1.png)<br/>
-        catch_type为0时,表示处理所有异常，字节码中自动生成的<br/>
-        ![exception-2](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-2.png)<br/>
-        每一个catch块后都会重复finally代码块的执行指令<br/>
-        ![exception-3](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-3.png)<br/>
-        方法声明中thows的Exception是**定义在附加信息Exceptions中的**而不是在**附加属性Code**中的<br/>
-        ```java
-        public void test() throws IOException, NullPointerException {}
-        ```
-        ![exception-4](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/exception-4.png)<br/>
-      + 栈帧
-        + 栈帧是一种用于帮助**虚拟机执行方法调用与方法执行**的数据结构。
-        + 栈帧本身是一种数据结构，封装了方法的**局部变量表**、**动态链接信息**、
-        **方法的返回地址** 及 **操作数栈**等信息。
-          + 局部变量表的说明
-            部变量表的容量以变量槽（Variable Slot，也称Slot）为最小单位，其中Slot的大小
-            在虚拟机规范中并没有说明，意味着如果一个Slot占32位，那么double,long等类型的变量就
-            需要存储在连续的Slot中，值得注意的是:**所有的局部变量所占的Slot的个数并不一定等于实际的Slot的个数，因为Slot是可以复用的**，
-            如下代码:
-            ```java
-            // c和d在if语句中才有效，因此在if代码块执行完时，c和d变量的Slot可能被e和f复用
-            public void test() {
-                int a = 2;
-                float b = 3.0f;
-
-                if (a < b) {
-                    int c = 1;
-                    int d = 4;
-                }
-                int e = 3;
-                int f = 6;
-            }
-            ```
-        + 符号引用
-          符号引用指的是类似常量池中类的全限定名方式的引用
-        + 直接引用
-          直接引用指的是引用内存中的地址，类似指针
-        + 有些符号引用是在类加载阶段或是第一次使用时就会转换为直接引用，这种转换叫做静态
-        解析；另外一些符号引用则是在每次运行期转换为直接引用，这种转换叫做动态链接，这体现
-        为Java的多态性。
-      + 方法调用的介绍
-        + `invokeinterface`: 调用接口中的方法，实际上是在运行期决定的，决定到底调用实现该接口的哪个对象的特定方法
-        + `invokestatic`:调用静态方法
-        + `invokespecial`: 调用自己的私有方法，构造方法(<init>)以及父类的方法
-        + `invokevirtual`:调用虚方法，运行期动态查找的过程
-        + `invokedynamic`: 动态调用方法(执行一些动态语言,如JavaScript)
-        + 静态解析的4中情形
-          + 静态方法
-          + 父类方法
-          + 构造方法
-          + 私有方法(无法被重写)
-          以上4类方法称作非虚方法，他们是在类加载阶段就可以将符号引用转换为直接引用的。
-        + 静态分派
-          ```java
-          public class MyTest5 {
-              public void test(Grandpa grandpa){
-                  System.out.println("grandpa");
-              }
-
-              public void test(Father father){
-                  System.out.println("father");
-              }
-
-              public void test(Son son){
-                  System.out.println("son");
-              }
-
-              public static void main(String[] args) {
-                  Grandpa father = new Father();
-                  Grandpa son = new Son();
-
-                  MyTest5 myTest5 = new MyTest5();
-                  myTest5.test(father); // grandpa
-                  myTest5.test(son); // grandpa
-              }
-          }
-
-          class Grandpa {
-          }
-
-          class Father extends Grandpa {
-          }
-
-          class Son extends Father {
-          }
-          // Grandpa father = new Father();
-          // 以上代码，father的静态类型是Grandpa，而实际类型是Father
-          ```
-        + 动态分派
-          + invokevirtual指令执行流程
-            1. 找到操作数栈栈顶的第一个元素；
-            2. 在找到的第一个元素中找到了与常量池方法描述符以及方法名称等都完全匹配的方法，
-            如果找到并且具有方法权限，则返回方法的直接引用，如果未找到完全匹配的方法，则从
-            子类向上一直查找，找到方法的直接引用并返回；
-            3. 调用找到的方法。
-            ```java
-             public class MyTest6 {
-                  public static void main(String[] args) {
-                      Fruit apple = new Apple();
-                      Fruit orange = new Orange();
-
-                      apple.test(); // apple
-                      orange.test(); // orange
-
-                      apple = new Orange();
-                      apple.test(); // orange
-                  }
-              }
-
-              class Fruit {
-                  public void test() {
-                      System.out.println("Fruit");
-                  }
-              }
-
-              class Apple extends Fruit {
-                  @Override
-                  public void test() {
-                      System.out.println("Apple");
-                  }
-              }
-
-              class Orange extends Fruit {
-                  @Override
-                  public void test() {
-                      System.out.println("Orange");
-                  }
-              }
-            ```
-            ![invokevirtual](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/invokevirtual.png)<br/>
-          + 虚方法表
-            1. 针对**于方法调用动态分派的过程**，虚拟机会在类的方法区建立一个**虚方法表的数据结构**(virtual method table,vtable)
-                子类继承父类如果没有重写父类的方法时，**子类中不会copy父类的方法**，而是在调用时指向父类的方法
-                **子类中方法描述信息对应在常量池中的索引与父类是相同的**，这样可以加快在父类中检索方法的效率
-            2. 针对于`invokeinterface`指令来说，虚拟机会建立一个叫做**接口方法表的数据结构**(interface method table，itable)
-            ```java
-            Animal animal = new Animal();
-            //animal.test(null); 编译报错
-            animal.test("hello");
-
-            Dog dog = new Dog();
-            dog.test(new Date());
-            ```
-            ![vtable](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/vtable.png)<br/>
-        + 基于**栈的指令集**和基于**寄存器的指令集**
-          + 现代JVM在执行Java代码的时候，通常都会将解释执行与编译执行二者结合起来进行。
-            所谓解释执行，就是通过解释器来读取字节码，遇到相应的指令就去执行该指令。
-            所谓编译执行，就是通过及时编译器(Just In Time,JIT)将字节码转换为本地机器码来执行；
-            现代JVM会根据代码热点来生成相应的本地机器码。
-          + 两种指令集的关系:
-            1. JVM执行指令时所采取的方式是基于栈的指令集。
-            2. 基于栈的指令集主要的操作有入栈和出栈两种。
-            3. 基于栈的指令集的优势在于它可以在不同平台之间移植，而基于寄存器的指令集是与硬件架构紧密关联的，无法做到可移植。
-            4. 基于栈的指令集的缺点在于完成相同的操作，指令数量通常要比寄存器的指令集数量要多；基于栈的指令集是在内存中完成
-            操作的，而基于寄存器的指令集是直接由CPU来执行的，它是在高速缓冲区中进行执行的，速度要快很多。虽然虚拟机可以采用
-            一些优化手段，但总体来说，基于栈的指令集的执行速度要慢一些。
-        + 基于**栈的指令集**实例分析
-          ```java
-          public int calculate() {
-              int a = 6;
-              int b = 3;
-              int c = 2;
-              int d = 1;
-
-              int result = (a + b - c) * d;
-
-              return result;
-          }
-          ```
-          ![stack-code](https://github.com/wanglei949758173/study/blob/master/jvm_study/images/stack-code.png)<br/>
-          ```
-          0 bipush 6 将int类型的6压入操作数栈顶
-          2 istore_1 将操作数栈顶的第一个数(6)放置局部变量表的第1个位置
-          3 iconst_3 将int类型的3压入操作数栈顶
-          4 istore_2 将操作数栈顶的第一个数(3)放置局部变量表的第2个位置
-          5 iconst_2 将int类型的2压入操作数栈顶
-          6 istore_3 将操作数栈顶的第一个数(2)放置局部变量表的第3个位置
-          7 iconst_1 将int类型的1压入操作数栈顶
-          8 istore 4 将操作数栈顶的第一个数(1)放置局部变量表的第4个位置
-          10 iload_1 将局部变量表中第1个位置索引的数(6)压入操作数栈
-          11 iload_2 将局部变量表中第2个位置索引的数(3)压入操作数栈
-          12 iadd    将操作数栈顶中的两个数相加并将结果(9)压入至操作数栈
-          13 iload_3 将局部变量表中第3个位置索引的数(2)压入操作数栈
-          14 isub    弹出操作数栈顶的两个元素，用第二个减去第一个并将结果(7)压入操作数栈
-          15 iload 4 将局部变量表中第4个位置索引的数(1)压入操作数栈
-          17 imul    将操作数栈顶的两个元素相乘，并将结果(7)压入至操作数栈
-          18 istore 5将操作数栈顶的元素(7)放置局部变量表的第5个位置
-          20 iload 5 将局部变量表中第5个位置索引的数(7)压入操作数栈
-          22 ireturn 返回操作数栈顶的元素(7)
-          ```
-        + 动态代理字节码分析
-          + 动态代理代码
-            ```java
-            public interface Subject {
-                void request();
-            }
-            public class RealSubject implements Subject {
-
-            public void request() {
-                  System.out.println("From Real Subject");
-                }
-            }
-            public class DynamicSubject implements InvocationHandler {
-                private Object obj;
-
-                public DynamicSubject(Object obj) {
-                    this.obj = obj;
-                }
-
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    System.out.println("begin invoke" + method);
-
-                    method.invoke(obj, args);
-
-                    System.out.println("end invoke" + method);
-
-                    return null;
-                }
-            }
-            public class Client {
-                public static void main(String[] args) {
-                    System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-                    RealSubject realSubject = new RealSubject();
-                    DynamicSubject dynamicSubject = new DynamicSubject(realSubject);
-
-                    Class<? extends RealSubject> clazz = realSubject.getClass();
-
-                    Subject subject = (Subject) Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), dynamicSubject);
-                    subject.request();
-
-                    System.out.println(subject.getClass()); //com.sun.proxy.$Proxy0
-                    System.out.println(subject.getClass().getSuperclass()); // java.lang.reflect.Proxy
-                }
-            }
-            ```
-          + 指定系统属性生成动态代理字节码文件
-            ```java
-            // sun.misc.ProxyGenerator类
-            // 生成字节码的方法
-            public static byte[] generateProxyClass(final String var0, Class<?>[] var1, int var2) {
-                ProxyGenerator var3 = new ProxyGenerator(var0, var1, var2);
-                final byte[] var4 = var3.generateClassFile();
-                // saveGeneratedFiles保存生成的class文件，对应该类第91行
-                // private static final boolean saveGeneratedFiles = (Boolean)AccessController.doPrivileged(new GetBooleanAction("sun.misc.ProxyGenerator.saveGeneratedFiles"));
-                if (saveGeneratedFiles) {
-                    AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                        public Void run() {
-                            try {
-                                int var1 = var0.lastIndexOf(46);
-                                Path var2;
-                                if (var1 > 0) {
-                                    Path var3 = Paths.get(var0.substring(0, var1).replace('.', File.separatorChar));
-                                    Files.createDirectories(var3);
-                                    var2 = var3.resolve(var0.substring(var1 + 1, var0.length()) + ".class");
-                                } else {
-                                    var2 = Paths.get(var0 + ".class");
-                                }
-
-                                Files.write(var2, var4, new OpenOption[0]);
-                                return null;
-                            } catch (IOException var4x) {
-                                throw new InternalError("I/O exception saving generated file: " + var4x);
-                            }
-                        }
-                    });
-                }
-
-                return var4;
-            }
-            ```
-          + 生成的字节码文件分析
-            ```java
-            public final class $Proxy0 extends Proxy implements Subject {
-                private static Method m1; // Object类中的equals方法
-                private static Method m2; // Object类中的toString方法
-                private static Method m3; // 自定义的Subject的request方法(被代理的方法)
-                private static Method m0; // Object类中的hashCode方法
-
-                // 队成员变量进行赋值，实际上是程序员编写的功能增强类
-                public $Proxy0(InvocationHandler var1) throws  {
-                    super(var1);
-                }
-
-                // 会对equals toString hashCode方法进行增强
-                public final boolean equals(Object var1) throws  {
-                    try {
-                        return (Boolean)super.h.invoke(this, m1, new Object[]{var1});
-                    } catch (RuntimeException | Error var3) {
-                        throw var3;
-                    } catch (Throwable var4) {
-                        throw new UndeclaredThrowableException(var4);
-                    }
-                }
-
-                public final String toString() throws  {
-                    try {
-                        return (String)super.h.invoke(this, m2, (Object[])null);
-                    } catch (RuntimeException | Error var2) {
-                        throw var2;
-                    } catch (Throwable var3) {
-                        throw new UndeclaredThrowableException(var3);
-                    }
-                }
-
-                public final void request() throws  {
-                    try {
-                        super.h.invoke(this, m3, (Object[])null);
-                    } catch (RuntimeException | Error var2) {
-                        throw var2;
-                    } catch (Throwable var3) {
-                        throw new UndeclaredThrowableException(var3);
-                    }
-                }
-
-                public final int hashCode() throws  {
-                    try {
-                        return (Integer)super.h.invoke(this, m0, (Object[])null);
-                    } catch (RuntimeException | Error var2) {
-                        throw var2;
-                    } catch (Throwable var3) {
-                        throw new UndeclaredThrowableException(var3);
-                    }
-                }
-
-                static {
-                    try {
-                        m1 = Class.forName("java.lang.Object").getMethod("equals", Class.forName("java.lang.Object"));
-                        m2 = Class.forName("java.lang.Object").getMethod("toString");
-                        m3 = Class.forName("jvm.study.bytecode.proxy.Subject").getMethod("request");
-                        m0 = Class.forName("java.lang.Object").getMethod("hashCode");
-                    } catch (NoSuchMethodException var2) {
-                        throw new NoSuchMethodError(var2.getMessage());
-                    } catch (ClassNotFoundException var3) {
-                        throw new NoClassDefFoundError(var3.getMessage());
-                    }
-                }
-            }
-            ```
+---
 
 # 3. JVM内存区域划分
+## 线程私有区域
+* 虚拟机栈:Stack Frame 栈帧
+* 程序计数器(program Counter)
+* 本地方法栈:主要用于处理本地方法
 
-* 线程私有区域
-  * 虚拟机栈:Stack Frame 栈帧
-  * 程序计数器(program Counter)
-  * 本地方法栈:主要用于处理本地方法
+## 线程共享区域
+* 堆(Heap)：JVM管理的最大一块内存区域
+* 方法区(Method Area):存储元信息。永久代(permanent generation)，从JDK1.8开始，已经彻底废弃了永久代，使用元空间(Metaspace)，**运行时常量池为方法区的一部分内容**
 
-* 线程共享区域
-  * 堆(Heap)：JVM管理的最大一块内存区域
-  * 方法区(Method Area):存储元信息。永久代(permanent generation)，从JDK1.8开始，已经
-    彻底废弃了永久代，使用元空间(Metaspace)，**运行时常量池为方法区的一部分内容**
+## 非JVM管理区域
+* 直接内存:Direct Memory
 
-* 非JVM管理区域
-  * 直接内存:Direct Memory
+## Java对象的创建过程
+* new 关键字创建对象的3个步骤
+  1. 在堆内存中创建出对象的实例；
+  2. 为对象的实例成员变量赋初值；
+  3. 将对象的引用返回
 
-* Java对象的创建过程
-  * new 关键字创建对象的3个步骤
-    1. 在堆内存中创建出对象的实例；
-    2. 为对象的实例成员变量赋初值；
-    3. 将对象的引用返回
+## JVM分配内存的几种方式
+* 指针碰撞：将指针向后移动(**指针碰撞** 的前提是堆中的空间通过一个指针进行分割，一侧是已经被占用的空间，另一侧是未被占用的空间)
+* 空闲列表：(**空闲列表** 的前提是堆内存中已被使用与未被使用的空间是交织在一起的，这时，虚拟机就需要通过一个列表来记录哪些空间是可以使用的，哪些空间是已被使用的，接下来找出可以容纳下新创建对象的且未被使用的空间，在此空间存放该对象，同时还要修改列表上的记录)
 
-  * JVM分配内存的几种方式
-    + 指针碰撞：将指针向后移动(**指针碰撞** 的前提是堆中的空间通过一个指针进行分割，一侧
-      是已经被占用的空间，另一侧是未被占用的空间)
-    + 空闲列表：(**空闲列表** 的前提是堆内存中已被使用与未被使用的空间是交织在一起的，这时，
-      虚拟机就需要通过一个列表来记录哪些空间是可以使用的，哪些空间是已被使用的，接下来找出可以
-      容纳下新创建对象的且未被使用的空间，在此空间存放该对象，同时还要修改列表上的记录)
+## 对象在内存中的布局：
+1. 对象头
+2. 实例数据(即我们在一个类中所声明的各项信息)
+3. 对齐填充(可选)
 
- * 对象在内存中的布局：
-   1. 对象头
-   2. 实例数据(即我们在一个类中所声明的各项信息)
-   3. 对齐填充(可选)
+## 引用对象的方式
+* 句柄：即引用r -> 句柄h -> 实例+类的元数据
+  句柄的优势：(当实例对象的位置移动时,指针r不需要移动)**当使用垃圾回收算法为标记整理等算法时,实例位置会移动**
+* 直接指针
 
-  * 引用对象的方式
-    + 句柄：即引用r -> 句柄h -> 实例+类的元数据
-      句柄的优势：(当实例对象的位置移动时,指针r不需要移动)**当使用垃圾回收算法为标记整理等算法时,实例位置会移动**
-    + 直接指针
+## 模拟堆内存溢出
+```java
+/*
+    设置vm options -Xms5m -Xmx5m -XX:+HeapDumpOnOutOfMemoryError
+    使用jvisualvm查看dump文件
+ */
+List<Object> list = new ArrayList<Object>();
+for (; ; ) {
+    Object obj = new Object();
+    list.add(obj);
 
-  * 模拟堆内存溢出
-    ```java
-    /*
-        设置vm options -Xms5m -Xmx5m -XX:+HeapDumpOnOutOfMemoryError
-        使用jvisualvm查看dump文件
-     */
-    List<Object> list = new ArrayList<Object>();
-    for (; ; ) {
-        Object obj = new Object();
-        list.add(obj);
+    // 调用gc后进行监控
+    System.gc();
+}
+```
 
-        // 调用gc后进行监控
-        System.gc();
+## 模拟栈内存溢出
+```java
+public class TestStackOverFlow {
+    private int length;
+
+    public int getLength() {
+        return length;
     }
-    ```
 
-  * 模拟栈内存溢出
-    ```java
-    public class TestStackOverFlow {
-        private int length;
+    public void test() {
+        this.length++;
 
-        public int getLength() {
-            return length;
+        /*
+            睡眠300ms，使用jvisualvm 进行监视
+         */
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        public void test() {
-            this.length++;
+        test();
+    }
 
-            /*
-                睡眠300ms，使用jvisualvm 进行监视
-             */
+    public static void main(String[] args) {
+        /*
+            1.设置vm options -Xss100K
+            2.运行程序,观察栈溢出现象
+         */
+
+        TestStackOverFlow test = new TestStackOverFlow();
+        try {
+            test.test();
+
+        } catch (Throwable throwable) {
+            System.out.println(test.length);
+            throwable.printStackTrace();
+        }
+
+    }
+}
+```
+
+## 模拟死锁
+```java
+public class TestDeadLock {
+    private Object lock1 = new Object();
+    private Object lock2 = new Object();
+
+    public void test1() {
+        // 使用lock1
+        synchronized (lock1) {
+            System.out.println("test1 use lock1");
             try {
                 Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            test();
-        }
-
-        public static void main(String[] args) {
-            /*
-                1.设置vm options -Xss100K
-                2.运行程序,观察栈溢出现象
-             */
-
-            TestStackOverFlow test = new TestStackOverFlow();
-            try {
-                test.test();
-
-            } catch (Throwable throwable) {
-                System.out.println(test.length);
-                throwable.printStackTrace();
+            // 使用lock2
+            synchronized (lock2) {
+                System.out.println("test1 use lock2");
             }
-
         }
     }
-    ```
 
-  * 模拟死锁
-    ```java
-    public class TestDeadLock {
-        private Object lock1 = new Object();
-        private Object lock2 = new Object();
+    public void test2() {
+        synchronized (lock2) {
+            System.out.println("test2 use lock2");
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        public void test1() {
             // 使用lock1
             synchronized (lock1) {
-                System.out.println("test1 use lock1");
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                // 使用lock2
-                synchronized (lock2) {
-                    System.out.println("test1 use lock2");
-                }
-            }
-        }
-
-        public void test2() {
-            synchronized (lock2) {
-                System.out.println("test2 use lock2");
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                // 使用lock1
-                synchronized (lock1) {
-                    System.out.println("test2 use lock1");
-                }
-            }
-        }
-
-        public static void main(String[] args) {
-            final TestDeadLock testDeadLock = new TestDeadLock();
-
-            new Thread(testDeadLock::test1).start();
-            new Thread(testDeadLock::test2).start();
-        }
-    }
-    ```
-
-  * 模拟元空间(MetaSpace)内存溢出
-    ```java
-    public class TestMetaSpaceOOM {
-        public static void main(String[] args) {
-            /*
-                1.编写使用cglib生成字节码文件的代码
-                2.调整VM Options -XX:MaxMetaspaceSize=10m 观察元空间内存溢出情况
-                3.调整VM Options -XX:MaxMetaspaceSize=200m
-                    并使用jvisualvm查看类加载个数和元空间大小的变化情况
-             */
-            for (; ; ) {
-                Enhancer enhancer = new Enhancer();
-                enhancer.setSuperclass(TestMetaSpaceOOM.class);
-                enhancer.setUseCache(false);
-                enhancer.setCallback((MethodInterceptor) (obj, method, args1, proxy) ->
-                        proxy.invokeSuper(obj, args1));
-
-                System.out.println("hello world");
-                enhancer.create();
+                System.out.println("test2 use lock1");
             }
         }
     }
+
+    public static void main(String[] args) {
+        final TestDeadLock testDeadLock = new TestDeadLock();
+
+        new Thread(testDeadLock::test1).start();
+        new Thread(testDeadLock::test2).start();
+    }
+}
+```
+
+## 模拟元空间(MetaSpace)内存溢出
+```java
+public class TestMetaSpaceOOM {
+    public static void main(String[] args) {
+        /*
+            1.编写使用cglib生成字节码文件的代码
+            2.调整VM Options -XX:MaxMetaspaceSize=10m 观察元空间内存溢出情况
+            3.调整VM Options -XX:MaxMetaspaceSize=200m
+                并使用jvisualvm查看类加载个数和元空间大小的变化情况
+         */
+        for (; ; ) {
+            Enhancer enhancer = new Enhancer();
+            enhancer.setSuperclass(TestMetaSpaceOOM.class);
+            enhancer.setUseCache(false);
+            enhancer.setCallback((MethodInterceptor) (obj, method, args1, proxy) ->
+                    proxy.invokeSuper(obj, args1));
+
+            System.out.println("hello world");
+            enhancer.create();
+        }
+    }
+}
+```
+[元空间介绍](https://www.infoq.cn/article/java-permgen-Removed)
+
+## 虚拟机自带分析调优命令
+### jps(JVM Process Status Tools)
+查看JAVA进程的列表
+
+### jmap(JVM Memory Map for Java)
+* jmap是一个多功能的命令。
+  1. 生成 java 程序的 dump 文件；
+    ```bash
+    jmap -dump:file=C:\Users\Administrator\Desktop\test1.hprof pid
     ```
-    https://www.infoq.cn/article/java-permgen-Removed
+  2. 查看堆内对象示例的统计信息
+    ```bash
+    jmap -heap pid
+    ```
+  3. 查看 ClassLoader 的信息
+    ```bash
+    jmap -clstats pid
+    // class_loader    classes  bytes   parent_loader   alive?  type
+    // <bootstrap>     419      805040  null            live    <internal>
+    ```
+  4. 查看 finalizer 队列。
+    ```bash
+    jmap -finalizerinfo pid
+    ```
 
-  * `jmap`
-    + **说明：** jmap是一个多功能的命令。、
-      1. 生成 java 程序的 dump 文件；
-        ```bash
-        jmap -dump:file=C:\Users\Administrator\Desktop\test1.hprof pid
-        ```
-      2. 查看堆内对象示例的统计信息
-        ```bash
-        jmap -heap pid
-        ```
-      3. 查看 ClassLoader 的信息
-        ```bash
-        jmap -clstats pid
-        // class_loader    classes  bytes   parent_loader   alive?  type
-        // <bootstrap>     419      805040  null            live    <internal>
-        ```
-      4. 查看 finalizer 队列。
-        ```bash
-        jmap -finalizerinfo pid
-        ```
+### jstat(JVM Statistics Monitoring Tools)
+* 查看统计信息
+```bash
+// 查看jstat命令的选项
+jstat -options
+-class
+-compiler
+-gc
+-gccapacity
+-gccause
+-gcmetacapacity
+-gcnew
+-gcnewcapacity
+-gcold
+-gcoldcapacity
+-gcutil
+-printcompilation
 
-  * `jstat`
-    + **说明：** 查看统计信息
-     ```bash
-     // 查看jstat命令的选项
-     jstat -options
-      -class
-      -compiler
-      -gc
-      -gccapacity
-      -gccause
-      -gcmetacapacity
-      -gcnew
-      -gcnewcapacity
-      -gcold
-      -gcoldcapacity
-      -gcutil
-      -printcompilation
+// 示例1
+jstat -gc pid //查看进程的gc统计信息
+```
 
-     // 示例1
-     jstat -gc pid //查看进程的gc统计信息
-     ```
-  * `jcmd`
-    1. `jcmd pid VM.flags` 查看JVM的启动参数
-    2. `jcmd pid help` 列出当前运行的Java进程可以执行的操作
-    3. `jcmd pid help 某个具体的option(JFR.dump)` 查看具体命令的选项
-    4. `jcmd pid PerfCounter.print` 查看JVM性能相关的参数
-    5. `jcmd pid VM.uptime` 查看JVM的启动时长
-    6. `jcmd pid GC.class_histogram` 查看系统中类的统计信息
-    7. `jcmd pid Thread.print` 查看线程堆栈信息
-    8. `jcmd pid GC.help_dump filename` 导出Heap dump文件，导出的文件可以通过jvisualvm查看
-    9. `jcmd pid VM.system_properties` 查看JVM的属性信息
-    10. `jcmd pid VM.version` 查看目标JVM进程的版本信息
-    11. `jcmd pid VM.command_line` 查看JVM启动的命令行参数信息
+### jcmd
+1. `jcmd pid VM.flags` 查看JVM的启动参数
+2. `jcmd pid help` 列出当前运行的Java进程可以执行的操作
+3. `jcmd pid help 某个具体的option(JFR.dump)` 查看具体命令的选项
+4. `jcmd pid PerfCounter.print` 查看JVM性能相关的参数
+5. `jcmd pid VM.uptime` 查看JVM的启动时长
+6. `jcmd pid GC.class_histogram` 查看系统中类的统计信息
+7. `jcmd pid Thread.print` 查看线程堆栈信息
+8. `jcmd pid GC.help_dump filename` 导出Heap dump文件，导出的文件可以通过jvisualvm查看
+9. `jcmd pid VM.system_properties` 查看JVM的属性信息
+10. `jcmd pid VM.version` 查看目标JVM进程的版本信息
+11. `jcmd pid VM.command_line` 查看JVM启动的命令行参数信息
 
-  * `jstack`
+### jstack
+查看或是导出Java应用程序中线程的堆栈信息
+ ```bash
+ jstack -l pid
+ ```
 
-     **说明：** 查看或是导出Java应用程序中线程的堆栈信息
-     ```bash
-     jstack -l pid
-     ```
-  * `jmc`
-    Java Mission Control
+### jmc(Java Mission Control)
+一款集大成者的JVM监控分析界面工具
 
-  * `jfr`
+### jhat(JVM Heap Analysis Tool)
+分析虚拟机堆转储快照
+[各种虚拟机命令介绍](http://outofmemory.cn/java/jvm/jvm-tools-jps-jstat-jinfo-jmap-jhat-jstack)
 
-    Java Flight Recorder
+# 4. 垃圾回收
+## JVM运行时数据区域
+### 程序计数器
 
-  * `jhat`
+### 本地方法栈
 
-  **功能：** 分析虚拟机堆转储快照
-http://outofmemory.cn/java/jvm/jvm-tools-jps-jstat-jinfo-jmap-jhat-jstack
+### JAVA虚拟机栈
+* JAVA虚拟机栈描述的是Java方法的执行模型：每个方法执行的时候都会创建一个帧(Frame)栈用于存放局部变量表，操作栈，动态链接，方法出口等信息。一个方法的执行过程，就是这个方法对于帧栈的入栈出栈过程
+* 线程独享
+
+### 堆(Heap)
+* 堆里存放的是对象的实例
+* 是Java虚拟机管理内存中最大的一块
+* GC **主要** 的工作区域，为了高效的GC，会把堆细分更多的子区域
+* 线程共享
+
+### 方法区域
+* 存放了每个Class的结构信息，包括常量池、字段描述、方法描述
+* GC的 **非** 主要工作区域
+
+## JVM垃圾回收(GC)模型
+### 垃圾判断算法
+#### 引用计数法(Reference Counting)
+* 无法解决循环引用问题
+
+#### 根搜索算法(Root Tracing)
+从GCROOT 向下搜索，如果一个对象到任何的GCROOT都没有引用链，则证明此对象应该被回收
+* GCRoot包括
+  * 在VM栈(帧中的本地变量)中的引用
+  * 方法区中的静态引用
+  * JNI(即一般说的Native方法)中的引用
+* 对于方法区的垃圾回收
+  当前的商业JVM对于方法区的回收主要包含两部分内容：废弃常量与无用类
+
+### GC算法
+#### 标记-清除算法(Mark-Sweep)
+算法分为 **标记** 和 **清除** 两个阶段，首先标记出所有需要回收的对象，然后回收所有需要回收的对象。
+* 缺点
+  * 效率问题：标记和清理两个过程效率都不高(堆越大，GC越慢)
+  * 空间问题：标记清理之后会产生大量不连续的内存碎片，空间碎片太多可能会导致后续使用中无法找到足够的连续内存而提前出发另一次的垃圾搜集动作(GC次数越多，碎片越严重)
+
+#### 标记-整理算法(Mark-Compact)
+标记过程等同于 **标记-清除** 算法，但后续的步骤不再是直接清理，而是令所有存货的对象向一端移动，然后直接清理掉这端边界以外的内存。
+* 优点
+  没有内存碎片
+* 缺点
+  比 **标记-清除** 算法耗费更多的时间进行compact(压缩整理)
+
+#### 复制算法(Copying)
+将可用内存划分为两块，每次只使用其中的一块，当半区内存用完了，仅将还存活的对象复制到另一块上面，然后就把原来整块内存空间一次性清理掉
+* 优点
+  实现简单，运行高效，不存在内存碎片化
+  复制收集算法在对象存活率高的时候，效率有所下降
+* 缺点
+  将内存缩小为原来的一半，代价高昂
+* 应用实例
+  应用于 **新生代** 的垃圾收集
+
+#### 分代算法(Generational)
+根据对象的不同存活周期将内存划分为几块，对每块采用不同的的算法进行垃圾回收
+
+一般将Java堆分为 **新生代** 和 **老年代**。
+* 新生代
+  采用复制收集算法
+* 老年代
+  采用标记清除算法或标记整理算法
+* Hotspot JVM6中划分为三个代：**年轻代**(Young Genration)、**老年代**(Old Genration)和**永久代**(Permanent Generation)。
+![分代](/assets/分代.png)
+```mermaid
+graph LR
+A[Eden满] --Eden中存活--> B[FromSpace]
+B -.-> C[FromSpace满]
+C --FromSpace中存活--> D[ToSpace]
+D -.-> E[ToSpace满]
+E --ToSpace中存活--> F[Tenured Space]
+```
+### 垃圾回收器的实现和选择

@@ -1414,7 +1414,6 @@ public class MyTest1 {
 	}
 }
 ```
-
 ![字节码](/assets/字节码.PNG)
 ```
 1、魔数:CAFEBABE

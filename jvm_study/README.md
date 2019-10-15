@@ -2364,6 +2364,8 @@ jstat -gc pid //查看进程的gc统计信息
 
 # 4. 垃圾回收
 ## JVM运行时数据区域
+![内存结构](/assets/内存结构.png)
+备注：在Hotspot中本地方法栈和JVM方法栈是同一个，因此也可以用-Xss控制。
 ### 程序计数器
 
 ### 本地方法栈
@@ -2438,4 +2440,79 @@ C --FromSpace中存活--> D[ToSpace]
 D -.-> E[ToSpace满]
 E --ToSpace中存活--> F[Tenured Space]
 ```
+* 永久代
+并 **不属于堆**,但是GC会涉及到这个区域
+
+#### 内存分配
+1. 堆上分配
+   大多数情况下再eden上分配，偶尔会直接在old上分配，细节取决于GC的实现
+2. 栈上分配
+   原子类型的局部变量直接在栈上分配
+
+#### 内存回收
+GC的工作就是回收dead的对象
+* Hotspot认为没有引用的对象就是dead的
+ * HotSpot将引用分为4种：
+   * Strong：通过Object o = new Object();这种方式赋值的引用
+   * Soft
+   * Weak
+   * Phantom
+   * 以上3种都是继承Reference
+
+在Full GC时会对Reference类型的引用进行特殊处理
+  * Soft：内存不够时一定会被回收、长期不用也会被GC
+  * Weak：一定会被GC，当被Mark为dead，会在ReferenceQueue中通知
+  * Phantom：本来就没有引用，当从JVM Heap中释放时会通知
+
+#### GC算法
+![GC算法](/assets/GC算法_em25wp16s.png)
+
+#### GC的时机
+在分代模型的基础上，GC从时机上分为两种：Scavenge GC和Full GC
+
+* Scavenge GC (Minor GC)
+  * 触发时机：新对象生成时，eden区满了
+  * 理论上eden区大多数对象会在Scavenge GC时被回收，复制算法执行的效率会很高，Scavenge GC时间比较短
+
+* Full GC
+  * 对整个JVM进行整理，包括Young，Old和Perm
+  * 主要的触发时机：
+    1. Old满了
+    2. Perm满了
+    3. 调用了`System.gc();`
+  * 效率很低，尽量减少Full GC
+
 ### 垃圾回收器的实现和选择
+#### 垃圾回收器(Garbage Collector)
+* 分代模型：GC的宏观愿景
+* 垃圾回收器：GC的具体实现
+* Hotspot JVM提供多种垃圾回收器，我们需要根据具体应用的需要采用不同的回收器
+* 没有万能的垃圾回收器，每种垃圾回收器都有自己的适用场景
+
+####
+#### Serial收集器
+单线程收集器，收集时会暂停所有工作线程（Stop The World,简称STW），使用复制收集算法，虚拟机运行在Client模式时的默认新生代收集器。
+* 最早的收集器，单线程进行GC
+* 新生代、老年代都可以使用
+* 在新生代，采用复制算法；在老年代，采用标记-整理算法
+* 由于是单线程GC，所以没有多线程切换的开销，简单实用
+* Hotspot Client模式缺省的收集器
+
+#### ParNew收集器
+ParNew收集器就是Serial收集器的多线程版，除了使用多线程外，其余行为包括算法、STW、对象分配规则、回收策略等都与Serial收集器一模一样。
+对应的这种收集器是虚拟机运行在Server模式的默认新生代收集器，在单CPU的环境中，ParNew收集器并不会比Serial收集器有更好的效果。
+* 使用复制算法(因为针对新生代)
+* **只有在多CPU环境下，效率才会比Serial收集器高。**
+* 可以通过-XX:ParallelGCThread来控制GC线程数的多少。需要结合具体CPU的个数
+* Server模式下新生代的缺省收集器
+
+#### Parallel Scavenge收集器
+Parallel Scavenge收集器也是一个多线程收集器，也是使用复制算法，但它的对象分配规则与回收策略都与ParNew收集器有所不同，它是以吞吐量最大化(即GC时间占总运行时间最小)为目标的收集器实现，它允许较长时间的STW换取总吞吐量最大化
+
+#### Serial Old收集器
+Serial Old是单线程收集器，使用标记整理算法，是老年代的收集器。
+
+#### Parallel Old收集器
+老年代版本吞吐量优先收集器，使用多线程和标记整理算法，JVM1.6提供，在此之前，新生代使用了Parallel Scavenge收集器的话，老年代除Serial Old外别无选择，因为Parallel Scavenge收集器无法与CMS收集器配合工作。
+* Parallel Scavenge在老年代的实现
+* 

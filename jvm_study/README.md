@@ -2489,7 +2489,13 @@ GC的工作就是回收dead的对象
 * Hotspot JVM提供多种垃圾回收器，我们需要根据具体应用的需要采用不同的回收器
 * 没有万能的垃圾回收器，每种垃圾回收器都有自己的适用场景
 
-####
+#### 垃圾收集器的“并行”和“并发”
+* 并行
+指多个收集器的线程同时工作，但是用户线程处于等待状态
+* 并发
+指收集器在工作的同时，可以允许用户线程工作。
+并发并不代表解决了GC停顿的问题，在关键的步骤还是要停顿。比如在收集器标记垃圾的时候。但在清除垃圾的时候，用户线程可以和GC线程并发执行。
+
 #### Serial收集器
 单线程收集器，收集时会暂停所有工作线程（Stop The World,简称STW），使用复制收集算法，虚拟机运行在Client模式时的默认新生代收集器。
 * 最早的收集器，单线程进行GC
@@ -2515,4 +2521,80 @@ Serial Old是单线程收集器，使用标记整理算法，是老年代的收�
 #### Parallel Old收集器
 老年代版本吞吐量优先收集器，使用多线程和标记整理算法，JVM1.6提供，在此之前，新生代使用了Parallel Scavenge收集器的话，老年代除Serial Old外别无选择，因为Parallel Scavenge收集器无法与CMS收集器配合工作。
 * Parallel Scavenge在老年代的实现
-* 
+* 在JVM1.6才出现Parallel Old
+* 采用多线程，Mark-Compact算法
+* 更注重吞吐量
+* Parallel Scavenge + Parallel Old = 高吞吐量，但GC停顿可能不理想
+
+### CMS(Concurrent Mark Sweep) 收集器
+CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达到GC效率最高(总体GC时间最小)，但它能尽可能降低GC时服务的停顿事件，CMS收集器使用的是标记-清除算法
+* 追求最短停顿事件，非常适合Web应用
+* 只针对老年区，一般结合ParNew使用
+* Concurrent,GC线程和用户线程并发工作(尽量并发)
+* Mark-Sweep
+* 只有在多CPU环境下才有意义
+* 使用-XX:+UseConcMarkSweepGC打开
+
+* **缺点**
+  * CMS以牺牲CPU资源的代价来减少用户线程的停顿。当CPU个数少于4的时候，有可能对吞吐量影响非常大
+  * CMS在并发清理的过程中，用户线程还在跑。这时候需要预留一部分空间给用户线程
+  * CMS使用Mark-Sweep，会带来碎片问题。碎片过多的时候会容易频繁触发Full GC
+
+## Java内存泄漏的经典原因
+### 对象定义在错误的范围(Wrong Scope)
+* 如果Foo实例对象的生命较长，会导致临时内存泄漏。(这里的names变量其实只有临时作用)
+  ```java
+  class Foo {
+    private String[] names;
+    public void doIt(int length) {
+      if (names == null || names.length < length) {
+        names = new String(length);
+      }
+
+      populate(names);
+      print(nmames);
+    }
+  }
+  ```
+  JVM喜欢生命周期短的对象，这样做已经足够高效
+  ```java
+  class Foo {
+    public void doIt(int length) {
+      String[] names = new String(length);
+      populate(names);
+      print(nmames);
+    }
+  }
+  ```
+
+### 异常(Exception)处理不当
+* 错误的做法
+  ```java
+  try {
+      Connection connection = DriverManager.getConnection(url, name, passwd);
+      doSomeThing();
+      connection.close();
+
+  } catch (Exception e) {
+      // 如果doSomeThing抛出异常，会导致connection泄漏
+  }
+  ```
+
+* 正确的做法
+  ```java
+  try {
+      Connection connection = DriverManager.getConnection(url, name, passwd);
+      doSomeThing();
+  } catch (Exception e) {
+  } finally {
+    onnection.close();
+  }
+  ```
+
+### 集合数据管理不当
+当使用Array-based的数据结构(ArrayList,HashMap等)时，尽量减少resize
+  * 比如new ArrayList时，尽量估算size,在创建的时候把size确定
+  * 减少resize可以避免没有必要的array Copying,gc碎片等问题
+
+如果一个List只需要顺序访问，不需要随机访问(Random Access),用LinkedList代替ArrayList
+  * LinkedList本质是链表，不需要resize，但只适用于顺序访问

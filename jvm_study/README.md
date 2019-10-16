@@ -1389,7 +1389,7 @@ attribute_info {
   u4 attribute_length
   u1 info[attribute_length]
 }
-  ```
+```
 
 ## 字节码文件分析实例
 ```java
@@ -2526,7 +2526,7 @@ Serial Old是单线程收集器，使用标记整理算法，是老年代的收�
 * 更注重吞吐量
 * Parallel Scavenge + Parallel Old = 高吞吐量，但GC停顿可能不理想
 
-### CMS(Concurrent Mark Sweep) 收集器
+#### CMS(Concurrent Mark Sweep) 收集器
 CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达到GC效率最高(总体GC时间最小)，但它能尽可能降低GC时服务的停顿事件，CMS收集器使用的是标记-清除算法
 * 追求最短停顿事件，非常适合Web应用
 * 只针对老年区，一般结合ParNew使用
@@ -2598,3 +2598,82 @@ CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达�
 
 如果一个List只需要顺序访问，不需要随机访问(Random Access),用LinkedList代替ArrayList
   * LinkedList本质是链表，不需要resize，但只适用于顺序访问
+
+## GC实例分析
+* GC参数
+  ```
+  -verbose:gc // 显示gc的信息
+  -Xms20M // 设置堆的初始大小值为20M
+  -Xmx20M // 设置堆的最大值为20
+  -Xmn10M // 设置新生代的大小为10m
+  -XX:+PrintGCDetails // 打印GC的详细信息
+  -XX:SurvivorRatio=8 // 设置eden:survivor=8:1，即eden=8 from space=1 to space =1
+  ```
+### Minor GC分析
+  ```java
+   /*
+      1. 设置参数:
+      -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8
+
+      2. 使用7M大小的空间，出现Minor GC
+         分析GC日志
+   */
+  int size = 1024 * 1024; // 1M
+
+  byte[] myAlloc1 = new byte[2 * size];
+  byte[] myAlloc2 = new byte[2 * size];
+  byte[] myAlloc3 = new byte[3 * size];
+
+  System.out.println("Hello World");
+  ```
+![minorgc](/assets/minorgc.png)
+
+### Full GC分析
+  ```java
+  /*
+      1. 设置参数:
+      -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8
+
+      2. 使用7M(2 + 2 + 3)大小的空间，出现Minor GC
+         分析GC日志
+
+      3. 分配8M大小(2 + 2 + 2 + 2)出现Full GC
+   */
+  int size = 1024 * 1024; // 1M
+
+  byte[] myAlloc1 = new byte[2 * size];
+  byte[] myAlloc2 = new byte[2 * size];
+  byte[] myAlloc3 = new byte[2 * size];
+  byte[] myAlloc4 = new byte[2 * size];
+
+  System.out.println("Hello World");
+  ```
+  ![FullGC](/assets/FullGC.png)
+
+  #### 为什么创建更大的对象反而没有Full GC呢?
+  ```java
+  /*
+      1. 设置参数:
+      -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8
+
+      2. 使用7M(2 + 2 + 3)大小的空间，出现Minor GC
+         分析GC日志
+
+      3. 分配8M大小(2 + 2 + 2 + 2)出现Full GC
+
+      4. 分配10M大小(2 + 2 + 3 + 3)未出现Full GC
+   */
+  int size = 1024 * 1024; // 1M
+
+  byte[] myAlloc1 = new byte[2 * size];
+  byte[] myAlloc2 = new byte[2 * size];
+  byte[] myAlloc3 = new byte[3 * size];
+  byte[] myAlloc4 = new byte[3 * size];
+
+  System.out.println("Hello World");
+  ```
+  原因在于JDK8所使用的垃圾回收期的机制是:当**新创建的对象**大小大于**新生代可用内存**大小时，新创建的对象会**直接在老年代创建**
+  * JDK8 默认垃圾收集器
+    * 年轻代 Parallel Scavenge
+    * 老年代 Parallel Old
+    * 特点是吞吐量大，但有可能STW时间久

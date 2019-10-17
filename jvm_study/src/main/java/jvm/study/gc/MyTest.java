@@ -4,7 +4,7 @@
  * Date      2019/10/16 21:22
  * Description: Minor GC 和 Full GC 产生的GC日志的分析
  */
-package jvm.study;
+package jvm.study.gc;
 
 /**
  * Minor GC 和 Full GC 产生的GC日志的分析

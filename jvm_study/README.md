@@ -2650,7 +2650,7 @@ CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达�
   ```
   ![FullGC](/assets/FullGC.png)
 
-  #### 为什么创建更大的对象反而没有Full GC呢?
+#### 为什么创建更大的对象反而没有Full GC呢?
   ```java
   /*
       1. 设置参数:
@@ -2677,3 +2677,36 @@ CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达�
     * 年轻代 Parallel Scavenge
     * 老年代 Parallel Old
     * 特点是吞吐量大，但有可能STW时间久
+
+### 不同GC(垃圾收集器)参数分析
+* 打印JVM启动命令参数
+  `java -XX:+PrintCommandLineFlags -version`
+  ```bash
+  C:\Users\Administrator>java -XX:+PrintCommandLineFlags -version
+  -XX:InitialHeapSize=116755136 -XX:MaxHeapSize=1868082176 -XX:+PrintCommandLineFlags
+  // 使用压缩类指针 使用压缩选项 默认使用ParallelGC
+  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation -XX:+UseParallelGC
+  java version "1.8.0_211"
+  Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+  ```
+
+* `-XX:PretenureSizeThreshold=xx`
+  **创建的对象大小**如果超过这个**阈值**就会直接在**老年代**分配(单位是字节)
+  注意：**此参数必须搭配Serial(串行)GC使用**
+  ```java
+  /*
+      1. 添加JVM启动参数：-verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails
+          -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=5242880(5m)
+      2. 创建一个6M的对象，发现对象依然在年轻代
+      3. 添加参数 -XX:+UserSerialGC 发现对象直接在老年代分配
+      4. 创建一个10M的对象，OOM
+      5. 创建一个4M的对象，使用jvisualvm 和jmc观察eden区变化和控制台的垃圾回收日志
+   */
+  int size = 1024 * 1024;
+  byte[] myAlloc1 = new byte[4 * size];
+
+  TimeUnit.MINUTES.sleep(30);
+
+  System.out.println("Hello World"); 
+  ```

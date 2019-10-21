@@ -2830,14 +2830,115 @@ CMS是一种以最短停顿时间为目标的收集器，使用CMS并不能达�
 * 在线程执行到Safe Region中的代码时，首先标识自己已经进入了Safe Region，那样，当在这段时间里JVM要发起GC时，就不用了管标识自己为Safe Region状态的线程了。在线程要离开Safe Region时，它要检查系统是否已经完成了根节点枚举(或者是整个GC过程)，如果完成了，那线程就继续执行，否则它就必须等待直到收到可以安全离开Safe Region的信号为止。
 
 ## CMS收集器
-* CMS(Concurrent Mark Sweep)收集器，以获取最短回收停顿时间为目标，多数应用于互联网站或者B/S系统的服务器端上。
-* CMS是基于“标记-清除”算法实现的，整个过程分为4个步骤：
-  1. 初始标记(CMS initial mark)
-  2. 并发标记(CMS concurrent mark)
-  3. 重新标记(CMS remark)
-  4. 并发清除(CMS concurrent sweep)
+CMS(Concurrent Mark Sweep)收集器，以获取最短回收停顿时间为目标，多数应用于互联网站或者B/S系统的服务器端上。
+
+### CMS垃圾收集步骤
+CMS是基于 **“标记-清除”** 算法实现的，整个过程分为4个步骤：
+1. 初始标记(CMS initial mark)
+2. 并发标记(CMS concurrent mark)
+3. 重新标记(CMS remark)
+4. 并发清除(CMS concurrent sweep)
+
 * 其中，初始标记、重新标记这两个步骤仍然需要“Stop The World”
 * 初始标记只是标记一下GC Roots能直接关联到的对象，速度很快
 * 并发标记阶段就是进行GC Roots Tracing的过程
 * 重新标记阶段则是为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长一些，但远比并发标记时间短。
-* CMS收集器的运作步骤如下图，在整个过程中耗时最长的并发标记和并发清除过程收集器线程都可以与用户线程一起工作，因此，从总体上看，CMS收集器的内存回收过程是与用户线程一起并发执行的。
+
+### CMS运作过程
+CMS收集器的运作步骤如下图，在整个过程中耗时最长的并发标记和并发清除过程收集器线程都可以与用户线程一起工作，因此，从总体上看，CMS收集器的内存回收过程是与用户线程一起并发执行的。
+![cms-step](/assets/cms-step.png)
+
+### CMS收集器优缺点
+* 优点
+  1. 并发收集、低停顿，Oracle公司的一些官方文档中也称之为并发低停顿收集器(Concurrent Low Pause Collector)
+* 缺点
+  1. CMS收集器对CPU资源非常敏感
+  2. CMS收集器无法处理 **浮动垃圾(Floating Garbage)** ，可能出现“Concurrent Mode Failure” 失败而导致另一次Full GC的产生。如果应用中老年代增长不是太快，可以适当调高参数-XX:CMSInitiatingOccupancyFraction的值来提高触发百分比，以便降低内存回收次数从而获得更好地性能。要是CMS运行期间预留的内存无法满足程序需要时，虚拟机将启动后被源：临时启用 **Serial Old** 收集器来重新进行老年代的垃圾收集，这样停顿时间就很长了。所以说参数-XX:CMSInitiatingOccupancyFraction设置的抬高很容易导致大量“Concurrent Mode Failure”失败，性能反而降低。
+  3. 收集结束时会有大量空间碎片产生，空间碎片过多时，将会给大对象分配带来很大麻烦，往往出现老年代还有很大空间剩余，但是无法找到足够大的连续空间来分配对象，不得不提前一次Full GC.。CMS收集器提供了一个-XX:+UseCMSCompactAtFullCollection开关参数(默认开启)，用于在CMS收集器顶不住要进行Full GC时开启内存碎片的合并整理过程，内存整理的过程是无法并发的，空间碎片的问题没有了，但停顿时间不得不变长。
+
+### 空间分配担保
+在发生Minor GC之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么Minor GC可以确保是安全的。当大量对象在Minor GC后仍然存活，就需要老年代进行空间分配担保，把Survivor无法容纳的对象直接进入老年代。如果老年代判断到剩余空间不足(根据以往每一次回收晋升到老年代对象容量的平均值作为经验值)，则进行一次Full GC。
+
+### CMS收集器收集步骤
+* Phase 1:Initial Mark (初始标记)
+* Phase 2:Concurrent Mark (并发标记)
+* Phase 3:Concurrent Preclean (并发预清理)
+* Phase 4:Concurrent Abortable Preclean (并发有可能失败的预清理)
+* Phase 5:Final Remark (最终重新标记)
+* Phase 6:Concurrent Sweep (并发清理)
+* Phase 7:Concurrent Reset (并发重置)
+
+#### Initial Mark
+这个是CMS两次Stop-the-world事件的其中一次，这个阶段的目标是：**标记** 那些**直接被GC root**引用或者**被年轻代存活对象所引用**的所有对象
+
+#### Concurrent Mark
+在这个阶段Garbage Collector会**遍历老年代**，然后**标记所有存活的对象**，它会根据上个阶段找到的GC Roots遍历查找。并发标记阶段，它会与用户的应用程序并发运行。并不是老年代所有存货对象都会被标记，因为在标记期间用户的程序可能会改变一些引用
+* 在上面的图中，与阶段1的图进行对比，就会发现有一个对象的引用已经发生了变化
+
+#### Concurrent Preclean
+并发阶段，与用户线程同时运行。在并发运行的过程中，一些对象的引用可能会发生变化，但是这种情况发生时，JVM会将包含这个对象的区域(Card)标记为Dirty，这也就是Card Marking
+* 在Preclean阶段，那些能够从Dirty对象到达的对象也会被标记，这个标记做完之后，dirty card标记就会被清除了
+
+#### Concurrent Abortable Preclean
+并发阶段，与用户线程同时运行。这个阶段是为了 **尽量承担STW(stop-the-world)中最终标记阶段的工作**。 这个阶段持续时间依赖于很多的因素，由于这个阶段是在重复做很多相同的工作，直接满足一些条件(比如：重复迭代的次数、完成的工作量或者时钟时间等)
+
+#### Final Remark
+这是第二个STW(stop-the-world)阶段，也是最后一个STW阶段。这个阶段的目标是标记老年代所有的存活对象,由于之前的阶段是并发执行的，gc线程可能跟不上应用程序的变化，为了完成标记老年代所有存货对象的目标,STW就非常有必要了。
+* 通常CMS的Final Remark 阶段会在年轻尽可能干净的时候运行，目的是为了减少连续STW发生的可能性(年轻代存活对象过多的话，也会导致老年代涉及的存活对象会很多)。这个阶段会比前面几个阶段更复杂一些。
+
+**标记阶段已全部完成**
+
+#### Concurrent Sweep
+并发执行，与用户线程同时工作。这个阶段的工作是：**清除那些不再使用的对象，回收它们的占用空间为将来使用**
+
+#### Concurrent Reset
+并发执行，与用户线程同时工作。这个阶段的工作是：**重设CMS内部的数据结构，为下次GC做准备**
+
+### 总结
+CMS通过将大量工作分散到并发处理阶段来减少STW时间，在这块做的非常优秀。
+
+### 实例分析
+```java
+/*
+    -verbose:gc
+    -Xms20M
+    -Xmx20M
+    -Xmn10M
+    -XX:+PrintGCDetails
+    -XX:SurvivorRatio=8
+    -XX:+UseConcMarkSweepGC
+ */
+int size = 1024 * 1024;
+
+byte[] myAlloc1 = new byte[4 * size];
+System.out.println("111111");
+
+byte[] myAlloc2 = new byte[4 * size];
+System.out.println("222222");
+
+byte[] myAlloc3 = new byte[4 * size];
+System.out.println("333333");
+
+byte[] myAlloc4 = new byte[2 * size];
+System.out.println("444444");
+```
+日志信息：
+```
+[GC (CMS Initial Mark) [1 CMS-initial-mark: 8868K(老年代已使用内存大小)(10240K(老年代总的内存大小))] 13093K(堆已使用内存大小)(19456K(堆总大小)), 0.0006477 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[CMS-concurrent-mark-start]
+[CMS-concurrent-mark: 0.002/0.002 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[CMS-concurrent-preclean-start]
+[CMS-concurrent-preclean: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[CMS-concurrent-abortable-preclean-start]
+[CMS-concurrent-abortable-preclean: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[GC (CMS Final Remark) [YG occupancy: 6431 K(年轻代已使用内存大小) (9216 K(年轻代总的内存大小))][Rescan (parallel) , 0.0001900 secs][weak refs processing, 0.0000302 secs][class unloading, 0.0004530 secs][scrub symbol table, 0.0008977 secs][scrub string table, 0.0002355 secs][1 CMS-remark: 8868K(10240K)] 15299K(19456K), 0.0019776 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[CMS-concurrent-sweep: 0.001/0.001 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+
+[CMS-concurrent-reset-start]
+[CMS-concurrent-reset: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+```

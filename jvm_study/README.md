@@ -2947,3 +2947,42 @@ System.out.println("444444");
 [CMS-concurrent-reset-start]
 [CMS-concurrent-reset: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
 ```
+
+## G1(Garbage First Collector)
+### 吞吐量
+吞吐量指的是在一定时间内，我们所希望系统完成的工作的多少。
+* 如下方式来衡量一个系统吞吐量的好坏
+  * 在一小时内同一个事物(或者任务、请求)完成的次数(tps)
+  * 数据库一小时可以完成多少次查询(qps)
+对于关注吞吐量的系统，卡顿可以接受，因为它关注的是一定时间内，执行我们所希望的任务的总量。
+
+### 响应能力
+响应能力指系统完成一件任务的耗时。耗时越短，响应能力越强。
+
+### G1的基本介绍
+G1是一个面向服务器端的垃圾收集器，适用于多核处理器、大内存容量的服务端系统。
+* G1可以兼顾大吞吐量和强响应能力
+* JDK7以上版本适用
+
+### G1的设计目标
+* 与应用线程同时工作，几乎不需要stop the world(与CMS类似)
+* 整理剩余空间，不产生内存碎片(CMS只能在Full GC时，用stop the world整理内存碎片)
+* GC停顿时间更短
+* 高吞吐量
+* gc不要求额外的内存空间(CMS需要预留空间存储**浮动垃圾**)
+
+### G1相比于CMS的优势
+* CMS使用**Mark-Sweep**算法，而G1使用**Copying**算法，更加高效，且不需要管理内存碎片
+* G1有新的划分堆内存的方式，可以达到对gc停顿时间的可控性
+
+### Hotspot虚拟机的主要构成
+![Hotspot-JVM-key-components](/assets/Hotspot-JVM-key-components.png)
+
+### 传统垃圾收集器堆结构与G1对比
+* 传统垃圾收集器分为 **Young Generation**、 **Old Genration**、**MetaSpace**
+* G1堆结构
+![G1-Heap-Allocationpng](/assets/G1-Heap-Allocationpng.png)
+  * G1堆被划分为一个个**相等** **但不连续**的内存区域(regions)
+  * 每个region都有自己的分代角色(eden、survivor、old)
+  * 每个角色的数量没有限制，意味着**每种分代的大小可以是动态变化的**
+  * G1的最大特点就是高效的执行垃圾回收，优先去执行**回收报酬比较高**的region

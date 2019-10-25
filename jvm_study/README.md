@@ -2971,9 +2971,10 @@ G1是一个面向服务器端的垃圾收集器，适用于多核处理器、大
 * 高吞吐量
 * gc不要求额外的内存空间(CMS需要预留空间存储**浮动垃圾**)
 
-### G1相比于CMS的优势
+### G1与CMS和Parallel Scavenge的对比
 * CMS使用**Mark-Sweep**算法，而G1使用**Copying**算法，更加高效，且不需要管理内存碎片
 * G1有新的划分堆内存的方式，可以达到对gc停顿时间的可控性
+* 对比Parallel Scavenge **(基于Copying)**、Parallel Old **(基于mark-compact-sweep)**，Parallel会对整个区域做整理导致停顿时间长，而G1只是特定地整理几个region
 
 ### Hotspot虚拟机的主要构成
 ![Hotspot-JVM-key-components](/assets/Hotspot-JVM-key-components.png)
@@ -2986,3 +2987,43 @@ G1是一个面向服务器端的垃圾收集器，适用于多核处理器、大
   * 每个region都有自己的分代角色(eden、survivor、old)
   * 每个角色的数量没有限制，意味着**每种分代的大小可以是动态变化的**
   * G1的最大特点就是高效的执行垃圾回收，优先去执行**回收报酬比较高**的region
+
+### G1收集器堆结构
+* G1使用了可预测停顿时间的模型。根据用户设定的目标时间，G1自动选择要清除的region，一次清除多少个region
+* G1从多个region中复制存活的对象，放置到一个region中，同时清除内存(copying收集算法)
+
+### G1重要概要
+#### 分区(Region)
+G1将整个堆分为相同大小的分区(Region)
+* 每个分区可能是老年代或是年轻代，同一时刻一个分区只能是一个代。分区依然分为Eden、survivor、old Genration。
+* 每个分区在物理内存上不需要连续。**G1优先回收垃圾对象特别多的分区**，这也是G1名字的由来，即首先回收垃圾最多的分区。
+* 新生代的回收时机依然是新生代满了的时候，回收策略也和传统垃圾回收器一致(新生代存活对象被晋升，不存活对象被回收)。至于为什么要对新生代也采取分区机制，**是因为这样跟老年代策略一致，方便调整代的大小**
+* G1自带**压缩**功能，在回收老年代的分区时，将存活的对象从一个分区拷贝到另一个分区，拷贝过程就实现了压缩功能。
+
+#### 收集集合(CSet)
+一个保存多个可被回收的分区的集合。在CSet中存活的对象会被移动到另一个可用分区，CSet中的分区可以是任何分代的分区(Eden Survivor Old Generation)。
+
+#### 已记忆集合(RSet)
+RSet中的分区记录了“谁引用了我这个分区对象”的关系，属于points-into(指向内部)的结构。
+![RSet](/assets/RSet.png)
+Region1和Region3中的对象都引用了Region2中的对象，因此在Region2的RSet中记录了这两个引用。
+
+* RSet的意义在于不需要在扫描整个堆来确定谁引用了我这个分区中的对象，而只需要扫描Rset即可
+* G1 GC是在points-out(指向外部)的card table之上再加了一层结构来构成points-info RSet：每个region会记录下到底哪些别的region有指向自己的指针，而这些指针分别在哪些card的范围内。
+* Rset实际上是一个hash tabel，key是别的region的起始地址(即别的region的引用)，value是一个集合，里面的元素是card table的index。举例说明如下：
+  ![RSetExample](/assets/RSetExample.png)
+  ```json
+  // Region2 RSet结构
+  [
+    {
+      "region1地址": "对象A所在Card的index"
+    },
+    {
+      "region2地址": "对象B所在Card的index"
+    }
+  ]
+  ```
+
+### SATB(Snapshot-At-The-Beginning)
+* SATB是G1 GC在并发标记阶段使用增量式的标记算法。
+* 并发标记是并发多线程的，但并发线程在同一时刻只能扫描一个分区

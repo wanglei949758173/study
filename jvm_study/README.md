@@ -2995,7 +2995,7 @@ G1是一个面向服务器端的垃圾收集器，适用于多核处理器、大
 ### G1重要概要
 #### 分区(Region)
 G1将整个堆分为相同大小的分区(Region)
-* 每个分区可能是老年代或是年轻代，同一时刻一个分区只能是一个代。分区依然分为Eden、survivor、old Genration。
+* 每个分区可能是老年代或是年轻代，同一时刻一个分区只能是一个代。分区依然分为Eden、survivor、old Genration。除这三种类型外，还有第四种区域Humongous（巨型区域），用于存储超大对象(对象大小超过标准region的50%)，它们被存储为一组连续的区域。
 * 每个分区在物理内存上不需要连续。**G1优先回收垃圾对象特别多的分区**，这也是G1名字的由来，即首先回收垃圾最多的分区。
 * 新生代的回收时机依然是新生代满了的时候，回收策略也和传统垃圾回收器一致(新生代存活对象被晋升，不存活对象被回收)。至于为什么要对新生代也采取分区机制，**是因为这样跟老年代策略一致，方便调整代的大小**
 * G1自带**压缩**功能，在回收老年代的分区时，将存活的对象从一个分区拷贝到另一个分区，拷贝过程就实现了压缩功能。
@@ -3027,3 +3027,42 @@ Region1和Region3中的对象都引用了Region2中的对象，因此在Region2�
 ### SATB(Snapshot-At-The-Beginning)
 * SATB是G1 GC在并发标记阶段使用增量式的标记算法。
 * 并发标记是并发多线程的，但并发线程在同一时刻只能扫描一个分区
+
+### G1垃圾收集步骤
+#### Initial Mark(Stop The World)
+标记survivor区域中引用了Old Genration对象的区域
+![G1-Initial-Mark](/assets/G1-Initial-Mark.PNG)
+存活对象的初始标记依托于年轻代的垃圾收集上
+在日志中标记为`GC pause(young)(inital-mark)`
+
+#### Root Region Scanning
+* 与用户线程同时运行。
+* 扫描survivor区域，寻找进入Old Genration的引用。
+* 在发生Young GC前，这个阶段必须完成。
+
+#### Concurrent Marking
+* 与用户线程同时进行
+* 在整个堆中查找存活的对象并标记
+* 这个阶段可能被年轻代的垃圾收集中断
+![G1-Concurrent-Mark](/assets/G1-Concurrent-Mark.PNG)
+如果发现了空区域(标记为x的区域)，则在标记阶段立即删除它们
+
+#### Remark(Stop The World)
+* 完成堆中存活对象的标记。
+* 使用一种名为“snapshot-at-the-beginning”(SATB)的算法，它比CMS收集器中使用的方法要快得多
+![G1-Remark](/assets/G1-Remark.PNG)
+空区域将被移除回收
+计算所有区域的存活性(对象存活的比例)
+
+#### Cleanup(Stop The World and Concurrent)
+* 对存活的对象和空闲的区域进行计算(Stop The World)
+* 清除Remembered Sets(Stop The World)
+* 重置没有对象的区域，将这些区域重新放到空闲列表集合中(Concurrent)
+![G1-Cleanup](/assets/G1-Cleanup.PNG)
+G1选择存活性低(回收性价比高)的区域进行回收，这些区域的收集和年轻代GC同时进行。在日志中表示为[GC pause (mixed)]
+
+#### After Cleanup
+![G1-After-Cleanup](/assets/G1-After-Cleanup.PNG)
+
+### G1官方文档
+[G1官方文档](https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html)

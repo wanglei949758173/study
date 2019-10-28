@@ -3028,42 +3028,6 @@ Region1和Region3中的对象都引用了Region2中的对象，因此在Region2�
 * SATB是G1 GC在并发标记阶段使用增量式的标记算法。
 * 并发标记是并发多线程的，但并发线程在同一时刻只能扫描一个分区
 
-### G1垃圾收集步骤
-#### Initial Mark(Stop The World)
-标记survivor区域中引用了Old Genration对象的区域
-![G1-Initial-Mark](/assets/G1-Initial-Mark.PNG)
-存活对象的初始标记依托于年轻代的垃圾收集上
-在日志中标记为`GC pause(young)(inital-mark)`
-
-#### Root Region Scanning
-* 与用户线程同时运行。
-* 扫描survivor区域，寻找进入Old Genration的引用。
-* 在发生Young GC前，这个阶段必须完成。
-
-#### Concurrent Marking
-* 与用户线程同时进行
-* 在整个堆中查找存活的对象并标记
-* 这个阶段可能被年轻代的垃圾收集中断
-![G1-Concurrent-Mark](/assets/G1-Concurrent-Mark.PNG)
-如果发现了空区域(标记为x的区域)，则在标记阶段立即删除它们
-
-#### Remark(Stop The World)
-* 完成堆中存活对象的标记。
-* 使用一种名为“snapshot-at-the-beginning”(SATB)的算法，它比CMS收集器中使用的方法要快得多
-![G1-Remark](/assets/G1-Remark.PNG)
-空区域将被移除回收
-计算所有区域的存活性(对象存活的比例)
-
-#### Cleanup(Stop The World and Concurrent)
-* 对存活的对象和空闲的区域进行计算(Stop The World)
-* 清除Remembered Sets(Stop The World)
-* 重置没有对象的区域，将这些区域重新放到空闲列表集合中(Concurrent)
-![G1-Cleanup](/assets/G1-Cleanup.PNG)
-G1选择存活性低(回收性价比高)的区域进行回收，这些区域的收集和年轻代GC同时进行。在日志中表示为[GC pause (mixed)]
-
-#### After Cleanup
-![G1-After-Cleanup](/assets/G1-After-Cleanup.PNG)
-
 ### G1官方文档
 [G1官方文档](https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html)
 
@@ -3079,3 +3043,68 @@ G1选择存活性低(回收性价比高)的区域进行回收，这些区域的�
 * 服务端多喝CPU、JVM内存占用较大的应用
 * 应用在运行过程中会产生大量内存碎片、需要经常压缩空间
 * 想要更可控、可预期的GC停顿周期；防止高并发下应用的雪崩现象
+
+### G1的GC模式
+G1有两种GC模式，**Young GC** 和 **Mixed GC** ，两种都是完成Stop The World的
+
+#### Young GC
+清除年轻代的Region。通过控制年轻代Region的个数，也就是年轻代内存的大小，从而控制Young GC的开销时间。
+
+#### Mixed GC
+清除年轻代的Region和根据Global Concurrent Marking统计得出收集收益高的老年代的Region。在用户指定的停顿时间范围内尽可能选择收益高的老年代的Region进行清除。
+
+* **Mixed GC不是Full GC，它只能回收部分老年代的Region**
+* 如果Mixed GC实在无法跟上程序分配内存的速度，导致老年代填满无法继续进行Mixed GC时，就会使用Serial old GC(Full GC)来收集整个GC堆。**所以本质上，G1是不提供Full GC的**
+* 什么时候发生Mixed GC?
+  由一些参数控制，另外也控制着哪些老年代Region会被选入CSet(收集集合)
+  * **G1HeapWastePercent**
+    在Global Concurrent Marking结束后，我们可以知道Old Genration中有多少空间要被回收，在每次Young GC之后和再次发生Mixed GC之前，会检查垃圾占比是否达到此参数，只有达到了，下次才会发生Mixed GC。
+  * G1MixedGCLiveThresholdPercent
+    Old Genration区域中的存活对象的占比，只有在此参数所设置的阈值之下，才会被选入到CSet。
+  * G1MixedGCCountTarget
+    一次Global Concurrent Marking之后，最多执行Mixed GC的次数
+  * G1OldCSetRegionThresholdPercent
+    一次Mixed GC中能被加入到CSet的最多Old Generation区域的数量
+  * G1其他参数
+    参数 | 含义
+    --- | ---
+    -XX:G1HeapRegionSize=n | 设置Region大小，并非最终值
+    -XX:MaxGCPauseMillis | 设置G1收集过程目标暂停时间，默认值200ms，不是硬性条件
+    -XX:G1NewSizePercent | 新生代最小值，默认值5%
+    -XX:G1MaxNewSizePercent | 新生代最大值，默认60%
+    -XX:ParallelGGCThreads | STW期间，并行GC线程数
+    -XX:ConcGCThreads=n | 并发标记阶段，并行执行的线程数
+    -XX:InitiatingHeapOccupancyPercent | 设置触发标记周期的Java堆占用率的阈值。默认值是45%。这里的java堆占比指的是non_young_capacity_bytes，包括Old+humongous
+
+#### 总结(G1在运行过程中的主要模式)
+* YGC (不同于CMS)
+* 并发阶段
+* 混合模式
+* Full GC(一般是G1出现问题时发生)
+* G1 YGC在Eden充满时触发，在回收之后所有之前属于Eden的区块全部变成空白，不属于任何一个分区(Eden、Survivor、Old)
+
+
+### Global Concurrent Marking
+* Global Concurrent Marking的执行过程类似CMS，但是不同的是，在G1 GC中，**它主要是为Mixed GC提供标记服务的**，并不是一次GC过程的一个必须环节。
+* Global Concurrent Marking的执行过程分为如下四个步骤：
+  * 初始标记Initial Mark(Stop The World)
+    它标记了从GC ROOT 开始直接可达的对象
+    initial mark共用了Young GC的暂停，因为它们可以复用root scan操作，所以可以说global concurrent marking是伴随Young GC而发生的。
+    ![G1-Initial-Mark](/assets/G1-Initial-Mark.PNG)
+
+
+  * 并发标记Concurrent Marking
+    这个阶段从GC Root 开始对Heap中的对象进行标记，标记线程与应用线程并发执行，并且收集各个Region的存活对象的信息。
+    ![G1-Concurrent-Mark](/assets/G1-Concurrent-Mark.PNG)
+
+  * 重新标记Remark(Stop The World)
+    标记那些在并发阶段发生变化的对象。
+    ![G1-Remark](/assets/G1-Remark.PNG)
+
+  * 清理Cleanup(Stop The World and Concurrent)
+    清除空Region(没有存活对象的区域)，加入到Free List。
+    只是回收了没有存活对象的Region，所以并不需要STW。
+    ![G1-Cleanup](/assets/G1-Cleanup.PNG)
+
+  * After Cleanup(并非一个真正的阶段)
+    ![G1-After-Cleanup](/assets/G1-After-Cleanup.PNG)

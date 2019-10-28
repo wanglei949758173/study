@@ -33,3 +33,6 @@ new Thread(() -> {
 	}
 }).start();
 ```
+
+### 线程生命周期
+![Thread-Lifecycle](/assets/Thread-Lifecycle.png)

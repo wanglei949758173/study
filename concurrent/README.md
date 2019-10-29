@@ -36,3 +36,20 @@ new Thread(() -> {
 
 ### 线程生命周期
 ![Thread-Lifecycle](/assets/Thread-Lifecycle.png)
+
+### 线程的创建方式
+* 继承`Thread`，重写`run()`
+* 实现`Runnable`
+
+### 线程name
+创建线程对象Thread，默认有一个线程名，以Thread-开头，从0开始计数
+Thread-0
+Thread-1
+Thread-2
+Thread-3
+
+### 不重写`Thread`的`run()`或不传递`Runnable`
+在不重写`Thread`的`run()`或不传递`Runnable`时，线程执行时不进行任何调用，否则执行`run()`中的逻辑。
+
+### ThreadGroup
+如果创建线程对象时未传入ThreadGroup，Thread会默认获取父线程的ThreadGroup作为该线程的ThreadGroup，此时子线程和父线程会在同一个ThreadGroup中。

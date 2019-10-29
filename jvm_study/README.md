@@ -3049,6 +3049,7 @@ G1有两种GC模式，**Young GC** 和 **Mixed GC** ，两种都是完成Stop Th
 
 #### Young GC
 清除年轻代的Region。通过控制年轻代Region的个数，也就是年轻代内存的大小，从而控制Young GC的开销时间。
+Young GC主要是对Eden区域进行GC，**它在Eden空间耗尽时会被触发**。在这种情况下，Eden空间的数据移动到Survivor空间中，如果Survivor空间不足，Eden空间的部分数据会直接晋升到老年代空间。**Survivor区域的数据移动到新的Survivor区域中，也有部分数据晋升到老年代空间中**。 **最终Eden空间的数据为空**， GC完成工作，应用线程继续执行
 
 #### Mixed GC
 清除年轻代的Region和根据Global Concurrent Marking统计得出收集收益高的老年代的Region。在用户指定的停顿时间范围内尽可能选择收益高的老年代的Region进行清除。
@@ -3108,3 +3109,11 @@ G1有两种GC模式，**Young GC** 和 **Mixed GC** ，两种都是完成Stop Th
 
   * After Cleanup(并非一个真正的阶段)
     ![G1-After-Cleanup](/assets/G1-After-Cleanup.PNG)
+
+### G1收集概览
+G1算法将堆划分为若干个区域(Region)，它仍然属于分代收集器。
+* **新生代的垃圾收集依然采用暂停所有应用线程的方式，将存活的对象拷贝到老年代或者Survivor空间。**
+* **G1收集器通过将对象从一个区域复制到另一个区域，完成了清理工作。** 这就意味着，在正常的处理过程中，G1完成了堆的压缩(至少是部分堆的压缩)，这样也就不会有CMS内存碎片问题的存在了。
+
+### humongous区域
+在G1中，还有一种特殊的区域，叫**humongous**区域。如果一个对象占用的空间大于等于一个分区的容量，G1收集器就认为这是一个巨型对象。这些巨型对象，**默认直接会被分配在老年代**，但是如果它是一个短期存在的巨型对象，就会对垃圾收集器造成负面影响。为了解决这个问题，G1划分了一个Humongous区，它用来专门存放巨型对象。如果一个Humongous区域装不下一个巨型对象，那么G1会寻找连续的Houmongous分区来存储。**为了能找到连续的Humongous区域，有时候不得不启动Full GC**

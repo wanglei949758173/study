@@ -53,3 +53,6 @@ Thread-3
 
 ### ThreadGroup
 如果创建线程对象时未传入ThreadGroup，Thread会默认获取父线程的ThreadGroup作为该线程的ThreadGroup，此时子线程和父线程会在同一个ThreadGroup中。
+
+### stackSize
+stackSize越大，其他线程可用的就越小，因为总的stack的大小是固定的。

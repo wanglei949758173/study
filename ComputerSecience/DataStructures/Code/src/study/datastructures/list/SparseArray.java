@@ -12,20 +12,20 @@ public class SparseArray {
 		int[][] array = new int[13][12];
 		array[1][2] = 1;
 		array[2][3] = 2;
-		
+
 		SparseArray sparseArray = new SparseArray();
 		// 打印原始数组
 		System.out.println("原始数组");
 		sparseArray.printArray(array);
 		System.out.println();
-		
+
 		// 转换为稀疏数组
 		int[][] sparseArrays = sparseArray.array2SparseArray(array);
 		// 打印稀疏数组
 		System.out.println("稀疏数组");
 		sparseArray.printArray(sparseArrays);
 		System.out.println();
-		
+
 		// 转换为原始数组
 		int[][] arrays = sparseArray.sparseArray2Array(sparseArrays);
 		System.out.println("原始数组");
@@ -34,13 +34,35 @@ public class SparseArray {
 	}
 
 	/**
-	 * 将原始数组转换为稀疏数组
+	 * 将二维数组转换为稀疏数组
 	 * 
-	 * @param array 原始数组
-	 * @return 稀疏数组
+	 * @param array
+	 *            二维数组
+	 * @return 转换后的稀疏数组
 	 */
 	public int[][] array2SparseArray(int[][] array) {
-		// 拿到原始数据中有效元素的个数
+		// 拿到二维数组中有效元素的个数
+		int sum = findAvailableItemCount(array);
+
+		// 创建稀疏数组
+		int[][] sparseArray = new int[sum + 1][3];
+		// 第一行写二维数组的行、列、和有效元素的个数
+		sparseArray[0][0] = array.length;
+		sparseArray[0][1] = array[0].length;
+		sparseArray[0][2] = sum;
+
+		// 将有效的元素信息写入到稀疏数组中
+		return writeAvailableItem2SparseArray(array,sparseArray, sum);
+	}
+
+	/**
+	 * 查找二维数组中有效元素的个数
+	 * 
+	 * @param array
+	 *            二维数组
+	 * @return 二维数组中有效元素的个数
+	 */
+	private int findAvailableItemCount(int[][] array) {
 		int sum = 0;
 		for (int i = 0; i < array.length; i++) {
 			// 拿到一行的所有元素
@@ -52,50 +74,59 @@ public class SparseArray {
 				}
 			}
 		}
+		return sum;
+	}
 
-		// 创建稀疏数组
-		int[][] sparseArray = new int[sum + 1][3];
-		// 遍历原始数组,将值写入到稀疏数组中
-		sparseArray[0][0] = array.length;
-		sparseArray[0][1] = array[0].length;
-		sparseArray[0][2] = sum;
-
+	/**
+	 * 将二维数据中有效的元素写入到稀疏数组中
+	 * @param source			原始二维数组
+	 * @param sparseArray		稀疏数组
+	 * @param availableCount	有效元素个数
+	 */
+	private int[][] writeAvailableItem2SparseArray(int[][] source,
+			int[][] sparseArray,
+			int availableCount) {
 		int count = 0; // 当前稀疏数组中存放的有效元素的个数
-		for (int i = 0; i < array.length; i++) {
+		for (int i = 0; i < source.length; i++) {
 			// 拿到一行的所有元素
-			int[] rowData = array[i];
+			int[] rowData = source[i];
 			for (int j = 0; j < rowData.length; j++) {
-				int data = array[i][j];
+				int data = source[i][j];
 				if (data != 0) {
 					count++;
 					sparseArray[count][0] = i;
 					sparseArray[count][1] = j;
 					sparseArray[count][2] = data;
-
+					
+					// 有效元素已经取完，直接返回
+					if (count == availableCount) {
+						return sparseArray;
+					}
 				}
 			}
 		}
-
-		// 返回
-		return sparseArray;
+		
+		throw new RuntimeException("数组：" + source + "中有效元素的个数小于" + availableCount + "个");
 	}
 
 	/**
-	 * 将稀疏数组还原为原始数组
+	 * 将稀疏数组还原为二维数组
 	 * 
-	 * @param sparseArray 稀疏数组
-	 * @return 原始数组
+	 * @param sparseArray	稀疏数组
+	 * @return 				二维数组
 	 */
 	public int[][] sparseArray2Array(int[][] sparseArray) {
-		// 创建原始数组
-		int[][] array = new int[sparseArray[0][0]][sparseArray[0][1]];
+		// 创建二维数组
+		int rowCount = sparseArray[0][0];
+		int columnCount = sparseArray[0][1];
+		int[][] array = new int[rowCount][columnCount];
 
-		// 读取剩余的行,将值赋值给原始数组
+		// 读取稀疏数组中的有效值，填充到二维数组中
 		for (int i = 1; i < sparseArray.length; i++) {
-			int row = sparseArray[i][0];
-			int column = sparseArray[i][1];
-			int data = sparseArray[i][2];
-			array[row][column] = data;
+			int rowIndex = sparseArray[i][0];
+			int columnIndex = sparseArray[i][1];
+			int itemValue = sparseArray[i][2];
+			array[rowIndex][columnIndex] = itemValue;
 		}
 
 		return array;
@@ -104,7 +135,8 @@ public class SparseArray {
 	/**
 	 * 打印二维数组
 	 * 
-	 * @param array 二维数组
+	 * @param array
+	 *            二维数组
 	 */
 	public void printArray(int[][] array) {
 		for (int[] rowDatas : array) {

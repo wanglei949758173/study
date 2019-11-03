@@ -197,3 +197,5 @@ t3.start();
 		t3.join();
 		System.out.println("所有线程全部结束");
 		```
+	* `interrupt`
+	sleep wait join

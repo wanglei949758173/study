@@ -3277,3 +3277,24 @@ Evacuation Failure类似于CMS里面的晋升失败，堆空间的垃圾太多�
 ## G1的分代算法
 为老年代设置分区的目的是老年代里有的分区垃圾多，有的分区垃圾少，这样在回收的时候可以专注于收集垃圾多的分区，这也是G1名称的由来。
 不过这个算法并不适合新生代垃圾收集，因为新生代的垃圾收集算法时复制算法，但是**新生代也使用了分区机制主要是因为便于代大小的调整**
+
+## G1日志分析
+```java
+/*
+    -verbose:gc
+    -Xms10m
+    -Xmx10m
+    -XX:+UseG1GC
+    -XX:+PrintGCDetails
+    -XX:+PrintGCDateStamps
+    -XX:MaxGCPauseMillis=200m
+*/
+int size = 1024 * 1024;
+
+byte[] myAlloc1 = new byte[size];
+byte[] myAlloc2 = new byte[size];
+byte[] myAlloc3 = new byte[size];
+byte[] myAlloc4 = new byte[size];
+
+System.out.println("Hello World");
+```

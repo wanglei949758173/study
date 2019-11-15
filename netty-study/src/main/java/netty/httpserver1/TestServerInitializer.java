@@ -19,11 +19,11 @@ import io.netty.handler.codec.http.HttpServerCodec;
  */
 public class TestServerInitializer extends ChannelInitializer<SocketChannel> {
 
-    @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
-        ChannelPipeline pipeline = socketChannel.pipeline();
+	@Override
+	protected void initChannel(SocketChannel socketChannel) throws Exception {
+		ChannelPipeline pipeline = socketChannel.pipeline();
 
-        pipeline.addLast("httpServerCodec", new HttpServerCodec());
-        pipeline.addLast("testHttpServerHanler",new TestHttpServerHanler());
-    }
+		pipeline.addLast("httpServerCodec", new HttpServerCodec());
+		pipeline.addLast("testHttpServerHanler", new TestHttpServerHanler());
+	}
 }

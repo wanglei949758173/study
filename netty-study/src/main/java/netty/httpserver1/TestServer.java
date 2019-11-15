@@ -19,20 +19,21 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @since 1.0.0
  */
 public class TestServer {
-    public static void main(String[] args) throws Exception{
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+	public static void main(String[] args) throws Exception {
+		EventLoopGroup bossGroup = new NioEventLoopGroup();
+		EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-        try {
-            ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(bossGroup,workerGroup).channel(
-                    NioServerSocketChannel.class).childHandler(new TestServerInitializer());
+		try {
+			ServerBootstrap serverBootstrap = new ServerBootstrap();
+			serverBootstrap.group(bossGroup, workerGroup)
+					.channel(NioServerSocketChannel.class)
+					.childHandler(new TestServerInitializer());
 
-            ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
-            channelFuture.channel().closeFuture().sync();
-        } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
-        }
-    }
+			ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
+			channelFuture.channel().closeFuture().sync();
+		} finally {
+			bossGroup.shutdownGracefully();
+			workerGroup.shutdownGracefully();
+		}
+	}
 }

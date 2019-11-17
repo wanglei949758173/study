@@ -4,7 +4,7 @@
  * Date:     2019/3/24 11:09
  * Description: 连接处理器
  */
-package netty.httpserver1;
+package netty.t1_httpserver;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

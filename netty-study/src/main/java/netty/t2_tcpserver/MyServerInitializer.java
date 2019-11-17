@@ -4,7 +4,7 @@
  * Date:     2019/3/31 9:41
  * Description: Tcp服务初始化器
  */
-package netty.tcpserver1;
+package netty.t2_tcpserver;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -22,8 +22,6 @@ import io.netty.util.CharsetUtil;
  * @since 1.0.0
  */
 public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
-
-
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();

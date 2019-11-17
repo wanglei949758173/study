@@ -4,7 +4,7 @@
  * Date:     2019/3/31 12:11
  * Description: Websocket服务器处理程序
  */
-package netty.websocketserver;
+package netty.t5_websocketserver;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

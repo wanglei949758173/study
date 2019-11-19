@@ -1,0 +1,15 @@
+// 测试Student对象的序列化和反序列化
+syntax = "proto2";
+
+package protobuf;
+
+// 代表生成源文件时的选项
+option optimize_for = SPEED;
+option java_package = "protobuf.t1_protobuf";
+option java_outer_classname = "Student";
+
+message StudentMessage {
+	required string name = 1;
+	optional int32 age = 2;
+	optional string address = 3;
+}

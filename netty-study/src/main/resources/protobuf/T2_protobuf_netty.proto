@@ -1,0 +1,15 @@
+// 测试使用netty作为载体完成protobuf定义的数据的传递
+syntax = "proto2";
+
+package protobuf;
+
+// 代表生成源文件时的选项
+option optimize_for = SPEED;
+option java_package = "protobuf.t2_protobuf_netty";
+option java_outer_classname = "PersonMessage";
+
+message Person {
+	required string name = 1;
+	optional int32 age = 2;
+	optional string address = 3;
+}

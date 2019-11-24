@@ -7,6 +7,16 @@ package study.datastructures.list.linkedlist;
  *
  */
 public class SingleLinkedList {
+	public static void main(String[] args) {
+		SingleLinkedList list = new SingleLinkedList();
+		list.addByOrder(new Node(4, "李四"));
+		list.addByOrder(new Node(5, "王五"));
+		list.addByOrder(new Node(3, "张三"));
+
+		list.list();
+
+	}
+
 	private Node head = new Node(0, "Head节点");
 
 	public Node getHead() {
@@ -16,61 +26,60 @@ public class SingleLinkedList {
 	/**
 	 * 按照顺序将node节点插入到链表中
 	 * 
-	 * @param node node节点
+	 * @param currentNode
+	 *            node节点
 	 */
-	public void addByOrder(Node node) {
-		// 思路:
-		// 1.找到大于node.no的前一个节点
-		// 2.设置node.next=大于node.no的节点
-		// 3.设置大于node.no的前一个节点prevNode.next=node
-
-		Node currentNode = head;
-		boolean nodeIsExist = false;
-		while (currentNode.next != null) {
-			// next.no > node.no,找到了node.no的前一个节点
-			if (currentNode.next.no > node.no) {
-				break;
-			} else if (currentNode.next.no == node.no) {
-				// node已存在
-				nodeIsExist = true;
+	public void addByOrder(Node currentNode) {
+		// 找到一个tempNode
+		// 满足tempNode.next.getNo() > currentNode.getNo() || tempNode.next == null
+		Node tempNode = getHead();
+		while (tempNode.next != null) {
+			if (tempNode.next.no > currentNode.no) {
 				break;
 			} else {
-				// next.no < node.no
-				currentNode = currentNode.next;
+				tempNode = tempNode.next;
 				continue;
 			}
 		}
 
-		if (nodeIsExist) {
-			System.out.println("您所要添加的node节点已经存在!");
-		} else {
-			node.next = currentNode.next;
-			currentNode.next = node;
+		currentNode.next = tempNode.next;
+		tempNode.next = currentNode;
+	}
+
+	public void add(Node node) {
+		// 寻找最后一个节点lastNode
+		Node lastNode = getHead();
+		while (lastNode.next != null) {
+			lastNode = lastNode.next;
 		}
+
+		// lastNode.next = currentNode
+		lastNode.next = node;
 	}
 
 	/**
 	 * 根据node.no修改node.name
 	 * 
-	 * @param node node
+	 * @param node
+	 *            node
 	 */
 	public void update(Node node) {
 		boolean nodeIsExist = false;
 
 		// 找到要修改的节点
-		Node currentNode = head.next;
-		while (currentNode != null) {
-			if (currentNode.no == node.no) {
+		Node tempNode = head.next;
+		while (tempNode != null) {
+			if (tempNode.no == node.no) {
 				nodeIsExist = true;
 				break;
 			} else {
-				currentNode = currentNode.next;
+				tempNode = tempNode.next;
 			}
 		}
 
 		// 修改节点
 		if (nodeIsExist) {
-			currentNode.name = node.name;
+			tempNode.name = node.name;
 		} else {
 			System.out.println("要修改的node节点不存在");
 		}
@@ -79,25 +88,26 @@ public class SingleLinkedList {
 	/**
 	 * 删除node节点
 	 * 
-	 * @param node node
+	 * @param node
+	 *            node
 	 */
 	public void remove(Node node) {
 		boolean nodeIsExist = false;
 
 		// 找到要删除的节点的上一个节点
-		Node currentNode = head;
-		while (currentNode.next != null) {
-			if (currentNode.next.no == node.no) {
+		Node tempNode = head;
+		while (tempNode.next != null) {
+			if (tempNode.next.no == node.no) {
 				nodeIsExist = true;
 				break;
 			} else {
-				currentNode = currentNode.next;
+				tempNode = tempNode.next;
 			}
 		}
 
 		// 删除节点
 		if (nodeIsExist) {
-			currentNode.next = currentNode.next.next;
+			tempNode.next = tempNode.next.next;
 		} else {
 			System.out.println("要删除的node节点不存在");
 		}
@@ -111,10 +121,10 @@ public class SingleLinkedList {
 			System.out.println("链表为空!");
 		}
 
-		Node currentNode = head;
-		while (currentNode.next != null) {
-			System.out.println(currentNode.next);
-			currentNode = currentNode.next;
+		Node tempNode = head;
+		while (tempNode.next != null) {
+			System.out.println(tempNode.next);
+			tempNode = tempNode.next;
 		}
 	}
 }

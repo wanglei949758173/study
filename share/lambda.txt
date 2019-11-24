@@ -1,0 +1,29 @@
+# Java8新特性
+## Java Programming Language
+* Lambda Expressions
+* Method references
+* Default methods
+....
+
+## Collections
+* Stream API
+
+.....
+了解更多
+https://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
+
+# 为什么介绍Java8
+* 我们现在用的就是Java8
+* Java7-Java8经历了很长时间
+
+# lambda
+```java
+Button button = new Button();
+// 添加动作监听器
+button.addActionListener(new ActionListener() {
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.println(e);
+  }
+});
+```

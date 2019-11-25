@@ -1,45 +1,8 @@
-java IO
-    java.IO最核心的一个概念就是流，面向流的编程。Java中，一个流要么是输入流，要么是输出流，不可能同时既是输入流又是输出流。
-
 
 Java NIO
-    java.nio拥有3个核心概念：selector，channel，buffer。在Java.nio中，我们是面向
-    块(block)或是缓冲区(buffer)编程的。Buffer本身就是一块内存，底层实现上，它实际是个数组，
-    书库的读写都是通过Buffer来实现的。
 
-    除了数组之外，Buffer还提供了对于数据的结构化访问方式，并且可以追踪到系统的读写过程。
 
-    Java中的7中原生数据类型都有各自对应的Buffer类型，如Int,LongBuffer。(除BooleanBuffer外)
-
-    Channel指的是可以向其写入数据或是从中读取数据的对象，它类似于java.io中的Stream。
-
-    所有的数据的读写都是通过Buffer来进行的，永远不会出现直接向Channel写入数据的情况，或是
-    直接从Channel读取数据的情况。
-
-    与Stream不同的是，Channel是双向的，一个流只能是InputStream或是OutputStream,Channel打开
-    后则可以进行读取、写入或是读写。
-
-    由于Channel是双向的，因此它能更好地反应底层操作系统的真实情况；例如在Linux系统中，底层操作系统
-    的通道就是双向的。
-
-    关于NIO Buffer中的3个重要状态属性的含义：Position,limit与capacity
-
-    0 <= mark <= position <= limit <= capacity
-
-    通过NIO读取文件涉及到3个步骤
-
-    1.从FileInputStream获取到FileChannel对象。
-    2.创建Buffer。
-    3.将数据从Channel读取到Buffer中。
-
-    绝对方法与相对方法的含义：
-    1.相对方法：limit值与position值会在操作时被考虑到。
-    2.绝对方法：完全忽略掉limit值与position值。
-	
-	flip()方法。
-		1.将limit值设置为当前的position
-		2.讲position设为0
-	
+   	
 	// 压缩缓冲区，继续往未读的数据后边写
 	compact()方法
 		1.讲所有未读的数据复制到buffer起始位置处。

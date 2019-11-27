@@ -1,10 +1,12 @@
-# Java8新特性
-## Java Programming Language
-* Lambda Expressions
-* Method references
-* Default methods
-....
+﻿Java8 Update
 
+为什么要学Java8
+
+lambda表达式
+  一个示例：
+    匿名类语法太繁琐，实现一个简单的功能需要写太多的无用代码，读起来也不好理解。
+    
+  Java8为我们提供了解决这种问题的可能
 ## Collections
 * Stream API
 
@@ -27,3 +29,18 @@ button.addActionListener(new ActionListener() {
   }
 });
 ```
+
+lambda改写
+
+函数式接口
+
+
+// 坑
+forEach(a -> {
+	break;
+})
+
+map(a -> {
+	throws Exception();
+})
+

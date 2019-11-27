@@ -11,8 +11,20 @@ public class T1_Anonymous_Class {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(e);
+				button.setSize(120, 40);
 			}
 		});
+		
+//		button.addActionListener(e -> {
+//			button.setSize(120, 40);
+//		});
+		
+		T1_Anonymous_Class test = new T1_Anonymous_Class();
+		int v = test.fun(() -> 2);
+		System.out.println(v);
+	}
+	
+	public int fun(TestFunctionInterface f) {
+		return f.fun();
 	}
 }

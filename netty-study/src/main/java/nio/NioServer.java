@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class NioServer {
     // 保存所有在线的客户端
-    private static Map<String, SocketChannel> clientMap = new HashMap();
+    private static Map<String, SocketChannel> clientMap = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();

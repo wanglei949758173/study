@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0.0.0
  * @author 王磊
  */
-public class TestPeek {
+public class T6_Peek {
 	public static void main(String[] args) {
 		StringBuilder sb = new StringBuilder();
 		List<String> stringList =

@@ -1,24 +1,13 @@
-/**
- * FileName: MyServer
- * Author:   王磊
- * Date:     2019/3/31 9:37
- * Description: TCP Server
- */
-package netty.t2_tcpserver;
+package netty.t3_httpserver;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-/**
- * TCP Server
- *
- * @author wl
- * @since 1.0.0
- */
-public class MyServer {
+public class Server {
 	public static void main(String[] args) throws Exception {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -27,9 +16,19 @@ public class MyServer {
 			ServerBootstrap serverBootstrap = new ServerBootstrap();
 			serverBootstrap.group(bossGroup, workerGroup)
 					.channel(NioServerSocketChannel.class)
-					.childHandler(new MyServerInitializer());
+					.childHandler(new ServerInitializer());
 
-			ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
+			ChannelFuture channelFuture = serverBootstrap.bind(8080).sync();
+			channelFuture.addListener(new ChannelFutureListener() {
+				@Override
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (future.isSuccess()) {
+						System.out.println("监听成功");
+					} else {
+						System.out.println("监听失败");
+					}
+				}
+			});
 			channelFuture.channel().closeFuture().sync();
 		} finally {
 			bossGroup.shutdownGracefully();

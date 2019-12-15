@@ -1,35 +1,9 @@
-7.ChannelFuture
-    封装了Channel的Future
-
 
 ChannelOption
     提供了关于TCP/IP相关的底层的一些设定
 AttributeKey
     提供了在channel上保存业务的一些属性，以达到让Pipeline中下一个HandlerEvent获取到该属性的目的。
 
-ChannelHandler、ChannelPipeline、ChannelHandlerContext之间的关系
-    默认情况下，一个handler会与一个handlerContext相对应
-    如果将一个handler添加到了一个ChannelPipeline上多次或将一个handler添加到了不同的ChannelPipeline上，就会有多个
-    handlerContext与handler相对应。
-    总结，一个handler添加到了ChannelPipeline几次，就有几个handlerContext与handler相对应。
-    ChannelPipeline中实际保存的是ChannelHandlerContext对象，而ChannelHandlerContext中又有与之对应的ChannelHandler对象
-    ChannelHandlerContext持有着Channel对象、ChannelPipeline对象、ChannelHandler对象
-
-Channel注册流程
-
-Netty线程模型
-    1.一个EventLoopGroup当中会包含一个或多个EventLoop
-    2.一个EventLoop它的整个生命周期当中都只会与唯一一个Thread进行绑定。
-    3.所有由EventLoop所处理的各种I/O事件都将在它所关联的那个Thread上进行处理。
-    4.一个Channel在它的整个生命周期中只会注册在一个EventLoop上。
-    5.一个EventLoop在运行过程当中，会被分配给一个或者多个Channel。
-    结论：
-        1.在Netty中，Channel的实现一定是线程安全的；基于此，我们可以存储一个Channel的引用，
-		并且在需要向远程端点发送数据时，通过这个引用来调用Channel相应的方法；即便当时有很多线程都在
-		使用它也不会出现多线程问题；而且，消息一定会按照顺序发送出去。
-        2.我们在业务开发中，不要将长时间执行的耗时任务放入到EventLoop的执行队列中，因为它将会一直阻塞该线程所对应的所有
-		Channel上的其他执行任务，如果我们需要进行阻塞调用或是耗时的操作(实际开发中很常见)，那么我们就需要使用一个专门的
-		EventExecutor(业务线程池)。
 		
 		通常会有两种实现方式：
 			1.在ChannelHandler的回调方法中，使用自己定义的业务线程池，这样可以实现异步调用。
@@ -37,71 +11,9 @@ Netty线程模型
 			说明：默认情况下(调用addLast(handler))，ChannelHandler中的回调方法是由I/O线程所执行，
 			如果调用了ChannelPipeline addLast(EventExecutorGroup group,ChannelHandler... handlers)方法，那么ChannelHandler中的
 			回到方法就是有参数中的EventExecutorGroup线程组来执行的。
+	
 			
-
-JDK所提供的Future只能通过手工方式检查执行结果，而这个操作是会阻塞的；Netty则对ChannelFuture进行了增强，通过
-ChannelFutureListener以回调的方式来获取执行结果，去除了手工检查阻塞的操作；值得注意的是：ChannelFutureListener
-的operationComplete方式是由I/O线程执行的，因此要注意的是不要在这里执行耗时操作，否则需要通过另外的线程或线程池来
-执行。
-
-ChannelInboundHandlerAdapter和SimpleChannelInboundHandler<T>区别：
-	1.SimpleChannelInboundHandler可以指定消息的泛型
-	2.SimpleChannelInboundHandler读取完消息就直接将消息释放了，这有可能导致向客户端写数据的时候拿不到消息，因为写操作是异步的。
-		
-
-Netty中有两种发送消息的方式，可以直接写到Channel中，也可以写到与ChannelHandler所关联的那个ChannelHandlerContext中。
-对于前一种方式来说，消息会从ChannelPipeline的末尾开始流动；对于后一种，消息将从ChannelHandlerContext中的下一个
-ChannelHandler开始流动。
-	结论：
-		1.ChannelHandlerContext与ChannelHandler之间的关联绑定关系永远都不会发生改变的，因此对其进行缓存是没有
-		任何问题的。
-		2.对于Channel的同名方法来说，ChannelHanlderContext的方法将会产生更短的事件流，所以我们应该在可能的情况下利用这个特性来提升性能。
-
-
-Bytebuf
-	Bytebuf中实际上维护了两个索引readerIndex和writerIndex
-		+-------------------+------------------+------------------+
-        | discardable bytes |  readable bytes  |  writable bytes  |
-        |                   |     (CONTENT)    |                  |
-        +-------------------+------------------+------------------+
-        |                   |                  |                  |
-        0      <=      readerIndex   <=   writerIndex    <=    capacity
-		
-		将缓冲区分了3块，第一块(可丢弃的区域),第二块(可读区域),第三块(可写区域)
-		
-	Netty Bytebuf所提供的3中缓冲区类型：
-		1.heap buffer
-		2.direct buffer
-		3.composite buffer
-		
-		Heap Buffer (堆缓冲区)
-			这是最常用的类型，Bytebuf讲数据存储到JVM的堆空间中，并且将实际的数据存放到byte array中来实现。
-			优点：
-				由于数据是存储到JVM的堆中，因此可以快速的创建于快速的释放，并且它提供了直接访问内部字节数组的方法。
-			缺点：
-				每次读写数据时，都需要先将数据复制到直接缓冲区中再进行网络传输。
-		Direct Buffer (直接缓冲区)
-			在堆之外直接分配内存空间，直接缓冲区并不占用堆得容量空间，因为它是由操作系统在本地内存进行的数据分配。
-			优点：
-				在使用Socket进行数据传递时，性能非常好，因为数据直接位于操作系统的本地内存中，所以不需要从JVM将数据复制到直接缓冲区中，性能很好。
-			缺点：
-				因为Direct Buffer是直接在操作系统内存中的，所以内存空间的分配与释放要比堆空间更复杂，而且速度要更慢一些。
-					而Netty通过提供内存池来解决这个问题。直接缓冲区并不支持通过字节数组的方式来访问数据。
-		
-			重点：对于后端的业务消息的编码来说，推荐使用HeapByteBuf;对于I/O通信线程在读写缓冲区时，推荐使用DirectByteBuf。
-		Composite Buffer (复合缓冲区)
-			内部维护多个缓冲区，可以使Heap Buffer (堆缓冲区)，也可以是Direct Buffer (直接缓冲区)
-			
-	JDK的ByteBuffer的缺点:
-		1.final byte[] hb;这是JDK的ByteBuffer对象中用于存储数据的对象生命；可以看到，其字节数组是被声明为final的，也就是长度
-		固定不变的。一旦分配好就不能动态分配和收缩；而且当待存储的数据字节很大时就很有可能出现IndexOutOfBoundsException。如果要
-		预防这个异常，那就需要在存储之前完全确定好待存储的字节大小。如果ByteBuffer的空间不足，我们只有一种解决方案：创建一个全新的ByteBuffer对象，
-		然后再将之前的ByteBuffer中的数据复制过去，这一切操作都需要由开发者自己来手动完成。
-		2.ByteBuffer只使用一个position指针来标识位置信息，在进行读写切换时就需要调用flip方法或是rewind方法，使用起来很不方便。
-	Netty的ByteBuf的优点:
-		1.存储字节的数组是动态的，其最大值默认是Integer.MAX_VALUE。这里的动态性是体现在write方法中的，write方法在执行时会判断
-		buffer容量，如果不足则自动扩容。
-		2.Bytebuf的读写索引是完全分开的，使用起来就很方便。
+	
 	
 	AtomicIntegerFieldUpdater要点总结：
 		1.更新器更新的必须是Int类型的变量，不能是其包装类型。
@@ -115,21 +27,7 @@ Bytebuf
 	Netty中为什么使用AtomicIntegerFieldUpdater而不使用AtomicInteger来保证引用计数的原子性？
 		答：因为AtomicIntegerFieldUpdater被定义为static类型的变量，全局只有一份，这样所有的ByteBuf都共享这个更新器，减少了内存的
 		占用。
-		
-	Netty处理器重要概念：
-		1.Netty的处理器可以分为两类：入站处理器与出站处理器。
-		2.入站处理器的顶层是ChannelInboundHandler，出站处理器的顶层是ChannelOutboundHandler。
-		3.数据处理时常用的各种编解码器本质上都是处理器。
-		4.编解码器：无论我们向网络中写入的数据是什么类型(int、char、String、二进制等)，数据在网络中传递时，其都是
-		以字节流的形式呈现的；将数据由原本的形式转换为字节流的操作称为编码(encode)，将数据由字节转换为它原本的格式或
-		是其他格式的操作称为解码(decode)，编解码同意称为codec。
-		5.编码：本质上是一种出站处理器；因此，编码一定是一种ChannelOutboundHandler。
-		6.解码：本质上是一种入站处理器；因此，解码一定是一种ChannelInboundHandler。
-		7.在Netty中，编码器通常以XXXEncoder命名；解码器通常以XXXDecoder命名。
-	
-	关于Netty编解码器的重要结论：
-		1.无论是编码器还是解码器，其所接收的消息类型必须与待处理的参数类型一致，否则该编码器或解码器并不会被执行。
-		2.在解码器进行数据解码时，一定要记得判断缓冲(ByteBuf)中的数据是否足够，否则将会产生一些问题。
+
 		
 	 ReplayingDecoder<S>笔记：
 		1.继承自ByteToMessageDecoder，

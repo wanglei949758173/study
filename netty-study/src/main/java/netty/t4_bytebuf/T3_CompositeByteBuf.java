@@ -1,10 +1,10 @@
-package netty.bytebuf;
+package netty.t4_bytebuf;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class ByteBufTest2 {
+public class T3_CompositeByteBuf {
     public static void main(String[] args) {
         CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
 

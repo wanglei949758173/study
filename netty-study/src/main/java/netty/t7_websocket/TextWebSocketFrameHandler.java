@@ -1,10 +1,4 @@
-/**
- * FileName: TextWebSocketFrameHandler
- * Author:   王磊
- * Date:     2019/3/31 12:11
- * Description: Websocket服务器处理程序
- */
-package netty.t5_websocketserver;
+package netty.t7_websocket;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -12,15 +6,8 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import java.time.LocalDateTime;
 
-/**
- * Websocket服务器处理程序
- *
- * @author wl
- * @since 1.0.0
- */
 public class TextWebSocketFrameHandler
         extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx,

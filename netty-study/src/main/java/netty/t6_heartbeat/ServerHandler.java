@@ -1,22 +1,10 @@
-/**
- * FileName: MyServerHandler
- * Author:   王磊
- * Date:     2019/3/31 10:27
- * Description: 服务Handler
- */
-package netty.t4_heartbeat;
+package netty.t6_heartbeat;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 
-/**
- * 服务Handler
- *
- * @author wl
- * @since 1.0.0
- */
-public class MyServerHandler extends ChannelInboundHandlerAdapter {
+public class ServerHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
 			throws Exception {

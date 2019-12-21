@@ -18,9 +18,9 @@ public class TestServer {
 			
 			ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
 			channelFuture.channel().closeFuture().sync();
-		} finally {
-			bossGroup.shutdownGracefully();
-			workerGroup.shutdownGracefully();
-		}
+			} finally {
+				bossGroup.shutdownGracefully();
+				workerGroup.shutdownGracefully();
+			}
 	}
 }

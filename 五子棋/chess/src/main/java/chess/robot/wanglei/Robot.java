@@ -57,9 +57,15 @@ public class Robot implements IRobot {
 			chessBoardIsEmpty = false;
 			result.setX(9);
 			result.setY(9);
+			Iterator<Position> iterator = myOptionPoints.iterator();
+			while (iterator.hasNext()) {
+				Position currenPoint = iterator.next();
+				if (currenPoint.x == result.x && currenPoint.y == result.y) {
+					iterator.remove();
+				}
+			}
 			return result;
 		}
-
 		// 棋盘不为空
 		result = getBestPoint();
 
@@ -91,8 +97,8 @@ public class Robot implements IRobot {
 			if ((xN + yN) < (x + y)) {
 				x = xN;
 				y = yN;
-				bestPosition.setX(x);
-				bestPosition.setX(y);
+				bestPosition.setX(point.x);
+				bestPosition.setY(point.y);
 			}
 		}
 		return bestPosition;

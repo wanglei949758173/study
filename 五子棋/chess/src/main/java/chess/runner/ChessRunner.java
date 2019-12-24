@@ -18,7 +18,7 @@ public class ChessRunner {
 	/**
 	 * 每一步的超时时间
 	 */
-	private static int TIMEOUT_PERSTEP = 15000;
+	private static int TIMEOUT_PERSTEP = 15000000;
 	/**
 	 * 主窗口
 	 */

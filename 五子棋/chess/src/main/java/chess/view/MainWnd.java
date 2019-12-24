@@ -140,10 +140,10 @@ public class MainWnd extends JFrame implements MouseListener, MouseMotionListene
 
 		robots.put(human.playerName(), human);
 		
-		IRobot robot = new chess.robot.testrobot.TestRobot();
-		robots.put(robot.playerName(), robot);
+//		IRobot robot = new chess.robot.testrobot.TestRobot();
+//		robots.put(robot.playerName(), robot);
 		
-		robot = new chess.robot.testrobot.TestRobot();
+		IRobot robot = new chess.robot.wanglei.Robot();
 		robots.put("王群", robot);
 
 		robot = new chess.robot.testrobot.TestRobot();

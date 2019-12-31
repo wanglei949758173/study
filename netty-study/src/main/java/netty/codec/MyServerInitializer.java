@@ -1,12 +1,7 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 20:18
- * Description: 服务初始化处理器
- */
-package netty.handler;
+package netty.codec;
 
 import io.netty.channel.*;
+import io.netty.channel.socket.SocketChannel;
 
 /**
  * 服务初始化处理器
@@ -14,10 +9,10 @@ import io.netty.channel.*;
  * @author Administrator
  * @since 1.0.0
  */
-public class MyServerInitializer extends ChannelInitializer {
+public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
-    protected void initChannel(Channel ch) throws Exception {
+    protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
         pipeline.addLast(new MyByteToLongDecoder());

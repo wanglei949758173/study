@@ -4,7 +4,7 @@
  * Date      2019/4/28 20:30
  * Description: 客户端
  */
-package netty.handler;
+package netty.codec;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

@@ -4,7 +4,7 @@
  * Date      2019/4/28 21:57
  * Description: Byte转换到Long,继承自ReplayingDecoder
  */
-package netty.handler;
+package netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

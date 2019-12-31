@@ -4,7 +4,7 @@
  * Date      2019/4/28 20:23
  * Description: Long 到Byte编码器
  */
-package netty.handler;
+package netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

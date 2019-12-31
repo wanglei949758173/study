@@ -4,11 +4,11 @@
  * Date      2019/4/28 20:31
  * Description: 客户端初始化器
  */
-package netty.handler;
+package netty.codec;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
+import io.netty.channel.socket.SocketChannel;
 
 /**
  * 客户端初始化器
@@ -16,10 +16,10 @@ import io.netty.channel.ChannelPipeline;
  * @author Administrator
  * @since 1.0.0
  */
-public class MyClientInitializer extends ChannelInitializer {
+public class MyClientInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
-    protected void initChannel(Channel ch) throws Exception {
+    protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new MyByteToLongDecoder());
         pipeline.addLast(new MyLongToByteEncoder());

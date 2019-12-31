@@ -4,7 +4,7 @@
  * Date      2019/4/28 20:20
  * Description: 服务器处理器
  */
-package netty.handler;
+package netty.codec;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

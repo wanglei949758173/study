@@ -1,10 +1,4 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 20:23
- * Description: Long 到Byte编码器
- */
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,7 +14,7 @@ public class MyLongToByteEncoder extends MessageToByteEncoder<Long> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Long msg, ByteBuf out) throws Exception {
-        System.out.println("encode invoked!");
+        System.out.println("MyLongToByteEncoder encode invoked!");
         System.out.println(msg);
 
         out.writeLong(msg);

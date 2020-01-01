@@ -1,4 +1,4 @@
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;

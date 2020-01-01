@@ -1,10 +1,4 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 21:57
- * Description: Byte转换到Long,继承自ReplayingDecoder
- */
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

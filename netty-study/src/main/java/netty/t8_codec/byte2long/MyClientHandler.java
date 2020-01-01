@@ -1,10 +1,4 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 20:33
- * Description: 客户端处理器
- */
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -27,11 +21,12 @@ public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(123456L);
+        ctx.writeAndFlush(443322L);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
-                                Throwable cause) throws Exception {
+			Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
     }

@@ -1,10 +1,4 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 20:30
- * Description: 客户端
- */
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

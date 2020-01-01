@@ -1,10 +1,4 @@
-/**
- * FileName: netty.handler
- * Author    王磊
- * Date      2019/4/28 20:27
- * Description: byte到Long类型的解码器
- */
-package netty.codec;
+package netty.t8_codec.byte2long;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,7 +16,8 @@ public class MyByteToLongDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        System.out.println(in.readableBytes());
+        System.out.println("MyByteToLongDecoder decode invoked!");
+    	System.out.println(in.readableBytes());
         if (in.readableBytes() >= 8) {
             out.add(in.readLong());
         }

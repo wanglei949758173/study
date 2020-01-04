@@ -1,10 +1,4 @@
-/**
- * FileName: netty.tcppackage2
- * Author    王磊
- * Date      2019/4/30 22:04
- * Description: 处理器
- */
-package netty.tcppackage2;
+package netty.t9_stick_unpack.resolve;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

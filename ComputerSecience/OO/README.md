@@ -126,7 +126,7 @@ class StudentService {
 继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例属性和方法，或子类从父类继承方法，使得子类具有父类相同的行为。
 
 ##### 继承实例
-![extends](/assets/extends.jpg)
+![extends](./assets/extends.jpg)
 
 兔子和羊属于食草动物类，狮子和豹属于食肉动物类。
 

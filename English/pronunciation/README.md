@@ -173,6 +173,36 @@ eə
   boat coat
 * ow
   show window
-重读开音节发字母音
 
-重读闭音节发元音的音
+# 联想法
+/dʒ/ zh
+* g
+  ginger giraffe
+* j
+  jump job jam
+* ge
+  orange cabbage cage
+
+/tʃ/ ch
+* ch
+  teacher peach cherry chair
+* tch
+  watch match
+
+/ʃ/ sh
+* s
+  sugar sure
+* sh
+  ship sheep wash cash shop
+
+/dz/ z
+* ds
+  seeds woods firends birds beds
+* des
+  rides
+
+/ts/ c
+* ts
+  seats goats coats cats pets eats
+* tes
+  gates kites

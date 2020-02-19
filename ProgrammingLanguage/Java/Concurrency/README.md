@@ -3,7 +3,7 @@
 一个进程中可以同时运行程序的最小单元。
 
 ## 线程的创建与启动
-![Thread-start](/assets/Thread-start.png)
+![Thread-start](./assets/Thread-start.png)
 java应用启动时，JVM会默认为我们创建一个 **main线程** ，还有一些其他的守护线程。
 
 ### 两个任务并发执行的示例
@@ -35,7 +35,7 @@ new Thread(() -> {
 ```
 
 ### 线程生命周期
-![Thread-Lifecycle](/assets/Thread-Lifecycle.png)
+![Thread-Lifecycle](./assets/Thread-Lifecycle.png)
 
 ### 线程的创建方式
 * 继承`Thread`，重写`run()`

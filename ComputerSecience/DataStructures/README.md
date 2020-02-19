@@ -11,9 +11,9 @@
 
 ### 应用实例
 * 使用稀疏数组来保存如下的棋盘
-  ![sparsearray-1](/assets/sparsearray-1.jpg)
+  ![sparsearray-1](./assets/sparsearray-1.jpg)
 * 思路分析
-  ![sparsearray-2](/assets/sparsearray-2.jpg)
+  ![sparsearray-2](./assets/sparsearray-2.jpg)
 * 代码实现
   * 二维数组转稀疏数组
     ```java

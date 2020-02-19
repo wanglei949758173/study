@@ -8,13 +8,13 @@ Java支持3中网络编程模型I/O模式：BIO、NIO、AIO
 同步并阻塞(传统阻塞型)，服务器实现模式为**一个连接一个线程**，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销。
 
 示意图：
-![BIO-Worker-mode](/assets/BIO-Worker-mode.png)
+![BIO-Worker-mode](./assets/BIO-Worker-mode.png)
 
 ## Java NIO
 同步非阻塞，服务器实现模式为**一个线程处理多个请求**(连接)，即客户端发送的连接请求都会注册到**多路复用器**上，多路复用器轮询到连接有I/O请求就进行处理。
 
 示意图：
-![NIO-Worker-Mode](/assets/NIO-Worker-Mode.png)
+![NIO-Worker-Mode](./assets/NIO-Worker-Mode.png)
 
 
 ## Java AIO
@@ -36,7 +36,7 @@ BIO(blocking I/O) ： 同步阻塞，服务器实现模式为**一个连接一�
 BIO 方式**适用于连接数目比较小且固定的架构**，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4以前的唯一选择，程序简单易理解
 
 ## 工作机制
-![BIO-Worker-Principle.md](/assets/BIO-Worker-Principle.md.jpg)
+![BIO-Worker-Principle.md](./assets/BIO-Worker-Principle.md.jpg)
 
 ## BIO应用实例
 ### Server
@@ -157,7 +157,7 @@ while (buffer.hasRemaining()) {
 
 # Selector、Channel、Buffer之间的关系
  ## 关系图
- ![NIO_3components_relation](/assets/NIO_3components_relation.png)
+ ![NIO_3components_relation](./assets/NIO_3components_relation.png)
 
  ## 结论
  每个 `channel`  都会对应一个 `Buffer`
@@ -179,7 +179,7 @@ while (buffer.hasRemaining()) {
 # Buffer
  ## 基本介绍
  缓冲区（Buffer）：缓冲区本质上是一个可以读写数据的**内存块**，可以理解成是一个 **容器对象(含数组)**，该对象提供了一组方法，可以更轻松地使用内存块，缓冲区对象内置了一些机制，能够跟踪和记录缓冲区的状态变化情况。`Channel`  提供从文件、网络读取数据的渠道，但是读取或写入的数据都必须经由 `Buffer`。
- ![buffer-basic](/assets/buffer-basic.jpg)
+ ![buffer-basic](./assets/buffer-basic.jpg)
 
  ## Buffer类及其子类
  在 NIO  中，`Buffer` 是一个顶层父类，它是一个抽象类
@@ -356,7 +356,7 @@ while (buffer.hasRemaining()) {
  ### 实例3
  完成文件的拷贝
  思路分析：
- ![file-copy](/assets/file-copy.jpg)
+ ![file-copy](./assets/file-copy.jpg)
  ```java
  // 测试文件拷贝
  FileInputStream fis = null;
@@ -515,7 +515,7 @@ while (buffer.hasRemaining()) {
  `ByteBuffer`类的`address`属性指向了堆外的数据。
 
  图示：
- ![directBuffer-principle](/assets/directBuffer-principle.png)
+ ![directBuffer-principle](./assets/directBuffer-principle.png)
 
  ## 创建DirectByteBuffer
  ```java
@@ -628,7 +628,7 @@ while (buffer.hasRemaining()) {
    一组已被取消，但其`channel`尚未注销的键
 
  ## Selector示意图
- ![selector-principle](/assets/selector-principle.jpg)
+ ![selector-principle](./assets/selector-principle.jpg)
 
  ### 特点
  * `Netty` 的 IO 线程 `NioEventLoop`  聚合了 `Selector`(选择器，也叫多路复用器)，可以同时并发处理成百上千个客户端连接。
@@ -729,7 +729,7 @@ while (buffer.hasRemaining()) {
 
  # NIO非阻塞原理
  NIO  非阻塞 网络编程相关的(`Selector`、`SelectionKey`、`ServerScoketChannel` 和 `SocketChannel`) 关系梳理图
- ![NIO-principle](/assets/NIO-principle.jpg)
+ ![NIO-principle](./assets/NIO-principle.jpg)
  1. 当客户端连接时，会通过 `ServerSocketChannel` 得到 `SocketChannel`
  2. `Selector` 进行监听，调用  `select`  方法,  返回有事件发生的通道的个数.
  3. 将 `socketChannel` 注册到 `Selector` 上(`register(Selector sel, int ops)`),  一个 `selector` 上可以注册多个 `SocketChannel`
@@ -1134,25 +1134,25 @@ while (buffer.hasRemaining()) {
  在 Java 程序中，常用的零拷贝有 **mmap(内存映射)** 和 **sendFile**。
 
  ## 传统I/O模型
- ![old-io-copy](/assets/old-io-copy.png)
+ ![old-io-copy](./assets/old-io-copy.png)
 
  **总共有3次上下文的切换，4次拷贝**
 
  ## mmap
- ![mmap-copy](/assets/mmap-copy.png)
+ ![mmap-copy](./assets/mmap-copy.png)
  mmap 通过**内存映射**，将**文件映射到内核缓冲区**，同时，**用户空间可以共享内核空间的数据**。这样，在进行网络传输时，就可以减少内核空间到用户空间的拷贝次数。
 
  **总共有3次上下文的切换，3次拷贝**
 
  ## sendFile
  ### Linux2.1
- ![linux2.1-sendfile-copy](/assets/linux2.1-sendfile-copy.png)
+ ![linux2.1-sendfile-copy](./assets/linux2.1-sendfile-copy.png)
  Linux 2.1 版本提供了 **sendFile函数**，其基本原理如下：**数据根本不经过用户态，直接从内核缓冲区进入到`Socket Buffer`**，同时，由于和用户态完全无关，就减少了一次上下文切换
 
  **总共有2次上下文的切换，3次拷贝**
 
  ### Linux2.4
- ![linxu2.4-sendfile-copy](/assets/linxu2.4-sendfile-copy.png)
+ ![linxu2.4-sendfile-copy](./assets/linxu2.4-sendfile-copy.png)
  Linux 在 2.4 版本中，做了一些修改，**避免了从内核缓冲区拷贝到`Socket buffer` 的操作**，直接拷贝到协议栈，从而再一次减少了数据拷贝。
 
  这里其实有 一次 cpu  拷贝 ，**kernel buffer -> socket buffer**，**但是，拷贝的信息很少，比如 lenght , offset**,  消耗低，可以忽略

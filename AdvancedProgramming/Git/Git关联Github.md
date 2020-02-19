@@ -5,7 +5,7 @@ ssh-keygen -t rsa -C "youremail@example.com"
 
 # 设置GitHub
 登陆GitHub，进行如下操作
-![github-settings-ssh-key](/assets/github-settings-ssh-key.png)
+![github-settings-ssh-key](./assets/github-settings-ssh-key.png)
 
 将`C:\Users\用户\.ssh\id_rsa.pub`中的内容填写到key中。
 

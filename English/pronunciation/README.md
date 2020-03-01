@@ -206,3 +206,29 @@ eə
   seats goats coats cats pets eats
 * tes
   gates kites
+
+# 联想法
+/ʒ/ /r/
+* s
+  television usually Asia measure
+* a
+  garage
+* an
+  unusual collision
+
+/θ/ /s/
+* th
+  three thin third teeth
+
+/ð/ /z/
+* father mother brother clothes
+
+/ŋ/ /n/
+* n
+  ink bank finger
+* ng
+  sing hang song king reading running
+
+/j/ j
+* y
+  yo-yo youurt yard yes you 

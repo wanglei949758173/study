@@ -7,11 +7,11 @@
  */
 package study.datastructures.list.stack;
 
-import study.datastructures.list.stack.impl.SimpleExpressionCalculator;
+import study.datastructures.list.stack.impl.InfixExpressionCalculator;
 
-public class TestSimpleExpressionCalculator {
+public class TestInfixExpressionCalculator {
 	public static void main(String[] args) throws Exception {
-		ExpressionCalculator expressionCalculator = new SimpleExpressionCalculator();
+		ExpressionCalculator expressionCalculator = new InfixExpressionCalculator();
 		String expression1 = "3+3*6-8";
 		int res1 = expressionCalculator.calculate(expression1);
 		System.out.printf("%s=%d\r\n", expression1, res1);

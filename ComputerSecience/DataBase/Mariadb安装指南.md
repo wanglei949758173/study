@@ -1,5 +1,5 @@
 # 创建配置文件my.ini
-```
+```ini
 [mysqld]
 basedir=D:/Program Files (x86)/mariadb-10.3.10-winx64
 datadir=D:/Program Files (x86)/mariadb-10.3.10-winx64/data
@@ -16,7 +16,7 @@ Server=D:/Program Files (x86)/mariadb-10.3.10-winx64/bin/mysqld.exe
 ```
 
 # 安装
-```
+```bash
 ::指定创建服务的程序
 @set mysql_service="D:\Program Files (x86)\mariadb-10.3.10-winx64\bin\mysqld.exe"
 ::设置服务名

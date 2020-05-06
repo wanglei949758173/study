@@ -22,7 +22,7 @@ public class InsertSort {
 		// System.out.println(Arrays.toString(array));
 
 		// 生成随机数
-		int[] array = getRandomIntArray(800000);
+		int[] array = getRandomIntArray(80000);
 		LocalDateTime beginTime = LocalDateTime.now();
 		printTime(beginTime);
 		insertSort(array);

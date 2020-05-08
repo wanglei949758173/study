@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 public class ShellSort {
 	public static void main(String[] args) {
 		// 生成随机数
-		int[] array = getRandomIntArray(8000000);
+		int[] array = getRandomIntArray(80000000);
 		LocalDateTime beginTime = LocalDateTime.now();
 		printTime(beginTime);
-		sortByExchange(array);
+		sortByMove(array);
 		LocalDateTime endTime = LocalDateTime.now();
 		printTime(endTime);
 

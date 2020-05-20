@@ -15,11 +15,11 @@ public class Client {
 	public static void main(String[] args) {
 		Observer currentCondition = new CurrentConditions();
 		Observer baidu = new BaiduSite();
-		
+
 		WeatherData weatherData = new WeatherData();
 		weatherData.registerObserver(currentCondition);
 		weatherData.registerObserver(baidu);
-		
+
 		// 更新天气信息
 		weatherData.setData(36.2f, 10.0f, 0.6f);
 	}

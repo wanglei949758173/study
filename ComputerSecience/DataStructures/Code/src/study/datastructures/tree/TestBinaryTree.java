@@ -21,7 +21,7 @@ public class TestBinaryTree {
 		node3.left = node5;
 		node3.right = node4;
 		
-		// 前序遍历
+		/*// 前序遍历
 		System.out.println("前序遍历：");
 		binaryTree.preOrder();// 1,2,3,5,4
 		
@@ -32,5 +32,14 @@ public class TestBinaryTree {
 		
 		System.out.println("后序遍历：");
 		binaryTree.postOrder();// 2,5,4,3,1
+		*/
+		
+		// 前序查找
+		Node preSerarchResult = binaryTree.preSearch(5);
+		Node infixSerarchResult = binaryTree.infixSearch(5);
+		Node postSerarchResult = binaryTree.postSearch(5);
+		System.out.println(preSerarchResult);
+		System.out.println(infixSerarchResult);
+		System.out.println(postSerarchResult);
 	}
 }

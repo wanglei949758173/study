@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 
 import study.ioc.bean.BillGates;
 import study.ioc.bean.Color;
+import study.ioc.bean.DogFactoryBean;
 import study.ioc.bean.LinusBenedictTorvalds;
 import study.ioc.bean.Person;
 import study.ioc.condition.LinuxCondition;
@@ -56,5 +57,10 @@ public class MainConfig {
 	@Bean
 	public LinusBenedictTorvalds linus() {
 		return new LinusBenedictTorvalds();
+	}
+
+	@Bean
+	public DogFactoryBean dogFactoryBean() {
+		return new DogFactoryBean();
 	}
 }

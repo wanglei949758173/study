@@ -44,6 +44,18 @@ public class BinaryTree {
 	public Node postSearch(int id) {
 		return this.root.postSearch(id);
 	}
+
+	/**
+	 * 根据Id删除节点
+	 * @param id	待删除节点的id
+	 */
+	public void remove(int id) {
+		if (this.root.id == id) {
+			this.root = null;
+		} else {
+			this.root.removeChildNode(id);
+		}
+	}
 }
 
 class Node {
@@ -182,5 +194,33 @@ class Node {
 			return this;
 		}
 		return null;
+	}
+
+	/**
+	 * 根据Id删除节点
+	 * @param id	待删除节点的id
+	 */
+	public void removeChildNode(int id) {
+		// 左子树为要删除的节点
+		if (this.left != null && this.left.id == id) {
+			this.left = null;
+			return;
+		}
+
+		// 右子树为要删除的节点
+		if (this.right != null && this.right.id == id) {
+			this.right = null;
+			return;
+		}
+
+		// 左递归
+		if (this.left != null) {
+			this.left.removeChildNode(id);
+		}
+
+		// 右递归
+		if (this.right != null) {
+			this.right.removeChildNode(id);
+		}
 	}
 }

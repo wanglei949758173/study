@@ -35,11 +35,25 @@ public class TestBinaryTree {
 		*/
 		
 		// 前序查找
-		Node preSerarchResult = binaryTree.preSearch(5);
-		Node infixSerarchResult = binaryTree.infixSearch(5);
-		Node postSerarchResult = binaryTree.postSearch(5);
-		System.out.println(preSerarchResult);
-		System.out.println(infixSerarchResult);
-		System.out.println(postSerarchResult);
+//		Node preSerarchResult = binaryTree.preSearch(5);
+//		Node infixSerarchResult = binaryTree.infixSearch(5);
+//		Node postSerarchResult = binaryTree.postSearch(5);
+//		System.out.println(preSerarchResult);
+//		System.out.println(infixSerarchResult);
+//		System.out.println(postSerarchResult);
+		
+		// 删除前
+		System.out.println("删除前：");
+		binaryTree.preOrder(); // 1,2,3,5,4
+		
+		System.out.println();
+		
+		// 删除后
+//		System.out.println("删除5后：");
+//		binaryTree.remove(5);
+//		binaryTree.preOrder(); // 1,2,3,4
+		System.out.println("删除3后：");
+		binaryTree.remove(3);
+		binaryTree.preOrder(); // 1,2
 	}
 }

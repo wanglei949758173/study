@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import study.ioc.bean.Car;
 import study.ioc.bean.Cat;
 import study.ioc.bean.Duck;
+import study.ioc.bean.MyBeanPostProcessor;
 
 @Configuration
 public class MainConfigLifecycle {
@@ -29,5 +30,10 @@ public class MainConfigLifecycle {
 	@Bean
 	public Duck duck() {
 		return new Duck();
+	}
+
+	@Bean
+	public MyBeanPostProcessor myBeanPostProcessor() {
+		return new MyBeanPostProcessor();
 	}
 }

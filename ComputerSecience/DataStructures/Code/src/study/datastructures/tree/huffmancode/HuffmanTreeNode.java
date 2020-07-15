@@ -28,11 +28,26 @@ public class HuffmanTreeNode<T> implements Comparable<HuffmanTreeNode<T>> {
 
 	@Override
 	public String toString() {
-		return "HuffmanTreeNode [data=" + data + ", weight=" + weight + "]";
+		return "HuffmanTreeNode [data=" + data
+				+ ", weight="
+				+ weight
+				+ ", left="
+				+ left
+				+ ", right="
+				+ right
+				+ "]";
 	}
 
 	@Override
 	public int compareTo(HuffmanTreeNode<T> other) {
 		return Integer.compare(this.weight, other.weight);
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+	
+	public T getData() {
+		return data;
 	}
 }

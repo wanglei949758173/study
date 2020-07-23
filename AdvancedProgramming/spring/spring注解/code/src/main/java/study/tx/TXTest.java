@@ -7,6 +7,19 @@
  */
 package study.tx;
 
-public class TXTest {
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import study.tx.config.MainConfigOfTX;
+import study.tx.service.UserService;
+
+public class TXTest {
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext applicationContext =
+				new AnnotationConfigApplicationContext(MainConfigOfTX.class);
+		
+		UserService userService = applicationContext.getBean(UserService.class);
+		userService.saveUser();
+		
+		applicationContext.close();
+	}
 }

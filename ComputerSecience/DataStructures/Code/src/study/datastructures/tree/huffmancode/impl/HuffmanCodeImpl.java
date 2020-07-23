@@ -18,6 +18,8 @@ import study.datastructures.tree.huffmancode.HuffmanTreeNode;
 
 public class HuffmanCodeImpl implements HuffmanCode {
 
+	private Map<Byte, String> huffmanCode;
+
 	@Override
 	public byte[] encode(byte[] originData) {
 		// 转换为赫夫曼树节点
@@ -28,7 +30,7 @@ public class HuffmanCodeImpl implements HuffmanCode {
 
 		// 生成赫夫曼编码
 		Map<Byte, String> huffmanCode = generateHuffmanCode(huffmanTree);
-		System.out.println(huffmanCode);
+		this.huffmanCode = huffmanCode;
 
 		// 进行编码
 		return doEncode(originData, huffmanCode);
@@ -97,7 +99,7 @@ public class HuffmanCodeImpl implements HuffmanCode {
 			StringBuilder prevNodeHuffmanCode,
 			Map<Byte, String> huffmanCode) {
 		StringBuilder codeBuilder = new StringBuilder(prevNodeHuffmanCode);
-		prevNodeHuffmanCode.append(code);
+		codeBuilder.append(code);
 
 		if (node == null) {
 			return;
@@ -124,8 +126,98 @@ public class HuffmanCodeImpl implements HuffmanCode {
 			String code = huffmanCode.get(currentByte);
 			codeBuilder.append(code);
 		}
+		
+		return toBytes(codeBuilder.toString());
+	}
 
-		System.out.println(codeBuilder.toString().length());
-		return null;
+	// 将二进制字符串转换为字节数组
+	private byte[] toBytes(String binaryString) {
+		int length = binaryString.length() / 8;
+		if (binaryString.length() % 8 != 0) {
+			length += 1;
+		}
+
+		byte[] bytes = new byte[length];
+		for (int i = 0; i < bytes.length; i++) {
+			// 最后一个字节
+			int start = i * 8;
+			int end = start + 8;
+
+			// 非最后一个字节
+			if (i < bytes.length - 1) {
+			} else {
+				end = binaryString.length();
+			}
+			String byteStr = binaryString.substring(start, end);
+			bytes[i] = (byte) Integer.parseInt(byteStr, 2);
+		}
+		return bytes;
+	}
+
+	@Override
+	public byte[] decode(byte[] code) {
+		if (this.huffmanCode == null) {
+			throw new IllegalStateException("未压缩,还不能解压");
+		}
+
+		// 转为二进制字符串
+		String binaryString = toBinaryString(code);
+
+		// 根据赫夫曼编码还原
+		Map<String, Byte> huffmanCodeMap = new HashMap<>();
+		this.huffmanCode.forEach((value, binaryStr) -> {
+			huffmanCodeMap.put(binaryStr, value);
+		});
+
+		return revert(huffmanCodeMap, binaryString);
+	}
+
+	// 将字节数组转换为二进制字符串
+	private String toBinaryString(byte[] bytes) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < bytes.length; i++) {
+			// 转为补码
+			byte currentByte = bytes[i];
+			int byteIntValue = Byte.toUnsignedInt(currentByte);
+			
+			// 最后一个字节,无须补高位
+			if (i == bytes.length - 1) {
+				String binaryString = Integer.toBinaryString(byteIntValue);
+				sb.append(binaryString);
+			} else {
+				// 补高位
+				byteIntValue = byteIntValue | 256;
+				String binaryString = Integer.toBinaryString(byteIntValue);
+				sb.append(binaryString.substring(binaryString.length() - 8));
+			}
+		}
+		return sb.toString();
+	}
+
+	// 根据赫夫曼编码和二进制字符串还原编码
+	private byte[] revert(Map<String, Byte> huffmanCodeMap, String binaryString) {
+		int tempIndex = 0;
+		StringBuilder tempString = new StringBuilder();
+		List<Byte> result = new ArrayList<>();
+		while (tempIndex <= binaryString.length() - 1) {
+			tempString.append(binaryString.charAt(tempIndex));
+			Byte byteValue = huffmanCodeMap.get(tempString.toString());
+			// 匹配到
+			if (byteValue != null) {
+				result.add(byteValue);
+				tempString.delete(0, tempString.length());
+			} else {
+				// 未匹配到
+			}
+			tempIndex++;
+		}
+
+		byte[] bytes = new byte[result.size()];
+		for (int i = 0; i < result.size(); i++) {
+			Byte b = result.get(i);
+			bytes[i] = b;
+
+		}
+		return bytes;
 	}
 }

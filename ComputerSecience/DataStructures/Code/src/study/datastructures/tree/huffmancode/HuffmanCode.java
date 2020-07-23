@@ -14,4 +14,11 @@ public interface HuffmanCode {
 	 * @return			   经过赫夫曼编码的数据
 	 */
 	byte[] encode(byte[] originData);
+
+	/**
+	 * 解压缩
+	 * @param code	赫夫曼编码
+	 * @return		解压缩后的数据
+	 */
+	byte[] decode(byte[] code);
 }

@@ -32,4 +32,35 @@ public class BinarySortTree {
 			this.root.infixOrder();
 		}
 	}
+
+	// 删除节点
+	public void delete(int value) {
+		if (this.root == null) {
+			System.out.println("当前二叉排序树为null");
+			return;
+		}
+
+		// 删除的是根节点
+		if (this.root.value == value) {
+			// 无子节点
+			if (this.root.left == null && this.root.right == null) {
+				this.root = null;
+			} else if (this.root.left != null && this.root.right != null) {
+				// 有两个子节点
+				// 找右子树最小的节点
+				Node minNode = this.root.deleteMinNode(this.root.right);
+				this.root.value = minNode.value;
+			} else {
+				// 只有一个子节点
+				if (this.root.left != null) {
+					this.root = this.root.left;
+				} else {
+					this.root = this.root.right;
+				}
+			}
+			return;
+		}
+
+		this.root.deleteChildNode(value);
+	}
 }

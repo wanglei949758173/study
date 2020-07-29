@@ -9,10 +9,15 @@ package study.ext;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import study.ext.event.MyEvent;
+
 public class TestExt {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext applicationContext =
 				new AnnotationConfigApplicationContext(ExtConfig.class);
+		
+		// 发布事件
+		applicationContext.publishEvent(new MyEvent());
 		
 		applicationContext.close();
 	}

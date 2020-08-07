@@ -85,7 +85,22 @@ public class Node {
 		// 判断是否平衡
 		// 左子树高度-右子树高度>1(右旋转)
 		if (this.leftHeight() - this.rightHeight() > 1) {
+			// 左子树的右子树的高度>左子树的左子树的高度
+			if (this.left != null
+					&& this.left.rightHeight() > this.left.leftHeight()) {
+				this.left.leftRotate();
+			}
 			rightRotate();
+			return;
+		}
+		// 右子树高度-左子树高度>1(左旋转)
+		if (this.rightHeight() - this.leftHeight() > 1) {
+			// 右子树的左子树的高度>右子树的右子树的高度
+			if (this.right != null
+					&& this.right.leftHeight() > this.right.rightHeight()) {
+				this.right.rightRotate();
+			}
+			leftRotate();
 		}
 	}
 
@@ -109,6 +124,27 @@ public class Node {
 		// 当前节点的右子树=newNode
 		this.right = newNode;
 
+	}
+
+	// 左旋转
+	private void leftRotate() {
+		// 创建新节点newNode,设置value为根节点的value
+		Node newNode = new Node(value);
+
+		// 新节点的左子树=当前节点的左子树
+		newNode.left = this.left;
+
+		// 新节点的右子树=当前节点的右子树的左子树
+		newNode.right = this.right.left;
+
+		// 当前节点的值设置为右子树的值
+		this.value = this.right.value;
+
+		// 当前节点右子树=当前节点右子树的右子树
+		this.right = this.right.right;
+
+		// 当前节点的左子树=newNode
+		this.left = newNode;
 	}
 
 	// 中序遍历

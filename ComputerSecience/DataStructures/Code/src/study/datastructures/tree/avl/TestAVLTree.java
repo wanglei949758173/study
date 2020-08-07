@@ -12,11 +12,11 @@ public class TestAVLTree {
 		// 10, 12, 8, 9, 7, 6
 		Node root = new Node(10);
 		AVLTree avlTree = new AVLTree(root);
-		avlTree.add(new Node(12));
-		avlTree.add(new Node(8));
-		avlTree.add(new Node(9));
+		avlTree.add(new Node(11));
 		avlTree.add(new Node(7));
 		avlTree.add(new Node(6));
+		avlTree.add(new Node(8));
+		avlTree.add(new Node(9));
 		
 		System.out.println(String.format("树高度=%s", avlTree.height()));
 		System.out.println(String.format("左子树高度=%s", avlTree.leftHeight()));

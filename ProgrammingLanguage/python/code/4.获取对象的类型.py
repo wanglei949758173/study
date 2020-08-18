@@ -1,0 +1,10 @@
+a = 10;
+print(type(a));# <class 'int'>
+a = 1.5; 
+print(type(a));# <class 'float'>
+a = 'haha';
+print(type(a));# <class 'str'>
+a = True;
+print(type(a));# <class 'bool'>
+a = None;
+print(type(a));# <class 'NoneType'>

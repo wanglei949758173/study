@@ -129,3 +129,8 @@ my_list.sort(reverse=True)
 print('修改后',my_list)
 # print('修改后：',stus)
 
+
+# 遍历列表
+myList = ['张三', '李四', '王麻子', '赵六'];
+for name in myList :
+    print(name);

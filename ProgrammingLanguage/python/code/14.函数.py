@@ -156,4 +156,36 @@ def fn4():
     global_scope['a'] = 30
     print(scope)
 
-fn4() 
+fn4()
+
+# 高阶函数
+print("====高阶函数====")
+# 将指定列表中的所有的偶数，保存到一个新的列表中返回
+def isEven(number) :
+    if number % 2 == 0 :
+        return True
+    else :
+        return False
+def getEvenNumbers(filterFun, lst) :
+    newList = []
+    for number in lst :
+        if filterFun(number) :
+            newList.append(number)
+
+    return newList;
+lst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+evenList = getEvenNumbers(isEven, lst);
+print(evenList);
+
+# 使用lambda表达式进行过滤
+l = filter(lambda number : number % 3 == 0, lst)
+print(list(l))
+
+# 对列表进行排序
+lst = ['bb','aaaa','c','ddddddddd','fff'];
+lst.sort(key=len)
+print(lst) # ['c', 'bb', 'fff', 'aaaa', 'ddddddddd']
+
+lst = [2,5,'1',3,'6','4']
+lst.sort(key=int)
+print(lst)# ['1', 2, 3, '4', 5, '6']

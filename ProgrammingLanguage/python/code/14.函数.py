@@ -6,9 +6,9 @@ def fn() :
 fn();
 print(type(fn)); # <class 'function'>
 
-def sum(a, b) :
+def mySum(a, b) :
     print(f'a+b={a+b}')
-sum(1,2)
+mySum(1,2)
 
 # 函数的参数
 # 参数默认值
@@ -39,14 +39,14 @@ defaultParm(1, c=30)
 
 # 不定长的参数
 # in
-def sum(*nums):
+def mySum(*nums):
     # 定义一个变量，来保存结果
     result = 0
     # 遍历元组，并将元组中的数进行累加
     for n in nums :
         result += n
     print(result)
-sum(123,456,789,10,20,30,40)
+mySum(123,456,789,10,20,30,40)
 
 # 在定义函数时，可以在形参前边加上一个*，这样这个形参将会获取到所有的实参
 # 它将会将所有的实参保存到一个元组中
@@ -121,7 +121,7 @@ fn4(**d)
 print('文档字符串')
 help(print)
 
-def sum(value1:int, value2:int) -> int :
+def mySum(value1:int, value2:int) -> int :
     '''
     对两个整形值求和
 
@@ -130,7 +130,7 @@ def sum(value1:int, value2:int) -> int :
         value2，作用，类型，默认值。。。。
     '''
     return value1 + value2;
-help(sum)
+help(mySum)
 
 # 命名空间
 print('命名空间')
@@ -189,3 +189,109 @@ print(lst) # ['c', 'bb', 'fff', 'aaaa', 'ddddddddd']
 lst = [2,5,'1',3,'6','4']
 lst.sort(key=int)
 print(lst)# ['1', 2, 3, '4', 5, '6']
+
+# 闭包
+print("====闭包====")
+help(sum)
+# 形成闭包的要件
+#   ① 函数嵌套
+#   ② 将内部函数作为返回值返回
+#   ③ 内部函数必须要使用到外部函数的变量
+def makeAverager() :
+    nums = [];
+
+    # 创建一个函数,计算平均值
+    def averager(number) :
+        nums.append(number);
+        # 返回平均值
+        return sum(nums)/len(nums);
+    return averager;
+averager = makeAverager();
+print(averager(10)) # 10
+print(averager(20)) # 15
+print(averager(30)) # 20
+print(averager(40)) # 25
+
+# 装饰器
+print("====装饰器====")
+def add(a , b):
+    '''
+        求任意两个数的和
+    '''
+    r = a + b
+    return r
+def mul(a , b):
+    '''
+        求任意两个数的积
+    '''
+    r = a * b
+    return r
+# 希望函数可以在计算前，打印开始计算，计算结束后打印计算完毕
+#  我们可以直接通过修改函数中的代码来完成这个需求，但是会产生以下一些问题
+#   ① 如果要修改的函数过多，修改起来会比较麻烦
+#   ② 并且不方便后期的维护
+#   ③ 并且这样做会违反开闭原则（OCP）
+
+# 方式一
+def fn():
+    print('我是fn函数....')
+def fn2():
+    print('函数开始执行~~~')
+    fn()
+    print('函数执行结束~~~')
+fn2();
+# 方式一的问题
+# 这种方式要求每扩展一个函数就要手动创建一个新的函数，太麻烦了
+
+# 方式二
+def begin_end(old):
+    '''
+        用来对其他函数进行扩展，使其他函数可以在执行前打印开始执行，执行后打印执行结束
+
+        参数：
+            old 要扩展的函数对象
+    '''
+    # 创建一个新函数
+    def new_function(*args , **kwargs):
+        print('开始执行~~~~')
+        # 调用被扩展的函数
+        result = old(*args , **kwargs)
+        print('执行结束~~~~')
+        # 返回函数的执行结果
+        return result
+
+    # 返回新函数        
+    return new_function
+newAdd = begin_end(add);
+newAdd(1,2);
+# 像begin_end()这种函数我们就称它为装饰器
+#   通过装饰器，可以在不修改原来函数的情况下来对函数进行扩展
+#   在开发中，我们都是通过装饰器来扩展函数的功能的
+
+# 方式三
+# 在定义函数时，可以通过@装饰器，来使用指定的装饰器，来装饰当前的函数
+#   可以同时为一个函数指定多个装饰器，这样函数将会按照从内向外的顺序被装饰
+def fn3(old):
+    '''
+        用来对其他函数进行扩展，使其他函数可以在执行前打印开始执行，执行后打印执行结束
+
+        参数：
+            old 要扩展的函数对象
+    '''
+    # 创建一个新函数
+    def new_function(*args , **kwargs):
+        print('fn3装饰~开始执行~~~~')
+        # 调用被扩展的函数
+        result = old(*args , **kwargs)
+        print('fn3装饰~执行结束~~~~')
+        # 返回函数的执行结果
+        return result
+
+    # 返回新函数        
+    return new_function
+
+@fn3
+@begin_end
+def test() :
+    print('test');
+test();

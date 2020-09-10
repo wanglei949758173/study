@@ -1,64 +1,5 @@
-# 面向对象
-
-## 类的定义
-
-```python
-class Person :
-    name = 'person';
-
-    def sayHello(self) :
-        print(f'你好!我是{self.name}')
-
-p1 = Person();
-p2 = Person();
-p1.name = 'p1';
-p2.name = 'p2';
-p1.sayHello(); # 你好!我是p1
-p2.sayHello(); # 你好!我是p2
-```
-
-## 对象的初始化
-
-在类中可以定义一些特殊方法（魔术方法）
-
-特殊方法都是以`__(双下划线)`开头，`__(双下划线)`结尾的方法
-
-特殊方法不需要我们自己调用，不要尝试去调用特殊方法，`特殊方法将会在特殊的时刻自动调用`
-
-> p1 = Person()的运行流程
->
-> ​	1.创建一个变量
-> ​	2.在内存中创建一个新对象
-> ​    3.__init__(self)方法执行
-> ​    4.将对象的id赋值给变量
-
-```python
-class TestInit :
-    def __init__(self,name) :
-        self.name = name;
-
-    def sayHello(self) :
-        print(f'你好!我是{self.name}')
-
-ti1 = TestInit('ti1');
-ti2 = TestInit('ti2');
-ti1.sayHello();
-ti2.sayHello();
-```
-
-## 封装
-
-## 继承
-
-继承是面向对象三大特性之一
-
-通过继承我们可以使一个类获取到其他类中的属性和方法
-
-在定义类时，可以在 `类名后的括号中指定当前类的父类`（超类、基类、super）
-
-### 继承&重写
-
-```python
+# 继承
+print('===继承===')
 class Animal :
     def run(self) :
         print('动物会跑')
@@ -87,24 +28,14 @@ d.bark();
 h = Hashiqi();
 h.mai_meng();
 h.bark();
-```
 
-### object
-
-在创建类时，如果省略了父类，则默认父类为object
-
-object是所有类的父类，所有类都继承自object
-
-```python
+# 在创建类时，如果省略了父类，则默认父类为object
+# object是所有类的父类，所有类都继承自object
 class Person():
     pass
 print(isinstance(Person,object)) # True
 print(isinstance(print,object)) # True
-```
 
-### 重写特殊方法
-
-```python
 class Animal:
     def __init__(self,name):
         self._name = name
@@ -151,21 +82,8 @@ d = Dog('旺财',18)
 
 print(d.name)       
 print(d.age)       
-```
 
-### 多重继承
-
-在Python中是支持多重继承的，也就是我们可以为一个类同时指定多个父类
-
-可以在类名的()后边添加多个类，来实现多重继承,如`class C(A,B):`
-
-多重继承，会使子类同时拥有多个父类，并且会获取到所有父类中的方法
-
-在开发中没有特殊的情况，应该`尽量避免使用多重继承`，因为多重继承会让我们的代码过于复杂
-
-`如果多个父类中有同名的方法，则会现在第一个父类中寻找，然后找第二个，然后找第三个。。。`
-
-```python
+# 多重继承
 class A(object):
     def test(self):
         print('AAA')
@@ -192,22 +110,3 @@ print(C.__bases__) # (<class '__main__.A'>, <class '__main__.B'>)
 
 c = C()
 c.test() # AAA
-```
-
-## 多态
-
-`多态` 就是指一个对象可以以不同的形态去呈现
-
-## 面向对象总结
-
-封装
-
-- 确保对象中的数据安全
-
-继承
-
-- 保证了对象的可扩展性
-
-多态
-
-- 保证了程序的灵活性

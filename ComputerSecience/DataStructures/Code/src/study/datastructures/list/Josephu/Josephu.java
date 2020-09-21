@@ -1,12 +1,14 @@
-# 约瑟夫问题
-Josephu	问题为：设编号为 1，2，… n 的 n 个人围坐一圈，约定编号为 k（1<=k<=n）的人从 1 开始报数，数到
-m 的那个人出列，它的下一位又从 1 开始报数，数到 m 的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。
+/*      
+ * 模块编号  
+ * 功能描述 
+ * 文件名 Josephu.java 
+ * 作者 王磊 
+ * 编写日期 2020年09月20日 
+ */
+package study.datastructures.list.Josephu;
 
-# 使用链表解决约瑟夫问题
+import java.util.LinkedList;
 
-<img src="3.5约瑟夫问题.assets/image-20200921201855146.png" alt="image-20200921201855146" style="zoom:67%;" />
-
-```python
 public class Josephu {
 	public int solution_linkedlist(int childNum, int outNum) {
 		if (childNum <= 0 || outNum <= 0) {
@@ -33,4 +35,3 @@ public class Josephu {
 		new Josephu().solution_linkedlist(5, 2);
 	}
 }
-```

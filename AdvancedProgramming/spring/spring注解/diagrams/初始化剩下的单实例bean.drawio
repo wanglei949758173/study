@@ -1,66 +1,66 @@
-<mxfile host="add2584e-1244-4012-8140-045b553bcaa7" modified="2020-09-24T13:24:41.896Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.49.1 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="hBOXEfjRNeDKlw4lKe9a" version="13.1.3">
-    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
-        <mxGraphModel dx="1062" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+<mxfile host="65bd71144e" modified="2020-10-08T08:22:52.474Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.49.3 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="WuLTFpXVLU72GiiqiXyd" version="13.6.5" pages="3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="preInstantiateSingletons">
+        <mxGraphModel dx="1204" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="2" target="11" edge="1">
+                <mxCell id="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" parent="1" source="2" target="11" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="170" y="170" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;start&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" parent="1" vertex="1">
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;start&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="135" y="100" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="11" target="10" edge="1">
+                <mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" parent="1" source="11" target="10" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="170" y="240" as="sourcePoint"/>
                         <mxPoint x="170" y="270" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="4" value="&lt;font style=&quot;font-size: 14px&quot;&gt;end&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" parent="1" vertex="1">
+                <mxCell id="4" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;end&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="135" y="370" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="10" target="4" edge="1">
+                <mxCell id="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" parent="1" source="10" target="4" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="170" y="340" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="10" value="&lt;font style=&quot;font-size: 14px&quot;&gt;触发Bean初始化后的后置回调&lt;/font&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" parent="1" vertex="1">
+                <mxCell id="10" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;触发Bean初始化后的后置回调&lt;/font&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="80" y="270" width="180" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="&lt;span style=&quot;font-size: 14px&quot;&gt;初始化所有的&lt;/span&gt;&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 14px&quot;&gt;非懒加载&lt;/font&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;的单实例Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="60" y="170" width="220" height="60" as="geometry"/>
+                <mxCell id="11" value="&lt;span style=&quot;font-size: 12px&quot;&gt;初始化所有的&lt;/span&gt;&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 12px&quot;&gt;非延迟初始化&lt;/font&gt;&lt;span style=&quot;font-size: 12px&quot;&gt;的单实例Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#FFCCE6;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="170" width="220" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="12" target="13" edge="1">
+                <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" parent="1" source="12" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="&lt;span style=&quot;font-size: 14px&quot;&gt;初始化所有的&lt;/span&gt;&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 14px&quot;&gt;非懒加载&lt;/font&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;的单实例Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" parent="1" vertex="1">
+                <mxCell id="12" value="&lt;span style=&quot;font-size: 12px&quot;&gt;初始化所有的&lt;/span&gt;&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 12px&quot;&gt;非延迟初始化&lt;/font&gt;&lt;span style=&quot;font-size: 12px&quot;&gt;的单实例Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#FFCCE6;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="410" y="80" width="220" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="13" target="18" edge="1">
+                <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" parent="1" source="13" target="18" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="490" y="360" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="13" value="&lt;span style=&quot;font-size: 14px&quot;&gt;获取BeanDefinition&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" parent="1" vertex="1">
+                <mxCell id="13" value="&lt;span style=&quot;font-size: 12px&quot;&gt;获取合并后的BeanDefinition&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#CCCCFF;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="410" y="180" width="220" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="&lt;span style=&quot;font-size: 14px&quot;&gt;getBean(beanName)&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" parent="1" vertex="1">
+                <mxCell id="15" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;getBean(beanName)&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#CCCCFF;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="410" y="460" width="220" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" value="&lt;span style=&quot;font-size: 14px&quot;&gt;对&lt;font color=&quot;#ff8000&quot;&gt;非抽象的、单实例的、非懒加载&lt;/font&gt;的 Bean进行实例化&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                <mxCell id="17" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;对&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 12px;&quot;&gt;非抽象的、单实例的、非懒加载&lt;/font&gt;的 Bean进行实例化&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="410" y="530" width="220" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="18" target="19" edge="1">
+                <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" parent="1" source="18" target="19" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="FactoryBean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="20" vertex="1" connectable="0">
+                <mxCell id="23" value="FactoryBean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="20" vertex="1" connectable="0">
                     <mxGeometry x="-0.0552" y="2" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="18" target="15" edge="1">
+                <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" parent="1" source="18" target="15" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="630" y="310"/>
@@ -69,15 +69,15 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="24" value="非FactoryBean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="22" vertex="1" connectable="0">
+                <mxCell id="24" value="非FactoryBean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="22" vertex="1" connectable="0">
                     <mxGeometry x="-0.3686" y="-5" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="18" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+                <mxCell id="18" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="475" y="280" width="90" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="19" target="15" edge="1">
+                <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" parent="1" source="19" target="15" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="410" y="430"/>
@@ -85,141 +85,378 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="19" value="&lt;font style=&quot;font-size: 14px&quot;&gt;实例化FactoryBean&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" parent="1" vertex="1">
+                <mxCell id="19" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;实例化FactoryBean&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="345" y="350" width="125" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="25" target="26">
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="ZzWD4vs6-GiZ8nOfmeSc" name="获取合并后的BeanDefinition(getMergedLocalBeanDefinition)">
+        <mxGraphModel dx="1204" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="ZSpNd6zVQ8Jfl1KYiXgm-0"/>
+                <mxCell id="ZSpNd6zVQ8Jfl1KYiXgm-1" parent="ZSpNd6zVQ8Jfl1KYiXgm-0"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-1" target="Mdjt07Q2Nb2TYaNey_Yn-3">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="&lt;span style=&quot;font-size: 14px&quot;&gt;获取BeanDefinition&lt;/span&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;getMergedLocalBeanDefinition&lt;/font&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;" vertex="1" parent="1">
-                    <mxGeometry x="860" y="70" width="250" height="60" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-1" value="获取合并后的BeanDefinition&lt;br style=&quot;font-size: 12px&quot;&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#CCCCFF;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="340.04" y="10" width="259.96" height="31" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="26" target="28">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-3" target="Mdjt07Q2Nb2TYaNey_Yn-7">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" value="&lt;font style=&quot;font-size: 14px&quot;&gt;从&lt;/font&gt;mergedBeanDefinitions&lt;font style=&quot;font-size: 14px&quot;&gt;缓存中获取&lt;/font&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;BeanDefinition&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="860" y="150" width="240" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="28" target="30">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-3" target="Mdjt07Q2Nb2TYaNey_Yn-8">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="930" y="250" as="sourcePoint"/>
-                        <mxPoint x="1025" y="1160" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="800" y="235"/>
-                            <mxPoint x="800" y="1100"/>
-                            <mxPoint x="1025" y="1100"/>
+                            <mxPoint x="210" y="67"/>
+                            <mxPoint x="210" y="490"/>
+                            <mxPoint x="594" y="490"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="32" value="缓存中存在Bean定义" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="31">
-                    <mxGeometry x="-0.6129" y="30" relative="1" as="geometry">
-                        <mxPoint x="-30" y="72" as="offset"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-48" value="&lt;span style=&quot;color: rgba(0 , 0 , 0 , 0) ; font-family: monospace ; font-size: 0px ; background-color: rgb(248 , 249 , 250)&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%26lt%3Bspan%20style%3D%26quot%3Bbackground-color%3A%20rgb(255%20%2C%20255%20%2C%20255)%26quot%3B%26gt%3B%E7%BC%93%E5%AD%98%E4%B8%AD%E5%AD%98%E5%9C%A8Bean%E5%AE%9A%E4%B9%89%26lt%3B%2Fspan%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3Bresizable%3D0%3Bpoints%3D%5B%5D%3Bautosize%3D1%3BfontSize%3D12%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22230%22%20y%3D%22310%22%20width%3D%22130%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="Mdjt07Q2Nb2TYaNey_Yn-47">
+                    <mxGeometry x="-0.3228" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="28" target="33">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-49" value="缓存中存在BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="Mdjt07Q2Nb2TYaNey_Yn-47">
+                    <mxGeometry x="-0.3255" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-3" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;从&lt;/font&gt;mergedBeanDefinitions&lt;font style=&quot;font-size: 12px;&quot;&gt;缓存中获取&lt;/font&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;BeanDefinition&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="330.04" y="59" width="279.96" height="31" as="geometry"/>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-7" target="Mdjt07Q2Nb2TYaNey_Yn-10">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
-                    <mxGeometry x="940" y="220" width="80" height="30" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-7" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="430.0200000000001" y="100" width="80" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="&lt;span style=&quot;font-size: 14px&quot;&gt;返回&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="905" y="1170" width="240" height="50" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-8" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;返回&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="480" y="510" width="227" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="33" target="35">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-10" target="Mdjt07Q2Nb2TYaNey_Yn-14">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="33" value="&lt;span style=&quot;font-size: 14px&quot;&gt;获取当前&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1110" y="290" width="160" height="40" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-10" value="&lt;span style=&quot;font-size: 12px&quot;&gt;获取当前待合并的&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="590" y="140" width="189.96" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="35" target="38">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-14" target="Mdjt07Q2Nb2TYaNey_Yn-16">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="40" value="不存在父BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="39">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-12" value="不存在父BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="Mdjt07Q2Nb2TYaNey_Yn-11">
                     <mxGeometry x="-0.055" y="-1" relative="1" as="geometry">
-                        <mxPoint x="-63" y="41" as="offset"/>
+                        <mxPoint x="21" y="1" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="35" target="41">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-14" target="Mdjt07Q2Nb2TYaNey_Yn-18">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="35" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
-                    <mxGeometry x="1145" y="350" width="90" height="60" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-14" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="645" y="190" width="90" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="38" target="52">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="990" y="590" as="sourcePoint"/>
-                        <Array as="points">
-                            <mxPoint x="980" y="880"/>
-                            <mxPoint x="1118" y="880"/>
-                        </Array>
-                    </mxGeometry>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-16" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;将&lt;/span&gt;BeanDefinition&lt;font style=&quot;font-size: 12px;&quot;&gt;转换为&lt;/font&gt;RootBeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="370" y="240" width="240" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="38" value="&lt;span style=&quot;font-size: 14px&quot;&gt;将&lt;/span&gt;BeanDefinition&lt;font style=&quot;font-size: 14px&quot;&gt;转换为&lt;/font&gt;RootBeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="900" y="470" width="160" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="41" target="42">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-18" target="Mdjt07Q2Nb2TYaNey_Yn-23">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="41" value="&lt;span style=&quot;font-size: 14px&quot;&gt;获取父&lt;/span&gt;BeanDefinition&lt;span style=&quot;font-size: 14px&quot;&gt;的名字&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1230" y="440" width="170" height="40" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-18" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;获取父&lt;/span&gt;BeanDefinition&lt;span style=&quot;font-size: 12px;&quot;&gt;的名字&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="790" y="230" width="220" height="31" as="geometry"/>
                 </mxCell>
-                <mxCell id="45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="42" target="44">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-23" target="Mdjt07Q2Nb2TYaNey_Yn-25">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="当前Bean定义名字&lt;br&gt;和父Bean定义名字&lt;b&gt;不相同&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="45">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-20" value="当前Bean定义名字&lt;br style=&quot;font-size: 12px;&quot;&gt;和父Bean定义名字&lt;b style=&quot;font-size: 12px;&quot;&gt;不相同&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="Mdjt07Q2Nb2TYaNey_Yn-19">
                     <mxGeometry x="0.0422" y="17" relative="1" as="geometry">
-                        <mxPoint y="48" as="offset"/>
+                        <mxPoint x="17" y="-17" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="42" target="47">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-23" target="Mdjt07Q2Nb2TYaNey_Yn-27">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1064.98" y="380" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="49" value="当前Bean定义名字&lt;br&gt;和父Bean定义名字&lt;b&gt;相同&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="48">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-22" value="当前Bean定义名字&lt;br style=&quot;font-size: 12px;&quot;&gt;和父Bean定义名字&lt;b style=&quot;font-size: 12px;&quot;&gt;相同&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="Mdjt07Q2Nb2TYaNey_Yn-21">
                     <mxGeometry x="-0.04" y="-21" relative="1" as="geometry">
-                        <mxPoint x="25" y="21" as="offset"/>
+                        <mxPoint x="-6" y="-21.000000000000007" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="42" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
-                    <mxGeometry x="1275" y="510" width="80" height="30" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-23" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="860.0000000000001" y="280" width="80" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="44" target="50">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="44" value="&lt;span style=&quot;font-size: 14px&quot;&gt;递归合并父&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1080" y="640" width="170" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="47" target="50">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="47" value="&lt;span style=&quot;font-size: 14px&quot;&gt;从父工厂中获取&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1370" y="640" width="170" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="50" target="52">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-25" target="Mdjt07Q2Nb2TYaNey_Yn-29">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="1315" y="880"/>
-                            <mxPoint x="1118" y="880"/>
+                            <mxPoint x="690" y="370"/>
+                            <mxPoint x="900" y="370"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="50" value="&lt;span style=&quot;font-size: 14px&quot;&gt;深拷贝当前&lt;/span&gt;BeanDefinition&lt;font style=&quot;font-size: 14px&quot;&gt;中覆盖的值&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1230" y="760" width="170" height="40" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-25" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;递归合并父&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="580" y="330" width="220" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="52" target="30">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-27" target="Mdjt07Q2Nb2TYaNey_Yn-29">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1115" y="370"/>
+                            <mxPoint x="900" y="370"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-27" value="&lt;span style=&quot;font-size: 12px&quot;&gt;从父工厂中获取父&lt;/span&gt;BeanDefinition" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="1030" y="320" width="169.96" height="31" as="geometry"/>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-29" target="Mdjt07Q2Nb2TYaNey_Yn-31">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="52" value="&lt;span style=&quot;font-size: 14px&quot;&gt;缓存到&lt;/span&gt;mergedBeanDefinitions&lt;font style=&quot;font-size: 14px&quot;&gt;缓存中&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" vertex="1" parent="1">
-                    <mxGeometry x="1005" y="990" width="225" height="40" as="geometry"/>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-29" value="&lt;span style=&quot;font-size: 12px&quot;&gt;将当前&lt;/span&gt;BeanDefinition&lt;font style=&quot;font-size: 12px&quot;&gt;中覆盖的值拷贝到父BeanDefinition中&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="732.5" y="390" width="335" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="55" value="存在父BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
-                    <mxGeometry x="1315" y="360" as="geometry">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1" source="Mdjt07Q2Nb2TYaNey_Yn-31" target="Mdjt07Q2Nb2TYaNey_Yn-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="440" y="650" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-31" value="&lt;span style=&quot;font-size: 12px&quot;&gt;将BeanDefinition缓存到&lt;/span&gt;mergedBeanDefinitions&lt;font style=&quot;font-size: 12px&quot;&gt;缓存中&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="753.5" y="440" width="293" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-32" value="存在父BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="810.0000000000001" y="160" as="geometry">
                         <mxPoint x="-2" y="41" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="59" value="缓存中不存在Bean定义" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
-                    <mxGeometry x="1160" y="160" as="geometry">
+                <mxCell id="Mdjt07Q2Nb2TYaNey_Yn-33" value="缓存中不存在Bean定义" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="ZSpNd6zVQ8Jfl1KYiXgm-1">
+                    <mxGeometry x="620.0000000000001" y="41" as="geometry">
                         <mxPoint x="-30" y="72" as="offset"/>
                     </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="VIRIPdjzJNOW88aAF3r9" name="getBean">
+        <mxGraphModel dx="213" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-0"/>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-1" parent="er-TRGR70PaC9QBVgaPU-0"/>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-3" target="er-TRGR70PaC9QBVgaPU-7">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-3" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;getBean(beanName)&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;html=1;labelPosition=center;align=center;fillColor=#CCCCFF;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1430" y="10" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-7" target="er-TRGR70PaC9QBVgaPU-71">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1540" y="110" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-7" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;解析Bean名称&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1420" y="60" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-12" target="er-TRGR70PaC9QBVgaPU-55">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1320" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-9" value="缓存中存在手工注册的bean实例&lt;br style=&quot;font-size: 12px&quot;&gt;&amp;amp;&amp;amp;&lt;br style=&quot;font-size: 12px&quot;&gt;args==null" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-8">
+                    <mxGeometry x="0.0175" y="25" relative="1" as="geometry">
+                        <mxPoint x="-13.5" y="25" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-12" target="er-TRGR70PaC9QBVgaPU-15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-11" value="缓存中不存在手动注册的bean实例&lt;br style=&quot;font-size: 12px;&quot;&gt;||&lt;br style=&quot;font-size: 12px;&quot;&gt;是获取一个bean实例(非创建bean实例)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-10">
+                    <mxGeometry x="-0.1427" y="-2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-12" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1502.5" y="170" width="77.5" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-15" target="er-TRGR70PaC9QBVgaPU-20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-15" value="&lt;span style=&quot;font-size: 12px&quot;&gt;检查是否为prototype类型的bean,&lt;br&gt;并且是否存在循环引用&lt;br style=&quot;font-size: 12px&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1740" y="220" width="190" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-20" target="er-TRGR70PaC9QBVgaPU-21">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-17" value="prototype&lt;br style=&quot;font-size: 12px;&quot;&gt;&amp;amp;&amp;amp;&lt;br style=&quot;font-size: 12px;&quot;&gt;循环引用" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-16">
+                    <mxGeometry x="0.0146" y="-4" relative="1" as="geometry">
+                        <mxPoint x="9" y="34.25" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-20" target="er-TRGR70PaC9QBVgaPU-23">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-53" value="不是prototype类型的bean&lt;br&gt;||&lt;br&gt;不存在循环引用" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-52">
+                    <mxGeometry x="-0.2935" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-20" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1795.63" y="280" width="78.75" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-21" value="&lt;span style=&quot;font-size: 12px;&quot;&gt;抛出异常&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1660" y="380" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-23" target="er-TRGR70PaC9QBVgaPU-27">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-23" value="&lt;span style=&quot;font-size: 12px&quot;&gt;检查是否存在父工厂,并且在当前工厂中不存在获取的BeanDefinition&lt;br style=&quot;font-size: 12px&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1940" y="335" width="210" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-27" target="er-TRGR70PaC9QBVgaPU-28">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-25" value="存在父工厂&lt;br style=&quot;font-size: 12px;&quot;&gt;&amp;amp;&amp;amp;&lt;br style=&quot;font-size: 12px;&quot;&gt;当前工厂中不存在获取的BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-24">
+                    <mxGeometry x="0.2644" y="20" relative="1" as="geometry">
+                        <mxPoint x="-15.75" y="25" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-27" target="er-TRGR70PaC9QBVgaPU-58">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2179.3" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-56" value="不存在父工厂&lt;br&gt;||&lt;br&gt;当前工厂中存在获取的BeanDefinition" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-26">
+                    <mxGeometry x="-0.4408" y="-3" relative="1" as="geometry">
+                        <mxPoint x="24.989999999999995" y="37" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-27" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2016.38" y="410" width="57.25" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-28" value="从父工厂中获取Bean实例并返回" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1820" y="520" width="110" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-58" target="er-TRGR70PaC9QBVgaPU-32">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2179.25" y="520" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-32" target="er-TRGR70PaC9QBVgaPU-60">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2139.62" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-32" value="获取合并后的BeanDefinition&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2011.9299999999998" y="550" width="255.38" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-36" target="er-TRGR70PaC9QBVgaPU-43">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-36" value="判断Bean的作用域" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2085" y="650" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-43" target="er-TRGR70PaC9QBVgaPU-64">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1850.63" y="800" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-38" value="单实例Bean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-37">
+                    <mxGeometry x="-0.1852" y="22" relative="1" as="geometry">
+                        <mxPoint x="-62.5" y="38" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-43" target="er-TRGR70PaC9QBVgaPU-65">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2035" y="800" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="2140" y="800"/>
+                            <mxPoint x="2092" y="800"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-40" value="prototype类型的Bean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-39">
+                    <mxGeometry x="0.3486" y="-1" relative="1" as="geometry">
+                        <mxPoint x="1.0100000000000033" y="14.7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-43" target="er-TRGR70PaC9QBVgaPU-66">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2265" y="800" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-42" value="其他类型的Bean" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="er-TRGR70PaC9QBVgaPU-41">
+                    <mxGeometry x="0.0738" y="-29" relative="1" as="geometry">
+                        <mxPoint x="26.31" y="27.5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-43" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2102.5" y="700" width="75" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-49" value="&lt;font style=&quot;font-size: 10px&quot; color=&quot;#ff8000&quot;&gt;对于FactoryBean有可能是FactoryBenan本身，也可能是FactoryBean创建的Bean实例&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1260" y="340" width="240" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=10;fontColor=#FF8000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-55">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1616.25" y="950" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1380" y="920"/>
+                            <mxPoint x="1616" y="920"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-55" value="&lt;span&gt;根据缓存中bean实例获取真正的bean实例&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fontSize=12;labelPosition=center;align=center;fillColor=#CCE5FF;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1220" y="290" width="320" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-57" value="如果是创建Bean实例，而不是检查Bean的类型" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#FF8000;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2220" y="520" width="257" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-58" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;标记当前Bean正在创建&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2044.62" y="500" width="190" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-60" target="er-TRGR70PaC9QBVgaPU-36">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-60" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;&amp;nbsp;初始化当前Bean所依赖的Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2016.9299999999998" y="600" width="245.38" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-64">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1616.25" y="950" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-64" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;创建单实例Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1820" y="860" width="160" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-65">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1616.25" y="950" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-65" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;创建prototype类型的Bean&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1989.62" y="860" width="205.38" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-66">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1616.25" y="950" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-66" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;创建其他类型的Bean实例&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="2210" y="860" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-71" target="er-TRGR70PaC9QBVgaPU-12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-71" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-size: 12px&quot;&gt;检查单实例缓存中有没有手动注册的单实例&lt;/span&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fillColor=#CCE5FF;fontSize=10;fontColor=#FF8000;labelPosition=center;align=center;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1380" y="110" width="320" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-72" value="&lt;font style=&quot;font-size: 10px&quot;&gt;getSingleton()&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#FF8000;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1470" y="140" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=10;fontColor=#FF8000;" edge="1" parent="er-TRGR70PaC9QBVgaPU-1" source="er-TRGR70PaC9QBVgaPU-77" target="er-TRGR70PaC9QBVgaPU-78">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-77" value="如果需要转换Bean类型，转换Bean类型" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.14;arcSize=6;fontSize=12;labelPosition=center;align=center;fillColor=#CCE5FF;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1457" y="950" width="320" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="er-TRGR70PaC9QBVgaPU-78" value="&lt;span style=&quot;font-size: 12px&quot;&gt;返回Bean实例&lt;br style=&quot;font-size: 12px&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;fontSize=12;" vertex="1" parent="er-TRGR70PaC9QBVgaPU-1">
+                    <mxGeometry x="1552" y="1010" width="130" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

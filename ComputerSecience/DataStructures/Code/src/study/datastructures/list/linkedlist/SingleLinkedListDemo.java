@@ -39,13 +39,13 @@ public class SingleLinkedListDemo {
 		// System.out.println("链表长度:");
 		// System.out.println(size(linkedList));
 
-//		System.out.println("倒数第3个节点是:");
-//		System.out.println(findLastIndexNode(3, linkedList));
-		
+		//		System.out.println("倒数第3个节点是:");
+		//		System.out.println(findLastIndexNode(3, linkedList));
+
 		// 反转
-//		System.out.println("反转后:");
-//		reverseList(linkedList).list();
-		
+		//		System.out.println("反转后:");
+		//		reverseList(linkedList).list();
+
 		// 逆序打印
 		System.out.println("逆序打印：");
 		reversePrint(linkedList);
@@ -104,32 +104,33 @@ public class SingleLinkedListDemo {
 	/**
 	 * 反转链表
 	 * 
-	 * @param list
-	 *            待反转的链表
+	 * @param list 待反转的链表
 	 * @return
 	 */
 	public static SingleLinkedList reverseList(SingleLinkedList list) {
 		// 创建一个新链表newList
 		SingleLinkedList newList = new SingleLinkedList();
 
-		// 遍历list(旧的链表)，得到下一个节点nextNode
-		Node nextNode = list.getHead().next;
-		while (nextNode != null) {
+		// 遍历list(旧的链表)，得到当前节点currentNode
+		Node currentNode = list.getHead().next;
+		while (currentNode != null) {
 			// 暂存nextNode.next
-			Node tempNode = nextNode.next;
-			
-			// 把旧链表list的一个个节点插入到新的链表的前面
-			Node head = newList.getHead();
-			nextNode.next = head.next;
-			head.next = nextNode;
-			
+			Node tempNode = currentNode.next;
+
+			// 将currentNode插入到新链表的最前边
+			Node newHead = newList.getHead();
+			// 将currentNode和新链表的头节点后的节点相连
+			currentNode.next = newHead.next;
+			// 将currentNode插入到新链表最前边
+			newHead.next = currentNode;
+
 			// 向下遍历
-			nextNode = tempNode;
+			currentNode = tempNode;
 		}
-		
+
 		return newList;
 	}
-	
+
 	/**
 	 * 反向打印链表
 	 * @param list 链表
@@ -137,14 +138,14 @@ public class SingleLinkedListDemo {
 	public static void reversePrint(SingleLinkedList list) {
 		// 定义一个栈
 		Stack<Node> stack = new Stack<>();
-		
+
 		// 遍历链表,让元素入栈
 		Node tempNode = list.getHead().next;
 		while (tempNode != null) {
 			stack.push(tempNode);
 			tempNode = tempNode.next;
 		}
-		
+
 		// 出栈
 		while (!stack.empty()) {
 			System.out.println(stack.pop());

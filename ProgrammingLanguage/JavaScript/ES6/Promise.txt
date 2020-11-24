@@ -1,0 +1,79 @@
+1、Promise是什么？
+  Promise是异步编程的一种解决方案，从语法上讲，Promise是一个对象，从它可以获取异步操作的消息；从本意上讲，它是承诺，承诺它过一段时间会给你一个结果。
+  Promise有三种状态：pending(等待态)，fulfiled(成功态),rejected(失败态)；状态一旦改变，就不会再变。创造Promise实例后，它会立即执行。
+
+2、为什么使用Promise？
+ * 回调地狱，代码难以维护
+ * promise可以支持多个并发的请求，获取并发请求中的数据
+ * promise可以解决异步的问题，本身不能说promise是异步的
+ 
+3、怎么使用Promise?
+创建Promise
+  let p = new Promise((resolve, reject) => {
+    // 做一些异步操作
+    setTimeout(() => {
+      console.log('执行完成');
+      resolve('成功结果')
+    }, 2000);
+  })
+
+then和reject的用法
+  new Promise((resolve, reject) => {
+    // 请求数据
+    cosnt {success, data} = request('/hello');
+    if(success) {
+      resolve(data)
+    } else {
+      reject('请求数据出错')
+    }
+  }).then((data) => {
+    console.log("请求成功,数据=" + data);
+  }, (errMsg) => {
+    console.log(errMsg)
+  })
+
+catch的用法
+  new Promise((resolve, reject) => {
+    // 请求数据
+    cosnt {success, data} = request('/hello');
+    if(success) {
+      resolve(data)
+    } else {
+      reject('请求数据出错')
+    }
+  }).then((data) => {
+    console.log("请求成功,数据=" + data);
+  }).catch((errMsg) => {
+    console.log(errMsg)
+  })
+  
+  效果与.then的第二个参数一样，也是reject的一个回调。
+  与.then的第二个参数的区别，在运行时如果js代码报错，也会进入catch。
+Promise.all()的用法
+  Promise.all()接收一个Promise数组的参数。
+  const p = Promise.all([p1, p2, p3]);只有p1、p2、p3全部成功，p才成功,只要有一个失败，则p失败。
+  有了all，就可以并行执行多个异步操作，然后在一个回调里处理所有数据。例如初始化一个游戏前可能需要很多资源，那就可以使用此功能做到所有资源都加载完成后才初始化游戏。
+  let promise1 = new Promise((resolve, reject) => {});
+  let promise2 = new Promise((resolve, reject) => {});
+  let promise3 = new Promise((resolve, reject) => {});
+  Promise.all([promise1, promise2, promise3]).then(() => {
+    // 三个都成功,则成功
+  }, () => {
+    // 只要有一个失败，则失败
+  })
+  
+Promise.race()的用法
+  Promise.race()和Promise.all()一样，也是接收一个数组参数。
+  const p = Promise.race([p1, p2, p3]);只要p1、p2、p3中有一个状态率先改变，则P的状态随之改变。
+  const p = Promise.race([
+    fetch('/resource-that-may-take-a-while'),
+    new Promise(function (resolve, reject) {
+      setTimeout(() => reject(new Error('request timeout')), 5000)
+    })
+  ]);
+  p
+  .then(console.log)
+  .catch(console.error);
+  上面代码中，如果 5 秒之内fetch方法无法返回结果，变量p的状态就会变为rejected，从而触发catch方法指定的回调函数。
+  
+  

@@ -382,7 +382,481 @@ Promise有三种状态：pending(等待态)，fulfiled(成功态),rejected(失�
   // 上面代码中，如果 5 秒之内fetch方法无法返回结果，变量p的状态就会变为rejected，从而触发catch方法指定的回调函数。
   ```
 
+# generator函数
+
+generator是ES6引入的新的数据类型。generator看上去像一个函数，但可以返回多次。
+
+特点：
+
+* function关键字和函数名之间有一个*号
+* 函数体内容使用yield语句，定义不同的内部状态
+
+## 基本使用
+
+```javascript
+function * gen() {
+    yield "a";
+    yield "b";
+    yield "c";
+    yield "ending";
+}
+```
+
+> gen()函数有4个阶段，分别是“a，b，c，ending”
+> gen()返回的并不是函数的执行结果，而是返回一个指向函数内部状态的迭代器对象。
+>
+> 1、分段执行，可以暂停
+> 2、可以控制阶段和每个阶段的返回值
+> 3、可以知道是否执行到结尾
+
+## generator函数的作用
+
+普通函数是一次性生成所有的数据返回，若想获取每一个数据，那么需要使用for循环来迭代。**如果数据太多，则有可能造成内存溢出**。
+ 生成函数可以一条一条的生成数据，这样就可以**避免占用更多的内存**。
+
+## 扩展用法
+
+### yield表达式
+
+特点：
+
+1. 遇到`yield`表达式时，会暂停执行后面的操作，并将紧跟在`yield`表达式后面的值作为返回对象的`value`属性；
+2. `yield`表达式只能用于生成函数，不能用于普通函数。
+
+```javascript
+function* gen() {
+  yield  123 + 456;
+}
+// 会在调用.next()方法后，执行 123 + 456
+let g = gen();
+g.next(); // {value: 579, done:false}
+```
+
+* `yield`表达式只能用于生成函数，用于普通函数会报错
+
+  ```javascript
+  (function (){
+    yield 1;
+  })()
+  // Error: Unexpected number
+  ```
+
+  ```javascript
+  var arr = [1, [[2, 3], 4], [5, 6]];
   
+  var flat = function* (a) {
+    a.forEach(function (item) {
+      if (typeof item !== 'number') {
+        yield* flat(item);
+      } else {
+        yield item;
+      }
+    });
+  };
+  
+  for (var f of flat(arr)){
+    console.log(f);
+  }
+  ```
+
+  >上面代码也会产生句法错误，因为`forEach`方法的参数是一个普通函数，但是在里面使用了`yield`表达式。一种修改方法是改用`for`循环。
+
+* `yield`表达式如果用在另一个表达式之中，必须放在圆括号里面
+
+  ```javascript
+  function* demo() {
+    console.log('Hello' + yield); // SyntaxError
+    console.log('Hello' + yield 123); // SyntaxError
+  
+    console.log('Hello' + (yield)); // OK
+    console.log('Hello' + (yield 123)); // OK
+  }
+  ```
+
+### 与Iterator的关系
+
+由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的`Symbol.iterator`属性，从而使得该对象具有 Iterator 接口。
+
+```javascript
+var myIterable = {};
+myIterable[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+
+[...myIterable] // [1, 2, 3]
+```
+
+* 生成器对象的`Symbol.iterator`属性就是其对应的生成器函数
+
+  ```javascript
+  function* gen(){
+    // some code
+  }
+  
+  var g = gen();
+  
+  g[Symbol.iterator]() === g
+  // true
+  ```
+
+  上面代码中，`gen`是一个 Generator 函数，调用它会生成一个遍历器对象`g`。它的`Symbol.iterator`属性，也是一个遍历器对象生成函数，执行后返回它自己。
+
+### next方法的参数
+
+`yield`表达式本身没有返回值，或者说总是返回`undefined`。`next`方法可以带一个参数，该参数就会被当作上一个`yield`表达式的返回值。
+
+```javascript
+function* f() {
+  for(var i = 0; true; i++) {
+    var reset = yield i;
+    if(reset) { i = -1; }
+  }
+}
+
+var g = f();
+
+g.next() // { value: 0, done: false }
+g.next() // { value: 1, done: false }
+g.next(true) // { value: 0, done: false }
+```
+
+上面代码先定义了一个可以无限运行的 Generator 函数`f`，如果`next`方法没有参数，每次运行到`yield`表达式，变量`reset`的值总是`undefined`。当`next`方法带一个参数`true`时，变量`reset`就被重置为这个参数（即`true`），因此`i`会等于`-1`，下一轮循环就会从`-1`开始递增。
+
+这个功能有很重要的语法意义。Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过`next`方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，**可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为**。
+
+```javascript
+function* foo(x) {
+  var y = 2 * (yield (x + 1));
+  var z = yield (y / 3);
+  return (x + y + z);
+}
+
+var a = foo(5);
+a.next() // Object{value:6, done:false}
+a.next() // Object{value:NaN, done:false}
+a.next() // Object{value:NaN, done:true}
+
+var b = foo(5);
+b.next() // { value:6, done:false }
+b.next(12) // { value:8, done:false }
+b.next(13) // { value:42, done:true }
+```
+
+>从语义上讲，第一个`next`方法用来启动遍历器对象，所以不用带有参数。
+
+* 如果想要第一次调用`next`方法时，就能够输入值，可以在 Generator 函数外面再包一层
+
+  ```javascript
+  function wrapper(generatorFunction) {
+    return function (...args) {
+      let generatorObject = generatorFunction(...args);
+      generatorObject.next();
+      return generatorObject;
+    };
+  }
+  
+  const wrapped = wrapper(function* () {
+    console.log(`First input: ${yield}`);
+    return 'DONE';
+  });
+  
+  wrapped().next('hello!')
+  // First input: hello!
+  ```
+
+### for ...of循环
+
+`for...of`循环可以自动遍历Generator函数运行时的`Iterator`对象，且此时不再需要调用`next`方法。
+
+```javascript
+function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (let v of foo()) {
+  console.log(v);
+}
+// 1 2 3 4 5
+```
+
+* 实现斐波那契数列
+
+  ```javascript
+  function* fibonacci() {
+    let [prev, curr] = [0, 1];
+    for (;;) {
+      yield curr;
+      [prev, curr] = [curr, prev + curr];
+    }
+  }
+  
+  for (let n of fibonacci()) {
+    if (n > 1000) break;
+    console.log(n);
+  }
+  ```
+
+### Generator.prototype.throw()
+
+Generator 函数返回的遍历器对象，都有一个`throw`方法，可以在函数体外抛出错误，然后在 Generator 函数体内捕获。
+
+```javascript
+var g = function* () {
+  try {
+    yield;
+  } catch (e) {
+    console.log('内部捕获', e);
+  }
+};
+
+var i = g();
+i.next();
+
+try {
+  i.throw('a');
+  i.throw('b');
+} catch (e) {
+  console.log('外部捕获', e);
+}
+// 内部捕获 a
+// 外部捕获 b
+```
+
+上面代码中，遍历器对象`i`连续抛出两个错误。第一个错误被 Generator 函数体内的`catch`语句捕获。`i`第二次抛出错误，由于 Generator 函数内部的`catch`语句已经执行过了，不会再捕捉到这个错误了，所以这个错误就被抛出了 Generator 函数体，被函数体外的`catch`语句捕获。
+
+* `throw`方法抛出的错误要被内部捕获，前提是必须至少执行过一次`next`方法
+
+  ```javascript
+  function* gen() {
+    try {
+      yield 1;
+    } catch (e) {
+      console.log('内部捕获');
+    }
+  }
+  
+  var g = gen();
+  g.throw(1);
+  // Uncaught 1
+  ```
+
+* `throw`方法被捕获以后，会附带执行下一条`yield`表达式。也就是说，会附带执行一次`next`方法
+
+  ```javascript
+  var gen = function* gen(){
+    try {
+      yield console.log('a');
+    } catch (e) {
+      // ...
+    }
+    yield console.log('b');
+    yield console.log('c');
+  }
+  
+  var g = gen();
+  g.next() // a
+  g.throw() // b
+  g.next() // c
+  ```
+
+一旦 Generator 执行过程中抛出错误，且没有被内部捕获，就不会再执行下去了。如果此后还调用`next`方法，将返回一个`value`属性等于`undefined`、`done`属性等于`true`的对象，即 JavaScript 引擎认为这个 Generator 已经运行结束了。
+
+### Generator.prototype.return()
+
+Generator 函数返回的遍历器对象，还有一个`return()`方法，可以返回给定的值，并且终结遍历 Generator 函数。
+
+```javascript
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+var g = gen();
+
+g.next()        // { value: 1, done: false }
+g.return('foo') // { value: "foo", done: true }
+g.next()        // { value: undefined, done: true }
+```
+
+如果 Generator 函数内部有`try...finally`代码块，且正在执行`try`代码块，那么`return()`方法会导致立刻进入`finally`代码块，执行完以后，整个函数才会结束。
+
+```javascript
+function* numbers () {
+  yield 1;
+  try {
+    yield 2;
+    yield 3;
+  } finally {
+    yield 4;
+    yield 5;
+  }
+  yield 6;
+}
+var g = numbers();
+g.next() // { value: 1, done: false }
+g.next() // { value: 2, done: false }
+g.return(7) // { value: 4, done: false }
+g.next() // { value: 5, done: false }
+g.next() // { value: 7, done: true }
+```
+
+### next()、throw()、return() 的共同点
+
+`next()`、`throw()`、`return()`这三个方法本质上是同一件事，可以放在一起理解。它们的作用都是让 Generator 函数恢复执行，并且使用不同的语句替换`yield`表达式。
+
+* `next()`是将`yield`表达式替换成一个值。
+
+  ```javascript
+  const g = function* (x, y) {
+    let result = yield x + y;
+    return result;
+  };
+  
+  const gen = g(1, 2);
+  gen.next(); // Object {value: 3, done: false}
+  
+  gen.next(1); // Object {value: 1, done: true}
+  // 相当于将 let result = yield x + y
+  // 替换成 let result = 1;
+  ```
+
+  上面代码中，第二个`next(1)`方法就相当于将`yield`表达式替换成一个值`1`。如果`next`方法没有参数，就相当于替换成`undefined`。
+
+* `throw()`是将`yield`表达式替换成一个`throw`语句
+
+  ```javascript
+  gen.throw(new Error('出错了')); // Uncaught Error: 出错了
+  // 相当于将 let result = yield x + y
+  // 替换成 let result = throw(new Error('出错了'));
+  ```
+
+* `return()`是将`yield`表达式替换成一个`return`语句
+
+  ```javascript
+  gen.return(2); // Object {value: 2, done: true}
+  // 相当于将 let result = yield x + y
+  // 替换成 let result = return 2;
+  ```
+
+## yield * 表达式
+
+如果在 Generator 函数内部，调用另一个 Generator 函数。需要在前者的函数体内部，自己手动完成遍历。
+
+```javascript
+function* foo() {
+  yield 'a';
+  yield 'b';
+}
+
+function* bar() {
+  yield 'x';
+  // 手动遍历 foo()
+  for (let i of foo()) {
+    console.log(i);
+  }
+  yield 'y';
+}
+
+for (let v of bar()){
+  console.log(v);
+}
+// x
+// a
+// b
+// y
+```
+
+上面代码中，`foo`和`bar`都是 Generator 函数，在`bar`里面调用`foo`，就需要手动遍历`foo`。如果有多个 Generator 函数嵌套，写起来就非常麻烦。
+
+ES6 提供了`yield*`表达式，作为解决办法，用来在一个 Generator 函数里面执行另一个 Generator 函数。
+
+```javascript
+function* bar() {
+  yield 'x';
+  yield* foo();
+  yield 'y';
+}
+
+// 等同于
+function* bar() {
+  yield 'x';
+  yield 'a';
+  yield 'b';
+  yield 'y';
+}
+
+// 等同于
+function* bar() {
+  yield 'x';
+  for (let v of foo()) {
+    yield v;
+  }
+  yield 'y';
+}
+
+for (let v of bar()){
+  console.log(v);
+}
+// "x"
+// "a"
+// "b"
+// "y"
+```
+
+* 如果被代理的 Generator 函数有`return`语句，那么就可以向代理它的 Generator 函数返回数据
+
+  ```javascript
+  function* foo() {
+    yield 2;
+    yield 3;
+    return "foo";
+  }
+  
+  function* bar() {
+    yield 1;
+    var v = yield* foo();
+    console.log("v: " + v);
+    yield 4;
+  }
+  
+  var it = bar();
+  
+  it.next()
+  // {value: 1, done: false}
+  it.next()
+  // {value: 2, done: false}
+  it.next()
+  // {value: 3, done: false}
+  it.next();
+  // "v: foo"
+  // {value: 4, done: false}
+  it.next()
+  // {value: undefined, done: true}
+  ```
+
+## 作为对象属性的Generator函数
+
+```javascript
+let obj = {
+  * myGeneratorMethod() {
+    ···
+  }
+};
+// 等价于
+let obj = {
+  myGeneratorMethod: function* () {
+    // ···
+  }
+};
+```
 
 # Set
 

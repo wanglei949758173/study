@@ -21,3 +21,66 @@
 * 设置行号 :setnu
 * 跳转至某行 10 shif+g(跳转至第10行)
 * 查找某个字符 /hello (查找hello字符) n (定位到下一个hello)
+
+# 实用指令
+
+* 立即关机：shutdown -h now
+
+## 帮助指令
+
+* man ls （获取ls指令的帮助信息）
+* help cd （获取cd指令的帮助信息）
+
+## 文件目录类
+
+* mkdir -p /tmp/animal/tiger 创建多级目录
+
+* cp -r /tmp/animal /tmp/zoo 递归的将/tmp/animal 目录拷贝到/tmp/zoo下
+
+* mv /tmp/helloworld.java /tmp/HelloWorld.java 重命名文件
+
+* mv /tmp/animal /tmp/zoo/animal 将/tmp/animal移动到/tmp/zoo/animal
+
+* cat -n /etc/profile | more 以显示行号的方式查看文件
+
+* more 
+
+  空格：下翻页 	回车：下一行	ctrl+F：下翻页：ctrl+B：上翻页
+
+* less
+
+  less /etc/services  查看文件
+
+  pagedown：下翻页	pageup：上翻页	/字符串：向下查找某个字符串,n：向下查找；N：向上查找
+
+* `>` 输出重定向，会 **覆盖原来的内容**
+
+* `>>` 追加内容
+
+* tail -n 5 /etc/profile 查看最后5行的内容
+
+* ln -s /root /tmp/linkToRoot 创建软连接linkToRoot,连接到/root目录
+
+* 删除软<span style='color:red'>连接时不要删除/tmp/linkToRoot/</span> ，<span style='color:green'>应该删除/tmp/linkToRoot</span>
+
+* date -s "2020-10-10 20:56:00" 设置系统当前时间
+
+* find /tmp -name *.txt 在tmp目录下查找名字为*.txt的文件
+
+* find /tmp -user root 按用户名查找
+
+* find / -size +20M 按文件大小查找 (+表示大于,-小于,无符号等于)
+
+* unzip -d /tmp/zz /tmp/z.zip 解压z.zip到zz目录下
+
+* tar
+
+  -c：产生.tar打包文件 	-v：显示详细信息	-f：指定压缩后的文件名
+
+  -z：打包同时压缩	-x：解包.tar文件
+
+  tar -zcvf a.tar.gz a1.txt a2.txt 将a1.txt和a2.txt压缩成a.tar.gz
+
+  tar -zcvf test.tar.gz test 将test文件夹压缩成test.tar.gz
+
+  tar -zxvf test.tar.gz -C test 将test.tar.gz解压到test下

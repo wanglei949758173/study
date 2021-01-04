@@ -84,3 +84,35 @@
   tar -zcvf test.tar.gz test 将test文件夹压缩成test.tar.gz
 
   tar -zxvf test.tar.gz -C test 将test.tar.gz解压到test下
+
+# 磁盘指令
+
+* 查看系统分区情况：lsblk -f
+
+  ![image-20201220103806919](linux笔记总结.assets/image-20201220103806919.png)
+
+* 查看系统整体磁盘使用情况：df -h
+
+  ![image-20201220103852000](linux笔记总结.assets/image-20201220103852000.png)
+
+* 查看指定目录的磁盘占用情况：du -h
+
+  查看/home目录的磁盘占用情况：du -ach --max-depth=1 /home
+
+  ![image-20201220104100720](linux笔记总结.assets/image-20201220104100720.png)
+
+# 进程管理
+
+* 查看是否存在sshd服务：ps -aux | grep sshd
+* 查看所有服务名：systemctl list-unit-files
+* 动态监控进程，每10秒自动更新：top -d 10
+* 查看服务sshd的网络情况：netstat -anp | grep sshd
+
+# rpm&yum
+
+* 查看linux有没有安装firefox：rpm -qa | grep firefox
+* 查看软件包安装到了什么地方：rpm -ql 软件包名
+* 删除firefox：rpm -e firefox
+* 安装firefox：rpm -ivh xxx.rpm
+* 查看yum服务器是否存在firefox：yum list | grep firefox
+* 安装firefox：yum install firefox

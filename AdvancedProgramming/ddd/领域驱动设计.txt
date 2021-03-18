@@ -1,0 +1,86 @@
+1、关联
+	多对多的问题
+		规定一个遍历方向
+		添加一个限定符，减少多对多关联（例如国家与总统的关系）
+		消除不必要的关联
+
+2、Entity
+	有状态、需要进行标识和其他对象区分的实体
+
+3、Value Object
+	无状态、不需要标识的实体
+	一般属性不可变，一般不与其他Value Object进行关联
+	
+4、Service
+	不属于Entity或者Value Object的行为一般使用Service进行操作
+
+5、Moudle
+	保证模块之间的低耦合，同时保证模块内的高内聚
+	Moudle应该随着业务的改变而改变，尽管改造成本大
+	
+
+领域对象的生命周期
+1、模式Aggregate
+	根Entity具有全局标识，负责检查固定规则
+	Aggregate外部对象不能引用出Aggregate根之外的任何内部对象。外部对象需要引用时，是拷贝一份出去
+	只有Aggregate根才能通过数据库直接查询获取
+	AGGREGATE内部的对象可以保持对其他AGGREGATE根的引用
+	删除操作必须一次删除AGGREGATE边界之内的所有对象
+	当提交对AGGREGATE边界内部的任何对象的修改时，整个AGGREGATE的所有固定规则都必须被满足
+
+2、模式Factory
+	选择Factoty的位置
+		向Aggregate中添加元素，可以在Aggregate上添加Factory Method
+		对象A的创建主要使用对象B的数据时，可以在对象B上添加Factory Method
+	直接使用构造函数的场景
+		Entity是一种类型，无多态性
+		client关心的是实现
+		client可以访问Enttiy的所有属性
+		构造并不复杂
+	固定规则的相关逻辑放在哪
+		通常Factoty将固定规则的检查委派给要创建的对象
+		也可以放在Factory中
+		如果创建的对象自己的所有生命周期中用不到这个固定规则的逻辑，则将固定规则的检查放到Factory中
+		
+		不适合放在其他对象的Factoty Method 中
+	重建已存储的对象
+		重建对象必须向Factoty传递实体的标识
+		重建对象时如果不满足固定规则，则需要进行特殊处理，使其满足特定规则
+
+3、模式Repository
+	Repository是重建对象，Factory是创建新对象
+	
+
+货物运输系统
+1、需求
+	跟踪客户货物的主要处理；
+	事先预约货物；
+	当货物到达其处理过程中的某个位臵时，自动向客户寄送发票。
+	
+	使用统一语言表述需求：
+		一个Cargo（货物）的运输涉及多个Customer（客户），每个Customer承担不同的角色。
+		Cargo的运送目标已指定。
+		由一系列满足Specification（规格）的Carrier Movement（运输动作）来完成运送目标。
+
+2、引入应用层
+	第一个类是Tracking Query（跟踪查询），它可以访问某个 Cargo过去和现在的处理情况。
+	第二个类是Booking Application（预订应用），它允许注册一个新的Cargo，并使系统准备好处理它。
+	第三个类是Incident Logging Application（事件日志应用），它记录对Cargo的每次处理（提供通过Tracking Query查找的信息）
+	
+3、区分Entity和Value Object
+	Entity
+		Customer
+		Cargo
+		Handling Event
+		Carrier Movement
+		Location
+		Delivery History
+	Value Object
+		Delivery Specification
+		Role
+
+4、设计运输领域中的关联
+	图7-2 在一些关联上对遍历方向进行了约束
+
+5、Aggregate边界
+	

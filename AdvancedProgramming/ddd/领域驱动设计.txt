@@ -83,4 +83,29 @@
 	图7-2 在一些关联上对遍历方向进行了约束
 
 5、Aggregate边界
+	Aggregate根
+		Cargo
+		Customer
+		Location
+		Carrier Movement（运送信息）
+		Handling Event
+		
+6、Repository
+	存储时只需要考虑聚合根
+	需要进行Repository的实体
+		Cargo
+		Customer
+		Location
+		Carrier Movement
+		我们没有创建Handling Event Repository，因为我们决定在第一次迭代中将它与Delivery History的关联实现为一个集合，
+		而且应用程序并不需要查找在一次Carrier Movement中都装载了什么货物。这两个原因都有可能发生变化，如果确实改变了，可以增加一个REPOSITORY
+7、场景走查
+	看设计是否能满足业务
+	
+8、对象的创建
+	Cargo的创建
+		可以使用独立的Factoty来创建Cargo
+	添加Handling Event
+		public HandlingEvent(Cargo cargo, String eventType, Date timestamp){}
+		之前设计的是DeliveryHistory中维护了HandlingEvent的列表，因此创建HandlingEvent时，必须和DeliveryHistoty进行关联
 	

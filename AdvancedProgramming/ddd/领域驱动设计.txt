@@ -108,4 +108,22 @@
 	添加Handling Event
 		public HandlingEvent(Cargo cargo, String eventType, Date timestamp){}
 		之前设计的是DeliveryHistory中维护了HandlingEvent的列表，因此创建HandlingEvent时，必须和DeliveryHistoty进行关联
+			EventLoggingApplication: handlingEvent = HandlingEvent(Cargo cargo, String eventType, Date timestamp)
+									 history = cargo.getHistoty();
+									 history.add(handlingEvent);（由于争用cargo或其组件DeliveryHistoty，事务可能失败）
+									 
+9、重构Cargo Aggregate
+	Delivery History不再维护Hanlding Event集合，而是使用查询代替，需要为HandlingEvent对象提供一个Repository
+		同时也不需要持久化DeliveryHistory，因为可以在需要的时候生成它
+
+10、Moudle划分
+	图7-8 划分为customer（客户）、shipping（航运）、billing（账单）
+
+11、新特性（配额检查）
+	为了提升效益，对不同类型的货物的最大运输量都有限制，因此需要进行配额检查。
+		预定系统查询当前货物预定了多少，然后从销售管理系统查询当前货物最多可以接受多少预定，未超过限额才可预定。
 	
+	Booking Application：EnterpriseSegment(企业部门单元) es = AllocationChecker.deriveEnterpriseSegment(Cargo)
+						Quality quality = CargoRepository.qualityBooked(es);
+						boolean mayAccept = AllocationChecker.mayAccept(Cargo, Quality);
+						

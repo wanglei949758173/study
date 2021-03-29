@@ -127,3 +127,19 @@
 						Quality quality = CargoRepository.qualityBooked(es);
 						boolean mayAccept = AllocationChecker.mayAccept(Cargo, Quality);
 						
+
+重构的层次
+	从技术角度来评估设计的质量
+	从深层次的领域模型角度来评估设计的质量
+	
+深层模型
+	深层模型能清楚地表达出领域专家们的主要关注点
+	
+柔性设计
+	设计需要能支持重构带来的变化
+
+发现过程
+	捕捉到核心领域的概念模型
+	让开发人员能够更高效的扩展和修改代码
+	应用分析模式和设计模式，帮助我们消化领域知识并缩小研究范围
+	

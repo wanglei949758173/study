@@ -127,19 +127,42 @@
 						Quality quality = CargoRepository.qualityBooked(es);
 						boolean mayAccept = AllocationChecker.mayAccept(Cargo, Quality);
 						
+突破
+	重构的层次
+		从技术角度来评估设计的质量
+		从深层次的领域模型角度来评估设计的质量
+		
+	深层模型
+		深层模型能清楚地表达出领域专家们的主要关注点
+		
+	柔性设计
+		设计需要能支持重构带来的变化
 
-重构的层次
-	从技术角度来评估设计的质量
-	从深层次的领域模型角度来评估设计的质量
-	
-深层模型
-	深层模型能清楚地表达出领域专家们的主要关注点
-	
-柔性设计
-	设计需要能支持重构带来的变化
+	发现过程
+		捕捉到核心领域的概念模型
+		让开发人员能够更高效的扩展和修改代码
+		应用分析模式和设计模式，帮助我们消化领域知识并缩小研究范围
 
-发现过程
-	捕捉到核心领域的概念模型
-	让开发人员能够更高效的扩展和修改代码
-	应用分析模式和设计模式，帮助我们消化领域知识并缩小研究范围
-	
+隐式概念转变为显示概念
+	1、 概念挖掘
+		倾听领域专家的语言
+		检查不足之处（实体的职责过于复杂）
+		思考矛盾之处
+		查询书籍（阅读业务相关的书籍）
+	2、如何为不太明显的概念建模
+		显示的约束
+			class Bucket {
+				public void pourIn(float addedVolume){
+					float volumePresent = this.contents + addedVolume;
+					this.contents = constrainedToCapacity(volumePresent);
+				}
+			}
+			
+			// 使用单独的函数进行约束，更符合模型，可读性变强
+			private float constrainedToCapacity(float volumePlacedIn){
+				if(volumePlacedIn > this.capacity) return this.capacity;
+				return volumePlacedIn;
+			}
+		将过程建模为领域对象
+			经常被领域专家提出来的过程应该被封装
+			仅仅被当做计算机程序机制的一部分应该被显示表达

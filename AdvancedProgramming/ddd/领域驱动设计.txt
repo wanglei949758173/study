@@ -166,3 +166,68 @@
 		将过程建模为领域对象
 			经常被领域专家提出来的过程应该被封装
 			仅仅被当做计算机程序机制的一部分应该被显示表达
+		specification模式
+			业务规则不适合作为Entity或Value Object的职责，但是规则移出领域层就更糟糕
+			可以使用specification模式封装业务规则
+			优势：
+				显示的表达出了规则
+				生成器的实现与接口分离
+				更加容易测试
+
+柔性设计
+	1、intention revealing interfaces 揭示意图的接口
+		类和接口命名描述接口的效果和目的
+		class Paint{
+			double v; // 体积
+			int r; // red
+			int y; // yellow
+			int b; // blue
+			// 增加了体积，混合了颜色，但是从命名并不能理解函数的意图
+			void paint(Paint paint){
+				v = v + paint.getV();
+				// 混合颜色的逻辑
+			}
+			
+			// 重构paint
+			void mixIn(Paint paint){
+				v = v + paint.getV();
+				// 混合颜色的逻辑
+			}
+		}
+	
+	2、side-effect-free function 无副作用函数
+		class Paint{
+			double v; // 体积
+			int r; // red
+			int y; // yellow
+			int b; // blue
+			
+			// 重构paint
+			void mixIn(Paint paint){
+				v = v + paint.getV();
+				// 混合颜色的逻辑
+			}
+		}
+		
+		// 定义颜料颜色类
+		class PigmentColor {
+			int red;
+			int yellow;
+			int blue;
+			
+			mixedWith(PigmentColor other, double ratio){
+				// 颜料的混合逻辑
+			}
+		}
+		
+		class Paint{
+			double volume; // 体积
+			PigmentColor pigmentColor; // 颜料
+			
+			// 重构paint
+			void mixIn(Paint other){
+				volume = volume + other.getVolume();
+				double ratio = other.getVolume() / volume;
+				pigmentColor = pigmentColor.mixedWith(other.getPigmentColor(), ratio);
+			}
+		}

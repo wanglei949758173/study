@@ -231,3 +231,33 @@
 				pigmentColor = pigmentColor.mixedWith(other.getPigmentColor(), ratio);
 			}
 		}
+	3、assertion 断言
+		class Paint{
+			double volume; // 体积
+			PigmentColor pigmentColor; // 颜料
+		}
+		
+		class StockPaint extends Paint {
+		}
+		
+		class MixedPaint extends Paint {
+			mixIn(StockPaint paint);
+			
+			// 获取成分
+			stockConstituent();
+		}
+		public void testMixingVolume(){
+			StockPaint s1 = new StockPaint(1.0, yellow);
+			StockPaint s2 = new StockPaint(1.5, blue);
+			MixedPaint mix = new MixedPaint();
+			mix.mixIn(s1);
+			mix.mixIn(s2);
+			assertEquals(2.5, mix.getVolume());
+		}
+	4、conceptual contour 概念轮廓
+	5、standalone class 独立的类
+		如何实现高独立性：提炼value obejct
+	6、closure of operation 闭合操作
+		方法返回值类型与参数相同
+	7、声明式设计
+		同一种规则，例如代码生成器

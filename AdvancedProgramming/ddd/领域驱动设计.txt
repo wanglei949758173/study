@@ -260,4 +260,24 @@
 	6、closure of operation 闭合操作
 		方法返回值类型与参数相同
 	7、声明式设计
-		同一种规则，例如代码生成器
+		不指定具体怎么做，例如lamda表达式
+
+保持模型的完整性
+	1、bound context
+		确定自己的边界，不同上下文使用不同的模型
+	2、continues integration （持续集成）
+		维护单一模型的完整性
+	3、context map
+		为每一个context取1个名字，context之间的交互使用特定的转换对象
+	4、bound context之间的关系
+		shared kernel（共享内核）
+			目的是减少重复，而不是消除重复
+		customer supplier（客户/供应模式）
+			需要团队之间的相互协调
+		conformist（跟随者模式）
+			可以复用别人的很多组件时，可以设计成类似别人的结构
+		open host service（开放主机服务）
+		anticorruption layer（防护层）
+			防护层接口一般设计为service，偶尔设计为entity
+			一般使用faced模式或者adapter模式
+		
